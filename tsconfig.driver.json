@@ -1,0 +1,21 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "build",
+        "module": "CommonJS",
+        "target": "ES2019",
+        "lib": [ "ES2019" ],
+
+        "composite": true,
+        "declaration": true,
+        "sourceMap": true,
+        "declarationMap": true,
+
+        "esModuleInterop": true,
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+    },
+    "include": [
+        "src/**/*.ts", "src/**/*.json",
+    ],
+}

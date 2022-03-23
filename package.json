@@ -1,0 +1,32 @@
+{
+  "name": "@onslip/automation",
+  "version": "0.0.0",
+  "description": "Remote-control any old Android WebView in a Playwright-inspired way",
+  "license": "Apache-2.0",
+  "author": "Martin Blom <martin.blom@onslip.com>",
+  "repository": "https://github.com/Onslip/automation.git",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "files": [
+    "build/*.js",
+    "build/src",
+    "src"
+  ],
+  "dependencies": {
+    "@divine/synchronization": "^1.2.1",
+    "chrome-remote-interface": "^0.31.2",
+    "jimp": "~0.16.1"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.21.1",
+    "@types/chrome-remote-interface": "^0.31.4",
+    "@types/node": "^12",
+    "typescript": "^4.6.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": []
+  },
+  "engines": {
+    "node": ">= 12.4"
+  }
+}

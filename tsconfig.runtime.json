@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "outFile": "build/automation-runtime.js",
+        "module": "None",
+        "target": "ES5",
+        "lib": [ "ES5", "DOM" ],
+    },
+    "include": [
+        "automation-runtime.ts"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "include": [],
+    "references": [
+        { "path": "tsconfig.driver.json" },
+        { "path": "tsconfig.runtime.json" },
+    ]
+}
