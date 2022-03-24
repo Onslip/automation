@@ -90,35 +90,35 @@ export class Locator {
 
     async boundingBox(options?: SelectorOptions): Promise<{ x: number, y: number, width: number, height: number } | null> {
         const opts = { ...this._config, ...options };
-        const info = await this._automation.element(this._selectors, { boundingBox: undefined, isVisible: undefined }, opts);
+        const info = await this._automation.element(this._selectors, { isConnected: true, boundingBox: undefined, isVisible: undefined }, opts);
 
         return info.isVisible ? info.boundingBox ?? null : null;
     }
 
     async getAttribute(name: string, options?: SelectorOptions): Promise<string | null> {
         const opts = { ...this._config, ...options };
-        const info = await this._automation.element(this._selectors, { attributes: undefined }, opts);
+        const info = await this._automation.element(this._selectors, { isConnected: true, attributes: undefined }, opts);
 
         return info.attributes?.find((attrib) => attrib[0] === name)?.[1] ?? null;
     }
 
     async innerHTML(options?: SelectorOptions): Promise<string> {
         const opts = { ...this._config, ...options };
-        const info = await this._automation.element(this._selectors, { innerHTML: undefined }, opts);
+        const info = await this._automation.element(this._selectors, { isConnected: true, innerHTML: undefined }, opts);
 
         return info.innerHTML!;
     }
 
     async innerText(options?: SelectorOptions): Promise<string> {
         const opts = { ...this._config, ...options };
-        const info = await this._automation.element(this._selectors, { innerText: undefined }, opts);
+        const info = await this._automation.element(this._selectors, { isConnected: true, innerText: undefined }, opts);
 
         return info.innerText!;
     }
 
     async inputValue(options?: SelectorOptions): Promise<string> {
         const opts = { ...this._config, ...options };
-        const info = await this._automation.element(this._selectors, { inputValue: undefined }, opts);
+        const info = await this._automation.element(this._selectors, { isConnected: true, inputValue: undefined }, opts);
 
         return info.inputValue ?? throwError(new EvalError(`${this} is a non-input element`));
     }
