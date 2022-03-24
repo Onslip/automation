@@ -123,6 +123,17 @@ export class Locator {
         return info.inputValue ?? throwError(new EvalError(`${this} is a non-input element`));
     }
 
+    async evaluate(pageFunction: string | Function, arg?: unknown, options?: SelectorOptions): Promise<unknown> {
+        const opts = { ...this._config, ...options };
+        await this._automation.element(this._selectors, { isConnected: true }, opts);
+
+        return (await this._automation.evaluateAll(this._selectors, `(arr, arg) => (${pageFunction})(arr[0], arg)`, arg)).value;
+    }
+
+    async evaluateAll(pageFunction: string | Function, arg?: unknown): Promise<unknown> {
+        return (await this._automation.evaluateAll(this._selectors, pageFunction, arg)).value;
+    }
+
     async screenshot(options?: SelectorOptions & { path?: string, format?: 'png' | 'jpeg', quality?: number }): Promise<Buffer> {
         const opts = { ...this._config, ...options };
         const info = await this._automation.element(this._selectors, { isConnected: true, isVisible: true, isStable: true, boundingBox: undefined }, opts);

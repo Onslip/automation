@@ -104,7 +104,7 @@ class RuntimeSupport {
         }));
     }
 
-    resolveSelectors(selectors: string[], props: (keyof ElementInfo)[]): ElementInfo[] {
+    _findElements(selectors: string[]): HTMLElement[] {
         let elements: HTMLElement[] | undefined;
 
         for (const selector of selectors) {
@@ -161,7 +161,11 @@ class RuntimeSupport {
         }
 
         // Remove dupes
-        elements = elements?.filter((element, index, array) => array.indexOf(element) === index) ?? [];
+        return elements?.filter((element, index, array) => array.indexOf(element) === index) ?? [];
+    }
+
+    resolveSelectors(selectors: string[], props: (keyof ElementInfo)[]): ElementInfo[] {
+        const elements = this._findElements(selectors);
 
         if (props.indexOf('isStable') >= 0 && props.indexOf('boundingBox') < 0) {
             props.push('boundingBox');
@@ -191,6 +195,12 @@ class RuntimeSupport {
 
             return info;
         });
+    }
+
+    evaluateAll(selectors: string[], func: string, arg: unknown): unknown {
+        const elements = this._findElements(selectors);
+
+        return new Function(`return (${func}).apply(null, arguments)`)(elements, arg);
     }
 
     waitForRepaint(): Promise<void> {

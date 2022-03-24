@@ -171,6 +171,10 @@ export class Automation {
         }
     }
 
+    async evaluateAll(selectors: string[], func: string | Function, arg: unknown): Promise<RemoteObject> {
+        return (await this.callMethod(true, true, this._runtime, 'evaluateAll', selectors, String(func), arg));
+    }
+
     async resolveSelectors(selectors: string[], props: (keyof ElementInfo)[]): Promise<ElementInfo[]> {
         return (await this.callMethod(false, true, this._runtime, 'resolveSelectors', selectors, props)).value;
     }
@@ -207,7 +211,7 @@ export class Automation {
             throw new EvalError(result.exceptionDetails?.exception?.description ?? result.exceptionDetails?.text ?? result.result.description);
         }
 
-        if (awaitPromise) {
+        if (awaitPromise && result.result.objectId) {
             const promiseState = await this.unwrap(false, false, await this._client.Runtime.callFunctionOn({
                 objectId: result.result.objectId,
                 functionDeclaration: (function (this: Promise<unknown>) {
@@ -216,7 +220,7 @@ export class Automation {
                         value: () => { if (error) { throw error } else { return value } },
                     };
 
-                    this.then(
+                    Promise.resolve(this).then(
                         (resolved) => { value = resolved, result.done = true },
                         (rejected) => { error = rejected, result.done = true },
                     );
