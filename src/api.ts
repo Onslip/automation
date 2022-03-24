@@ -134,11 +134,29 @@ export class Locator {
         return (await this._automation.evaluateAll(this._selectors, pageFunction, arg)).value;
     }
 
+    async scrollIntoViewIfNeeded(options?: SelectorOptions): Promise<void> {
+        const opts = { ...this._config, ...options };
+        const info = await this._automation.element(this._selectors, {
+            isConnected: true,
+            isStable:    true,
+            isVisible:   true,
+            isTarget:    undefined,
+         }, opts);
+
+         if (!info.isTarget) {
+            this._config.debug && console.debug(`Scrolling ${this} into view`);
+            await this.evaluate((el: any) => el.scrollIntoView());
+         }
+    }
+
     async screenshot(options?: SelectorOptions & { path?: string, format?: 'png' | 'jpeg', quality?: number }): Promise<Buffer> {
+        await this.scrollIntoViewIfNeeded(options);
+
         const opts = { ...this._config, ...options };
         const info = await this._automation.element(this._selectors, { isConnected: true, isVisible: true, isStable: true, boundingBox: undefined }, opts);
         const bbox = info.boundingBox!;
 
+        this._config.debug && console.debug(`Taking screenshot of ${this} at (${bbox.x}, ${bbox.y}) [${bbox.width}𐄂${bbox.height}]`);
         const result = await this._automation.screenshot(bbox, options?.format ?? options?.path?.split('.').pop() as 'png', options?.quality);
 
         if (options?.path) {
@@ -149,6 +167,8 @@ export class Locator {
     }
 
     async click(options?: SelectorOptions): Promise<void> {
+        await this.scrollIntoViewIfNeeded(options);
+
         const opts = { ...this._config, ...options };
         const info = await this._automation.element(this._selectors, { ...ACTIONABLE, boundingBox: undefined }, opts);
         const bbox = info.boundingBox!;
@@ -164,6 +184,8 @@ export class Locator {
     }
 
     async tap(options?: SelectorOptions): Promise<void> {
+        await this.scrollIntoViewIfNeeded(options);
+
         const opts = { ...this._config, ...options };
         const info = await this._automation.element(this._selectors, { ...ACTIONABLE, boundingBox: undefined }, opts);
         const bbox = info.boundingBox!;
