@@ -50,7 +50,7 @@ function boundingBox(el: HTMLElement): Rectangle {
 function isTarget(el: HTMLElement): ElementInfo['isTarget'] {
     const bb = boundingBox(el);
 
-    for (let target = document.elementFromPoint(bb.x + bb.width / 2, bb.y + bb.height / 2); el; el = el.parentElement!) {
+    for (let target = document.elementFromPoint(bb.x + bb.width / 2, bb.y + bb.height / 2); target; target = target.parentElement!) {
         if (el === target) {
             return true;
         }
