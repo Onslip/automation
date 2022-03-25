@@ -21,9 +21,11 @@ export interface LocatorOptions {
 
 export class Page {
     private _config: AutomationConfig = { timeout: 30_000, debug: false };
+    readonly mouse: Mouse;
     readonly touchscreen: Touchscreen;
 
     constructor(private _automation: Automation) {
+        this.mouse = new Mouse(this._automation);
         this.touchscreen = new Touchscreen(this._automation);
     }
 
@@ -45,6 +47,15 @@ export class Page {
 
     async close() {
         await this._automation.close();
+    }
+}
+
+export class Mouse {
+    constructor(private _automation: Automation) {
+    }
+
+    async click(x: number, y: number) {
+        await this._automation.click(x, y);
     }
 }
 
