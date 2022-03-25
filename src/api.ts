@@ -63,6 +63,8 @@ export class Locator {
     constructor(private _automation: Automation, private _config: AutomationConfig, selector: string, parent?: Locator, options?: LocatorOptions) {
         if (selector.startsWith('//') || selector.startsWith('..')) {
             selector = 'xpath=' + selector;
+        } else if ((selector[0] === `'` || selector[0] === `"`) && selector[0] === selector[selector.length - 1]) {
+            selector = 'text=' + selector;
         } else if (!/^[a-z]+=/.test(selector)) {
             selector = 'css=' + selector;
         }
