@@ -25,6 +25,11 @@ export async function findAndroidDevices(): Promise<string[]> {
         .map(line => /(^[^\s]+)\s+device$/.exec(line)?.[1]!).filter(Boolean);
 }
 
+export async function startAndroidActivity(device: string, activity: string, options?: { restart?: boolean, wait?: boolean }) {
+    await execFile('adb', ['-s', device, 'shell',
+        `am start ${options?.restart ? '-S' : ''} ${options?.wait ? '-W' : ''} -a android.intent.action.MAIN -n "${activity}"`]);
+}
+
 export async function findAndroidWebViews(device: string): Promise<string[]> {
     return (await execFile('adb', ['-s', device, 'shell', 'cat /proc/net/unix'])).stdout.split('\n')
         .map(line => /@(.*devtools_remote.*)/.exec(line)?.[1]!).filter(Boolean);
