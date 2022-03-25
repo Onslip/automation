@@ -16,7 +16,7 @@ export interface SelectorOptions {
 
 export interface LocatorOptions {
     has?:     Locator;
-    hasText?: string;
+    hasText?: string | RegExp;
 }
 
 export class Page {

@@ -69,6 +69,10 @@ function isVisible(el: HTMLElement): ElementInfo['isVisible'] {
     }
 }
 
+function escapeRegExp(str: string) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
 class RuntimeSupport {
     click(x: number, y: number) {
         const el = document.elementFromPoint(x, y)!;
@@ -106,7 +110,7 @@ class RuntimeSupport {
 
     _findElements(selectors: string[], elements: HTMLElement[] | undefined): HTMLElement[] {
         for (const selector of selectors) {
-            let ctxs = elements, path = '', text: string | null = null, scan = false;
+            let ctxs = elements, path = '', expr: RegExp | null = null;
 
             if (selector.startsWith('nth=')) {
                 ctxs ??= [];
@@ -121,20 +125,18 @@ class RuntimeSupport {
             } else if (selector.startsWith('xpath=')) {
                 ctxs ??= [ document.documentElement ];
                 path = selector.substring(6);
-            } else if (selector.startsWith(`text="`) || selector.startsWith(`text='`)) {
-                if (selector[5] !== selector[selector.length - 1]) {
-                    throw new EvalError(`No terminating quote in selector «${selector}»`);
-                }
-
+            } else if (selector.startsWith(`text=/`)) {
                 ctxs ??= [ document.body ];
                 path = './/text()';
-                text = selector.substring(6, selector.length - 1);
-                scan = false;
+                expr = RegExp.apply(RegExp, selector.substring(5).match(/\/(.*)\/(.*)/)?.slice(1) as [string, string] ?? [ '.^' ])
+            } else if (selector.startsWith(`text="`) || selector.startsWith(`text='`) && selector[5] === selector[selector.length - 1]) {
+                ctxs ??= [ document.body ];
+                path = './/text()';
+                expr = RegExp('^' + escapeRegExp(selector.substring(6, selector.length - 1)) + '$');
             } else if (selector.startsWith('text=')) {
                 ctxs ??= [ document.body ];
                 path = './/text()';
-                text = selector.substring(5).toLowerCase();
-                scan = true;
+                expr = RegExp(escapeRegExp(selector.substring(5)), 'i');
             } else {
                 throw new EvalError('Unknown selector: ' + selector);
             }
@@ -148,12 +150,12 @@ class RuntimeSupport {
                     }
                 }
 
-                if (text !== null) {
-                    const normalized = (text?: string | null) => text?.replace(/\s+/g, ' ').trim();
+                if (expr) {
+                    const normalized = (text?: string | null) => text?.replace(/\s+/g, ' ').trim() ?? '';
 
                     elements = nodes
                         .filter((tn) => tn.nodeType === Node.TEXT_NODE && tn.parentElement)
-                        .filter((tn) => (!scan && normalized(tn.nodeValue) === text || scan && normalized(tn.nodeValue)?.toLowerCase().includes(text!)))
+                        .filter((tn) => expr!.test(normalized(tn.nodeValue)))
                         .map((tn) => tn.parentElement!);
                 } else {
                     elements = nodes.filter(node => node.nodeType === Node.ELEMENT_NODE) as HTMLElement[];
