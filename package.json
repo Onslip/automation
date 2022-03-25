@@ -1,6 +1,6 @@
 {
   "name": "@onslip/automation",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Remote-control any old Android WebView in a Playwright-inspired way",
   "license": "Apache-2.0",
   "author": "Martin Blom <martin.blom@onslip.com>",
