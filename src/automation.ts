@@ -171,8 +171,12 @@ export class Automation {
         }
     }
 
+    async evaluatePageFunction(expr: string | Function, arg: unknown): Promise<RemoteObject> {
+        return await this.callMethod(true, true, this._runtime, 'evaluatePageFunction', String(expr), arg);
+    }
+
     async evaluateAll(selectors: string[], func: string | Function, arg: unknown): Promise<RemoteObject> {
-        return (await this.callMethod(true, true, this._runtime, 'evaluateAll', selectors, String(func), arg));
+        return await this.callMethod(true, true, this._runtime, 'evaluateAll', selectors, String(func), arg);
     }
 
     async resolveSelectors(selectors: string[], props: (keyof ElementInfo)[]): Promise<ElementInfo[]> {

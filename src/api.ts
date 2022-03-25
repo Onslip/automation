@@ -31,6 +31,10 @@ export class Page {
         return new Locator(this._automation, this._config, selector, undefined, options);
     }
 
+    async evaluate(pageFunction: string | Function, arg?: unknown): Promise<unknown> {
+        return (await this._automation.evaluatePageFunction(pageFunction, arg)).value;
+    }
+
     setDebug(debug: boolean) {
         this._config.debug = debug;
     }

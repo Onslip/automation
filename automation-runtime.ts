@@ -204,6 +204,16 @@ class RuntimeSupport {
         return new Function(`return (${func}).apply(null, arguments)`)(elements, arg);
     }
 
+    evaluatePageFunction(expr: string, arg: unknown): unknown {
+        const result = eval(expr) as unknown;
+
+        if (typeof result === 'function') {
+            return result.call(null, arg);
+        } else {
+            return result;
+        }
+    }
+
     waitForRepaint(): Promise<void> {
         return new Promise((resolve) => {
             window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve()));
