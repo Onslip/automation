@@ -169,7 +169,7 @@ export class Locator {
          }, opts);
 
          if (!info.isTarget) {
-            this._config.debug && console.debug(`Scrolling ${this} into view`);
+            this._config.debug && console.debug(`📜 Scrolling ${this} into view`);
             await this.evaluate((el: any) => el.scrollIntoView());
          }
     }
@@ -181,7 +181,7 @@ export class Locator {
         const info = await this._automation.element(this._selectors, { isConnected: true, isVisible: true, isStable: true, boundingBox: undefined }, opts);
         const bbox = info.boundingBox!;
 
-        this._config.debug && console.debug(`Taking screenshot of ${this} at (${bbox.x}, ${bbox.y}) [${bbox.width}𐄂${bbox.height}]`);
+        this._config.debug && console.debug(`📺 Taking screenshot of ${this} at (${bbox.x}, ${bbox.y}) [${bbox.width}𐄂${bbox.height}]`);
         const result = await this._automation.screenshot(bbox, options?.format ?? options?.path?.split('.').pop() as 'png', options?.quality);
 
         if (options?.path) {
@@ -202,7 +202,7 @@ export class Locator {
             const x = Math.floor(bbox.x + bbox.width / 2);
             const y = Math.floor(bbox.y + bbox.height / 2);
 
-            this._config.debug && console.debug(`Clicking ${this} at (${x}, ${y})`);
+            this._config.debug && console.debug(`🖱  Clicking ${this} at (${x}, ${y})`);
             await this._automation.click(x, y);
             await this._automation.waitForRepaint();
         }
@@ -219,7 +219,7 @@ export class Locator {
             const x = Math.floor(bbox.x + bbox.width / 2);
             const y = Math.floor(bbox.y + bbox.height / 2);
 
-            this._config.debug && console.debug(`Tapping ${this} at (${x}, ${y})`);
+            this._config.debug && console.debug(`👉 Tapping ${this} at (${x}, ${y})`);
             await this._automation.tap(x, y);
             await this._automation.waitForRepaint();
         }
@@ -228,7 +228,7 @@ export class Locator {
     async waitFor(options?: SelectorOptions & { state?: 'attached' | 'detached' | 'visible' | 'hidden' }): Promise<void> {
         const opts = { ...this._config, state: 'visible', ...options };
 
-        this._config.debug && console.debug(`Waiting for ${this}`);
+        this._config.debug && console.debug(`⏱  Waiting for ${this}`);
         await this._automation.element(this._selectors, {
             isConnected: opts.state === 'attached' ? true : opts.state === 'detached' ? false : true,
             isVisible:   opts.state === 'visible'  ? true : opts.state === 'hidden'   ? false : undefined,

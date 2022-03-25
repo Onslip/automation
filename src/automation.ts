@@ -88,6 +88,7 @@ export class Automation {
     }
 
     async element(selectors: string[], constraints: ElementConstraints, options: { debug: boolean, timeout: number }): Promise<ElementInfo> {
+        let lastDebug = Date.now();
         const expires = Date.now() + options.timeout;
         const description = `«${selectors.join(' → ')}»`;
 
@@ -113,12 +114,16 @@ export class Automation {
                     return info;
                 }
 
-                options.debug && console.debug(`${description} is not ready yet:`,
-                    keys.filter((key) => constraints[key] !== undefined && info[key] !== undefined && info[key] !== constraints[key])
-                        .map((key) => `${key}=${info[key]}`));
+                if (options.debug && Date.now() - lastDebug > 1000) {
+                    lastDebug = Date.now();
+
+                    console.debug(`💤 ${description} is not ready yet (${Math.floor((expires - Date.now()) / 1000)})`,
+                        keys.filter((key) => constraints[key] !== undefined && info[key] !== undefined && info[key] !== constraints[key])
+                            .map((key) => `${key}=${info[key]}`));
+                }
             }
 
-            await sleep(1000); // Wait. And repeat.
+            await sleep(50); // Wait. And repeat.
         }
 
         throw new Error(`Timeout: ${description} was not ready within ${options.timeout} ms`);
