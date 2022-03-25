@@ -104,15 +104,16 @@ class RuntimeSupport {
         }));
     }
 
-    _findElements(selectors: string[]): HTMLElement[] {
-        let elements: HTMLElement[] | undefined;
-
+    _findElements(selectors: string[], elements: HTMLElement[] | undefined): HTMLElement[] {
         for (const selector of selectors) {
             let ctxs = elements, path = '', text: string | null = null, scan = false;
 
             if (selector.startsWith('nth=')) {
                 ctxs ??= [];
                 elements = [...ctxs].splice(Number(selector.substring(4)), 1);
+            } else if (selector.startsWith('has=')) {
+                ctxs ??= [];
+                elements = [...ctxs].filter((ctx) => this._findElements(JSON.parse(selector.substring(4)), [ ctx ]).length);
             } else if (selector.startsWith('css=')) {
                 ctxs ??= [ document.documentElement ];
                 elements = [];
@@ -165,7 +166,7 @@ class RuntimeSupport {
     }
 
     resolveSelectors(selectors: string[], props: (keyof ElementInfo)[]): ElementInfo[] {
-        const elements = this._findElements(selectors);
+        const elements = this._findElements(selectors, undefined);
 
         if (props.indexOf('isStable') >= 0 && props.indexOf('boundingBox') < 0) {
             props.push('boundingBox');
@@ -198,7 +199,7 @@ class RuntimeSupport {
     }
 
     evaluateAll(selectors: string[], func: string, arg: unknown): unknown {
-        const elements = this._findElements(selectors);
+        const elements = this._findElements(selectors, undefined);
 
         return new Function(`return (${func}).apply(null, arguments)`)(elements, arg);
     }

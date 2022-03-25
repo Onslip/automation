@@ -89,7 +89,7 @@ export class Automation {
 
     async element(selectors: string[], constraints: ElementConstraints, options: { debug: boolean, timeout: number }): Promise<ElementInfo> {
         const expires = Date.now() + options.timeout;
-        const description = `«${selectors.join(' >> ')}»`;
+        const description = `«${selectors.join(' → ')}»`;
 
         constraints = { nodeName: undefined, attributes: undefined, ...constraints };
         const asHTML = ((el: ElementInfo) => `<${el.nodeName} ${el.attributes?.map((a) => `${a[0]}="${a[1]}"`).join(' ')}>`);

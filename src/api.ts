@@ -14,6 +14,11 @@ export interface SelectorOptions {
     trial?:   boolean;
 }
 
+export interface LocatorOptions {
+    has?:     Locator;
+    hasText?: string;
+}
+
 export class Page {
     private _config: AutomationConfig = { timeout: 30_000, debug: false };
     readonly touchscreen: Touchscreen;
@@ -22,8 +27,8 @@ export class Page {
         this.touchscreen = new Touchscreen(this._automation);
     }
 
-    locator(selector: string): Locator {
-        return new Locator(this._automation, this._config, selector);
+    locator(selector: string, options?: LocatorOptions): Locator {
+        return new Locator(this._automation, this._config, selector, undefined, options);
     }
 
     setDebug(debug: boolean) {
@@ -51,18 +56,23 @@ export class Touchscreen {
 export class Locator {
     private _selectors: string[];
 
-    constructor(private _automation: Automation, private _config: AutomationConfig, selector: string, parent?: Locator) {
+    constructor(private _automation: Automation, private _config: AutomationConfig, selector: string, parent?: Locator, options?: LocatorOptions) {
         if (selector.startsWith('//') || selector.startsWith('..')) {
             selector = 'xpath=' + selector;
         } else if (!/^[a-z]+=/.test(selector)) {
             selector = 'css=' + selector;
         }
 
-        this._selectors = [ ...parent?._selectors ?? [], selector ];
+        const hasSelectors =
+            options?.has     ? [ `has=${JSON.stringify(options.has._selectors)}`      ] :
+            options?.hasText ? [ `has=${JSON.stringify([`text=${options.hasText}`])}` ] :
+            [];
+
+        this._selectors = [ ...parent?._selectors ?? [], selector, ...hasSelectors ];
     }
 
     toString() {
-        return `«${this._selectors.join(' >> ')}»`;
+        return `«${this._selectors.join(' → ')}»`;
     }
 
     first() {
@@ -77,14 +87,12 @@ export class Locator {
         return this.locator(`nth=${index}`);
     }
 
-    locator(selector: string) {
-        return new Locator(this._automation, this._config, selector, this);
+    locator(selector: string, options?: LocatorOptions) {
+        return new Locator(this._automation, this._config, selector, this, options);
     }
 
     async count(): Promise<number> {
         const { length } = await this._automation.resolveSelectors(this._selectors, []);
-
-        this._config.debug && console.log(`Counted ${this}: ${length} matches`)
         return length;
     }
 
