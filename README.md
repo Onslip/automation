@@ -3,6 +3,7 @@
 *Remote-control any old Android WebView in a Playwright-inspired way*
 
 [![npm version](https://badge.fury.io/js/%40onslip%2Fautomation.svg)](https://badge.fury.io/js/%40onslip%2Fautomation)
+[![Explore changelog](https://img.shields.io/badge/changelog-explore-brightgreen)](https://changelogs.xyz/@onslip/automation)
 
 ## What it is
 
