@@ -1,5 +1,17 @@
 # @onslip/automation
 
+## 0.3.0
+
+### Minor Changes
+
+- 8cc5366: Added stopAndroidApplication and executeAndroidShellCommand helpers.
+
+### Patch Changes
+
+- 9ff4353: Wait for DOM before initialization is complete.
+- b653813: Prettier debug output.
+- c93c858: Bumped deps.
+
 ## 0.2.0
 
 ### Minor Changes
