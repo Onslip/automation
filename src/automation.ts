@@ -69,6 +69,11 @@ export class Automation {
         this._client = await CDP(this._options);
         this._version = await CDP.Version({ port: this._options.port });
 
+        // Ensure document is ready before continuing
+        while (!(await this._client.Runtime.evaluate({ expression: 'document.documentElement', returnByValue: true }))?.result?.value) {
+            await sleep(10);
+        }
+
         this._runtime = await this.unwrap(false, false, await this._client.Runtime.evaluate({
             expression: `(function () { ${RuntimeSupport}; return new RuntimeSupport(); })()`,
             objectGroup: this._objGroup,
