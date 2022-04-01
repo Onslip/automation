@@ -108,7 +108,19 @@ class RuntimeSupport {
         }));
     }
 
-    _findElements(selectors: string[], elements: HTMLElement[] | undefined): HTMLElement[] {
+    fill(selectors: string[], value: string) {
+        const [ el ] = this._findElements(selectors) as HTMLInputElement[];
+
+        el.focus();
+        el.value = value;
+        el.dispatchEvent(new Event('input', {
+            bubbles:    true,
+            cancelable: false,
+            composed:   true,
+        }));
+    }
+
+    private _findElements(selectors: string[], elements?: HTMLElement[]): HTMLElement[] {
         for (const selector of selectors) {
             let ctxs = elements, path = '', expr: RegExp | null = null;
 
@@ -168,7 +180,7 @@ class RuntimeSupport {
     }
 
     resolveSelectors(selectors: string[], props: (keyof ElementInfo)[]): ElementInfo[] {
-        const elements = this._findElements(selectors, undefined);
+        const elements = this._findElements(selectors);
 
         if (props.indexOf('isStable') >= 0 && props.indexOf('boundingBox') < 0) {
             props.push('boundingBox');
@@ -201,7 +213,7 @@ class RuntimeSupport {
     }
 
     evaluateAll(selectors: string[], func: string, arg: unknown): unknown {
-        const elements = this._findElements(selectors, undefined);
+        const elements = this._findElements(selectors);
 
         return new Function(`return (${func}).apply(null, arguments)`)(elements, arg);
     }

@@ -225,6 +225,17 @@ export class Locator {
         }
     }
 
+    async fill(value: string, options?: SelectorOptions): Promise<void> {
+        const opts = { ...this._config, ...options };
+        const info = await this._automation.element(this._selectors, { isConnected: true, isVisible: true, inputValue: undefined }, opts);
+
+        if (info.inputValue === undefined) {
+            throw new EvalError(`${this} is a non-input element`);
+        } else {
+            this._automation.fill(this._selectors, value);
+        }
+    }
+
     async waitFor(options?: SelectorOptions & { state?: 'attached' | 'detached' | 'visible' | 'hidden' }): Promise<void> {
         const opts = { ...this._config, state: 'visible', ...options };
 

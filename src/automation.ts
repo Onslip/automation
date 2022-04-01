@@ -181,6 +181,10 @@ export class Automation {
         }
     }
 
+    async fill(selectors: string[], value: string) {
+        await this.callMethod(true, true, this._runtime, 'fill', selectors, value);
+    }
+
     async evaluatePageFunction(expr: string | Function, arg: unknown): Promise<RemoteObject> {
         return await this.callMethod(true, true, this._runtime, 'evaluatePageFunction', String(expr), arg);
     }
