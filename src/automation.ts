@@ -8,9 +8,24 @@ import { Page } from './api';
 import P11 from './protocol-1.1.json';
 import P12 from './protocol-1.2.json';
 import P13 from './protocol-1.3.json';
-import { sleep } from './utils';
+import { sleep, throwError } from './utils';
 
 const RuntimeSupport = readFileSync(resolve(__dirname, '../automation-runtime.js'));
+
+/**
+ * Good sources of information
+ *
+ * * https://github.com/cyrus-and/chrome-remote-interface
+ * * https://github.com/RemoteDebug/remotedebug-ios-webkit-adapter
+ * * https://chromedevtools.github.io/devtools-protocol/
+ * * https://github.com/ChromeDevTools/devtools-protocol/tree/master/json
+ * * https://trac.webkit.org/browser/trunk/Source/JavaScriptCore/inspector/protocol
+ *
+ * @file
+ */
+
+type TargetCreatedEvent = Parameters<Parameters<Client['Target.targetCreated']>[0]>[0];
+type ReceivedMessageFromTargetEvent = Parameters<Parameters<Client['Target.receivedMessageFromTarget']>[0]>[0];
 
 type ObjectResult = Awaited<ReturnType<Client['Runtime']['evaluate']>> & { wasThrown?: boolean };
 type RemoteObject = Awaited<ReturnType<Client['Runtime']['evaluate']>>['result']
@@ -48,12 +63,25 @@ export interface AutomationConfig {
     debug:   boolean;
 }
 
-export class Automation {
+interface Sender {
+    send: Client['send'];
+}
+
+class ProtocolError extends Error {
+    constructor(message: string, public request: object, public response: object) {
+        super(message);
+    }
+}
+
+export class Automation implements Sender {
     private _options: Options;
     private _client!: Client
-    private _version!: VersionResult & { 'Android-Package'?: string };
+    private _version!: Partial<VersionResult> & { 'Android-Package'?: string };
     private _runtime!: RemoteObject;
     private _objGroup = String(Date.now() + Math.random());
+
+    private _target?:  string;
+    private _messages: ((v: any) => void)[] = [];
 
     constructor(options: AutomationOptions) {
         const protocol =
@@ -67,14 +95,28 @@ export class Automation {
 
     async initialize(): Promise<this> {
         this._client = await CDP(this._options);
-        this._version = await CDP.Version({ port: this._options.port });
+        this._client.on('event', (event) => {
+            if (event.method === 'Target.targetCreated') {
+                const params = event.params as TargetCreatedEvent;
+                this._target = params.targetInfo.targetId;
+            } else if (event.method === 'Target.dispatchMessageFromTarget') {
+                const params = event.params as ReceivedMessageFromTargetEvent;
+                const message = JSON.parse(params.message);
+                this._messages[message.id]?.(message);
+                delete this._messages[message.id];
+            } else {
+                console.error('Unexpected CDP event', event);
+            }
+        });
 
-        // Ensure document is ready before continuing
-        while (!(await this._client.Runtime.evaluate({ expression: 'document.documentElement', returnByValue: true }))?.result?.value) {
+        this._version = await CDP.Version({ port: this._options.port }).catch(() => ({}));
+
+        // Ensure document is ready (and iOS target is connected) before continuing
+        while (!(await this.send('Runtime.evaluate', { expression: 'document.documentElement', returnByValue: true }).catch(() => null))?.result.value) {
             await sleep(10);
         }
 
-        this._runtime = await this.unwrap(false, false, await this._client.Runtime.evaluate({
+        this._runtime = await this.unwrap(false, false, await this.send('Runtime.evaluate', {
             expression: `(function () { ${RuntimeSupport}; return new RuntimeSupport(); })()`,
             objectGroup: this._objGroup,
         }));
@@ -83,9 +125,22 @@ export class Automation {
     }
 
     async close(): Promise<this> {
-        await this._client.Runtime.releaseObjectGroup({ objectGroup: this._objGroup });
+        await this.send('Runtime.releaseObjectGroup', { objectGroup: this._objGroup });
         await this._client.close();
         return this;
+    }
+
+    send: Client['send'] = async function(this: Automation, method, params) {
+        if (this._target) {
+            const response = await new Promise<any>((resolve) => {
+                const id = this._messages.push(resolve) - 1;
+                this._client.Target.sendMessageToTarget({ targetId: this._target, message: JSON.stringify({ id, method, params }) });
+            });
+
+            return response.result ?? throwError(new ProtocolError(response.error.message, { method, params }, response.error));
+        } else {
+            return await this._client.send(method, params);
+        }
     }
 
     page(): Page {
@@ -135,25 +190,40 @@ export class Automation {
     }
 
     async screenshot(clip: Rectangle, format: 'png' | 'jpeg' = 'png', quality?: number): Promise<Buffer> {
-        if (this._version['Protocol-Version'] === '1.1' || this._version['Protocol-Version'] === '1.2') {
-            const { data } = await this._client.Page.captureScreenshot({ format: 'png' });
-            const image = await Jimp.read(Buffer.from(data, 'base64'));
-            const ratio = (await this._client.Runtime.evaluate({ expression: 'window.devicePixelRatio', returnByValue: true }))?.result?.value ?? 1;
-            const frame = image.crop(clip.x * ratio, clip.y * ratio, clip.width * ratio, clip.height * ratio );
-
+        const toBuffer = async (image: Jimp) => {
             if (format === 'png') {
-                return await frame.getBufferAsync(Jimp.MIME_PNG);
+                return await image.getBufferAsync(Jimp.MIME_PNG);
             } else if (format === 'jpeg') {
-                return await (quality !== undefined ? frame.quality(quality) : frame).getBufferAsync(Jimp.MIME_JPEG);
+                return await (quality !== undefined ? image.quality(quality) : image).getBufferAsync(Jimp.MIME_JPEG);
             } else {
                 throw new Error(`Invalid format: ${format}`);
             }
-        } else {
-            const { data } = await this._client.Page.captureScreenshot({
+        }
+
+        if (this._version['Protocol-Version'] === '1.1' || this._version['Protocol-Version'] === '1.2') {
+            const { data } = await this.send('Page.captureScreenshot', { format: 'png' });
+            const image = await Jimp.read(Buffer.from(data, 'base64'));
+            const ratio = (await this.send('Runtime.evaluate', { expression: 'window.devicePixelRatio', returnByValue: true }))?.result?.value ?? 1;
+            const frame = image.crop(clip.x * ratio, clip.y * ratio, clip.width * ratio, clip.height * ratio );
+
+            return toBuffer(frame);
+        } else if (this._version['Protocol-Version']) {
+            const { data } = await this.send('Page.captureScreenshot', {
                 clip: { scale: 1, ...clip }, format, quality,
             });
 
             return Buffer.from(data, 'base64');
+        } else {
+            const snapshot = await this.send('Page.snapshotRect' as any, { ...clip, coordinateSystem: 'Viewport' });
+            const dataURL: string = snapshot.dataURL;
+            const [, type, encoding, data ] = /^data:([^;]*);([^,]*),(.*)/.exec(dataURL) ?? ['', '', '', ''];
+            const buffer = Buffer.from(data, encoding as BufferEncoding);
+
+            if (type === 'image/png' && format === 'png') {
+                return buffer;
+            } else {
+                return toBuffer(await Jimp.read(buffer));
+            }
         }
     }
 
@@ -163,14 +233,14 @@ export class Automation {
 
     async tap(x: number, y: number) {
         if (this._version['Protocol-Version'] === '1.1') {
-            await this._client.Input.dispatchTouchEvent({
+            await this.send('Input.dispatchTouchEvent', {
                 type: 'touchStart',
                 touchPoints: [{ state: 'touchPressed', x, y, id: 0, } as any],
                 modifiers: 0,
                 timestamp: Date.now(),
             });
 
-            await this._client.Input.dispatchTouchEvent({
+            await this.send('Input.dispatchTouchEvent', {
                 type: 'touchEnd',
                 touchPoints: [{ state: 'touchReleased', x, y, id: 0, } as any],
                 modifiers: 0,
@@ -203,7 +273,7 @@ export class Automation {
 
     private async callMethod(awaitPromise: boolean, returnByValue: boolean, object: RemoteObject, name: string, ...args: unknown[]): Promise<RemoteObject> {
         // console.log('callMethod', awaitPromise, returnByValue, object, name, ...args);
-        return this.unwrap(awaitPromise, returnByValue, await this._client.Runtime.callFunctionOn({
+        return this.unwrap(awaitPromise, returnByValue, await this.send('Runtime.callFunctionOn', {
             objectId: object.objectId,
             functionDeclaration: `function () { return this['${name}'].apply(this, arguments); }`,
             arguments: args.map((arg) => ({ value: arg })),
@@ -214,7 +284,7 @@ export class Automation {
 
     private async getProperty(awaitPromise: boolean, returnByValue: boolean, object: RemoteObject, name: string): Promise<RemoteObject> {
         // console.log('getProperty', awaitPromise, returnByValue, object, name);
-        return this.unwrap(awaitPromise, returnByValue, await this._client.Runtime.callFunctionOn({
+        return this.unwrap(awaitPromise, returnByValue, await this.send('Runtime.callFunctionOn', {
             objectId: object.objectId,
             functionDeclaration: `function () { return this['${name}']; }`,
             returnByValue: !awaitPromise && returnByValue,
@@ -230,7 +300,7 @@ export class Automation {
         }
 
         if (awaitPromise && result.result.objectId) {
-            const promiseState = await this.unwrap(false, false, await this._client.Runtime.callFunctionOn({
+            const promiseState = await this.unwrap(false, false, await this.send('Runtime.callFunctionOn', {
                 objectId: result.result.objectId,
                 functionDeclaration: (function (this: Promise<unknown>) {
                     let value: unknown, error: unknown, result = {
