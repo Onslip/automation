@@ -1,5 +1,13 @@
 # @onslip/automation
 
+## 0.4.0
+
+### Minor Changes
+
+- b4b6364: Added 'historic' logcat option, a better alternative to 'clear'.
+- 723f903: Added basic iOS support via ios_webkit_debug_proxy
+- b938d1d: Added fill() to input text.
+
 ## 0.3.0
 
 ### Minor Changes
