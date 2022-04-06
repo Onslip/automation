@@ -1,13 +1,10 @@
-import CDP, { Client, Options, Protocol, VersionResult } from 'chrome-remote-interface';
+import CDP, { Client, Options, VersionResult } from 'chrome-remote-interface';
 import { readFileSync } from 'fs';
 import Jimp from 'jimp';
 import { resolve } from 'path';
 import { isDeepStrictEqual } from 'util';
 import { AutomationOptions } from './adb';
 import { Page } from './api';
-import P11 from './protocol-1.1.json';
-import P12 from './protocol-1.2.json';
-import P13 from './protocol-1.3.json';
 import { sleep, throwError } from './utils';
 
 const RuntimeSupport = readFileSync(resolve(__dirname, '../automation-runtime.js'));
@@ -84,13 +81,7 @@ export class Automation implements Sender {
     private _messages: ((v: any) => void)[] = [];
 
     constructor(options: AutomationOptions) {
-        const protocol =
-            options.protocol === '1.1' ? P11 as Protocol :
-            options.protocol === '1.2' ? P12 as Protocol :
-            options.protocol === '1.3' ? P13 as Protocol :
-            options.protocol === 'latest' ? undefined : options.protocol;
-
-        this._options = { ...options, protocol, local: protocol === undefined };
+        this._options = { ...options, local: true };
     }
 
     async initialize(): Promise<this> {

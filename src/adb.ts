@@ -1,6 +1,6 @@
 import { Queue, Signal } from '@divine/synchronization';
 import { spawn } from 'child_process';
-import { BaseOptions, Options, Protocol } from 'chrome-remote-interface';
+import { BaseOptions, Options } from 'chrome-remote-interface';
 import { Page } from './api';
 import { Automation } from './automation';
 import { execFile } from './utils';
@@ -18,7 +18,6 @@ export interface AndroidLogOptions {
 
 export interface AutomationOptions extends BaseOptions {
     target?:   Options['target'];
-    protocol?: Protocol | '1.1' | '1.2' | '1.3' | 'latest';
 }
 
 export async function findAndroidDevices(): Promise<string[]> {
