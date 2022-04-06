@@ -9,6 +9,7 @@ export interface AndroidLogOptions {
     stopSignal?:  Signal<boolean>;
     separator?:   string;
     clear?:       boolean;
+    historic?:    boolean;
     format?:      'brief' | 'process' | 'tag' | 'thread' | 'raw' | 'time' | 'threadtime' | 'long';
     modifiers?:   ('color' | 'descriptive' | 'epoch' | 'monotonic' | 'printable' | 'uid' | 'usec' | 'UTC' | 'year' | 'zone')[];
     buffers?:     ('main' | 'system' | 'radio' | 'events' | 'crash')[];
@@ -52,6 +53,7 @@ export function readAndroidLogs(device: string, options?: AndroidLogOptions, tim
 export async function* readAndroidLogs(device: string, options?: AndroidLogOptions, timeout?: number): AsyncGenerator<string | undefined> {
     const mqueue = new Queue<string | null | Error | number>();
     const buffer = options?.buffers ? ['-b', options?.buffers?.join(',')] : [];
+    const recent = options?.historic ? [] : [ '-T', '1' ];
 
     const checkStopSignal = (stop: boolean): unknown => stop ? mqueue.push(null) : options?.stopSignal?.wait().then(checkStopSignal);
     checkStopSignal(false);
@@ -62,7 +64,7 @@ export async function* readAndroidLogs(device: string, options?: AndroidLogOptio
 
     const logcat = spawn('adb', ['-s', device, 'logcat',
         '-v', [options?.format ?? 'threadtime', ...(options?.modifiers ?? [])].join(','),
-        ...buffer, ...(options?.filterspecs ?? [])
+        ...recent, ...buffer, ...(options?.filterspecs ?? [])
     ]);
 
     logcat.on('exit',         (ecode) => mqueue.push(ecode ?? -1));
