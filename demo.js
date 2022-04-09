@@ -41,4 +41,4 @@ async function main(prog, device) {
     }
 }
 
-main(...process.argv.slice(1)).catch(err => (console.error(String(err)), 70)).then(process.exit);
+main(...process.argv.slice(1)).catch((err) => (console.error(String(err)), 70)).then(process.exit);

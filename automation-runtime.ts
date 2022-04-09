@@ -28,7 +28,7 @@ function sleep(timeout: number): Promise<void> {
 
 function attributes(el: HTMLElement): ElementInfo['attributes'] {
     if (typeof el.getAttributeNames === 'function') {
-        return el.getAttributeNames().map(name => [name, el.getAttribute(name)!])
+        return el.getAttributeNames().map((name) => [name, el.getAttribute(name)!])
     } else {
         const result: ElementInfo['attributes'] = [], attrs = el.attributes;
 
@@ -170,7 +170,7 @@ class RuntimeSupport {
                         .filter((tn) => expr!.test(normalized(tn.nodeValue)))
                         .map((tn) => tn.parentElement!);
                 } else {
-                    elements = nodes.filter(node => node.nodeType === Node.ELEMENT_NODE) as HTMLElement[];
+                    elements = nodes.filter((node) => node.nodeType === Node.ELEMENT_NODE) as HTMLElement[];
                 }
             }
         }
