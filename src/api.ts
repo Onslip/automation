@@ -1,4 +1,4 @@
-import { Automation, AutomationConfig, ElementConstraints } from './automation';
+import { Automation, AutomationConfig, AutomationOptions, AutomationContext, ElementConstraints } from './automation';
 import { throwError, writeFile } from './utils';
 
 const ACTIONABLE: ElementConstraints = {
@@ -17,6 +17,14 @@ export interface SelectorOptions {
 export interface LocatorOptions {
     has?:     Locator;
     hasText?: string | RegExp;
+}
+
+export async function findWebViewContexts(options: AutomationOptions): Promise<AutomationContext[]> {
+    return Automation.findContexts(options);
+}
+
+export async function openWebView(options: AutomationOptions): Promise<Page> {
+    return (await new Automation(options).initialize()).page();
 }
 
 export class Page {

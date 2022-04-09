@@ -1,25 +1,20 @@
-import CDP, { Client, Options, VersionResult } from 'chrome-remote-interface';
+import CDP, { BaseOptions, Client, VersionResult } from 'chrome-remote-interface';
 import { readFileSync } from 'fs';
 import Jimp from 'jimp';
 import { resolve } from 'path';
 import { isDeepStrictEqual } from 'util';
-import { AutomationOptions } from './adb';
 import { Page } from './api';
 import { sleep, throwError } from './utils';
 
 const RuntimeSupport = readFileSync(resolve(__dirname, '../automation-runtime.js'));
 
-/**
- * Good sources of information
- *
- * * https://github.com/cyrus-and/chrome-remote-interface
- * * https://github.com/RemoteDebug/remotedebug-ios-webkit-adapter
- * * https://chromedevtools.github.io/devtools-protocol/
- * * https://github.com/ChromeDevTools/devtools-protocol/tree/master/json
- * * https://trac.webkit.org/browser/trunk/Source/JavaScriptCore/inspector/protocol
- *
- * @file
- */
+// Good sources of information:
+//
+// * https://github.com/cyrus-and/chrome-remote-interface
+// * https://github.com/RemoteDebug/remotedebug-ios-webkit-adapter
+// * https://chromedevtools.github.io/devtools-protocol/
+// * https://github.com/ChromeDevTools/devtools-protocol/tree/master/json
+// * https://trac.webkit.org/browser/trunk/Source/JavaScriptCore/inspector/protocol
 
 type TargetCreatedEvent = Parameters<Parameters<Client['Target.targetCreated']>[0]>[0];
 type ReceivedMessageFromTargetEvent = Parameters<Parameters<Client['Target.receivedMessageFromTarget']>[0]>[0];
@@ -70,8 +65,25 @@ class ProtocolError extends Error {
     }
 }
 
+export interface AutomationOptions extends BaseOptions {
+    appId?: string;
+    ctxId?: string;
+}
+
+export interface AutomationContext {
+    appId?:                string;
+    description?:          string;
+    devtoolsFrontendUrl:   string;
+    faviconUrl?:           string;
+    id:                    string;
+    thumbnailUrl?:         string;
+    title:                 string;
+    type?:                 string;
+    url:                   string;
+    webSocketDebuggerUrl:  string;
+}
+
 export class Automation implements Sender {
-    private _options: Options;
     private _client!: Client
     private _version!: Partial<VersionResult> & { 'Android-Package'?: string };
     private _runtime!: RemoteObject;
@@ -80,12 +92,31 @@ export class Automation implements Sender {
     private _target?:  string;
     private _messages: ((v: any) => void)[] = [];
 
-    constructor(options: AutomationOptions) {
-        this._options = { ...options, local: true };
+    static async findContexts(options: AutomationOptions): Promise<AutomationContext[]> {
+        const contexts = await CDP.List({ ...options }) as AutomationContext[];
+
+        return contexts
+            .map((context) => ({ ...context, id: context.id ?? context.webSocketDebuggerUrl.split('/').pop() }))
+            .filter((context) => !!context.url && // Skip JSContext
+                (options.appId === undefined || context.appId === options.appId) &&
+                (options.ctxId === undefined || context.id    === options.ctxId)
+            );
+    }
+
+    constructor(private _options: AutomationOptions) {
     }
 
     async initialize(): Promise<this> {
-        this._client = await CDP(this._options);
+        const contexts = await Automation.findContexts(this._options);
+
+        if (!contexts.length) {
+            throw new Error(`No context found`);
+        } else if (contexts.length > 1) {
+            throw new Error(`Multiple contexts found: ${contexts.map((context) => context.id)}`);
+        }
+
+        const target = (targets: CDP.Target[]) => targets.findIndex((context) => context.webSocketDebuggerUrl === contexts[0].webSocketDebuggerUrl);
+        this._client = await CDP({ ...this._options, local: true, target });
         this._client.on('event', (event) => {
             if (event.method === 'Target.targetCreated') {
                 const params = event.params as TargetCreatedEvent;
@@ -103,7 +134,7 @@ export class Automation implements Sender {
         this._version = await CDP.Version({ port: this._options.port }).catch(() => ({}));
 
         // Ensure document is ready (and iOS target is connected) before continuing
-        while (!(await this.send('Runtime.evaluate', { expression: 'document.documentElement', returnByValue: true }).catch(() => null))?.result.value) {
+        while (!await this.documentIsReady()) {
             await sleep(10);
         }
 
@@ -260,6 +291,13 @@ export class Automation implements Sender {
 
     async waitForRepaint(): Promise<void> {
         await this.callMethod(true, true, this._runtime, 'waitForRepaint');
+    }
+
+    private async documentIsReady(): Promise<boolean | undefined> {
+        return (await this.send('Runtime.evaluate', {
+            expression:    `location.href !== 'about:blank' && document.readyState && document.readyState !== 'loading'`,
+            returnByValue: true
+        }).catch(() => null))?.result.value;
     }
 
     private async callMethod(awaitPromise: boolean, returnByValue: boolean, object: RemoteObject, name: string, ...args: unknown[]): Promise<RemoteObject> {
