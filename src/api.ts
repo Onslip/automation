@@ -10,56 +10,118 @@ const ACTIONABLE: ElementConstraints = {
 }
 
 export interface SelectorOptions {
+    /** How long, in milliseconds, to wait for the target to be actionable. */
     timeout?: number;
+
+    /** It true, don't actually perform the action requested. */
     trial?:   boolean;
 }
 
 export interface LocatorOptions {
+    /** Only match if this Location also matches. */
     has?:     Locator;
+
+    /** Only match if this text Locator also matches. */
     hasText?: string | RegExp;
 }
 
+/**
+ * Finds and returns a description of all matching web contexts.
+ *
+ * Useful to find out what [[AutomationOptions.ctxId]] value to specify when calling [[openWebView]].
+ *
+ * @param options Where to look for contexts.
+ * @returns       A list of matching contexts.
+ */
 export async function findWebViewContexts(options: AutomationOptions): Promise<AutomationContext[]> {
     return Automation.findContexts(options);
 }
 
+/**
+ * Connects to a web context and return a Page.
+ *
+ * @param options Specify what context to use.
+ * @returns       A new Page object which can be used to interact with the web page.
+ */
 export async function openWebView(options: AutomationOptions): Promise<Page> {
     return (await new Automation(options).initialize()).page();
 }
 
+/**
+ * The Page object represents the connection to a remote web view.
+ */
 export class Page {
     private _config: AutomationConfig = { timeout: 30_000, debug: false };
+
+    /** A referece to Mouse instance. */
     readonly mouse: Mouse;
+
+    /** A referece to Touchscreen instance. */
     readonly touchscreen: Touchscreen;
 
-    constructor(private _automation: Automation) {
-        this.mouse = new Mouse(this._automation);
-        this.touchscreen = new Touchscreen(this._automation);
+    private static create(_automation: Automation) {
+        return new Page(_automation);
     }
 
+    private constructor(private _automation: Automation) {
+        this.mouse = Mouse['create'](this._automation);
+        this.touchscreen = Touchscreen['create'](this._automation);
+    }
+
+    /**
+     * Creates and returns a new Locator.
+     *
+     * @param selector  The selectors to match.
+     * @param options   Additional options.
+     * @returns         A new Locator.
+     */
     locator(selector: string, options?: LocatorOptions): Locator {
-        return new Locator(this._automation, this._config, selector, undefined, options);
+        return Locator['create'](this._automation, this._config, selector, undefined, options);
     }
 
+    /**
+     * Invokes a custom JavaScript function inside the web view context.
+     *
+     * @param pageFunction A function to call inside the web view context.
+     * @param arg          An optional argument to pass to the function. Must be JSON serializable.
+     * @returns            The value returned from the function. Must be JSON serializable.
+     */
     async evaluate(pageFunction: string | Function, arg?: unknown): Promise<unknown> {
         return (await this._automation.evaluatePageFunction(pageFunction, arg)).value;
     }
 
+    /**
+     * Enables to disables debug output from this library.
+     *
+     * @param debug  Set to `true` to enable debugging and `false` to disable.
+     */
     setDebug(debug: boolean) {
         this._config.debug = debug;
     }
 
+    /**
+     * Specifies the default timeout when waiting for Locators to be actionable.
+     *
+     * @param timeout  The new default timeout, in milliseconds.
+     */
     setDefaultTimeout(timeout: number): void {
         this._config.timeout = timeout;
     }
 
+    /**
+     * Closes the connection to the web view and deallocates all held resources.
+     */
     async close() {
         await this._automation.close();
     }
 }
 
 export class Mouse {
-    constructor(private _automation: Automation) {
+    private static create(_automation: Automation) {
+        return new Mouse(_automation);
+    }
+
+    private constructor(private _automation: Automation) {
     }
 
     async click(x: number, y: number) {
@@ -68,7 +130,11 @@ export class Mouse {
 }
 
 export class Touchscreen {
-    constructor(private _automation: Automation) {
+    private static create(_automation: Automation) {
+        return new Touchscreen(_automation);
+    }
+
+    private constructor(private _automation: Automation) {
     }
 
     async tap(x: number, y: number) {
@@ -79,7 +145,11 @@ export class Touchscreen {
 export class Locator {
     private _selectors: string[];
 
-    constructor(private _automation: Automation, private _config: AutomationConfig, selector: string, parent?: Locator, options?: LocatorOptions) {
+    private static create(_automation: Automation, _config: AutomationConfig, selector: string, parent?: Locator, options?: LocatorOptions) {
+        return new Locator(_automation, _config, selector, parent, options);
+    }
+
+    private constructor(private _automation: Automation, private _config: AutomationConfig, selector: string, parent?: Locator, options?: LocatorOptions) {
         if (selector.startsWith('//') || selector.startsWith('..')) {
             selector = 'xpath=' + selector;
         } else if ((selector[0] === `'` || selector[0] === `"`) && selector[0] === selector[selector.length - 1]) {

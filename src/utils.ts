@@ -9,21 +9,55 @@ export const mkdir = promisify(_mkdir);
 export const pipeline = promisify(_pipeline);
 export const writeFile = promisify(_writeFile);
 
+/**
+ * Throws an error.
+ *
+ * @param error  The error to throw.
+ * @throws       The provided error.
+ */
 export function throwError(error: Error): never {
     throw error;
 }
 
+/**
+ * Does nothing for a while.
+ *
+ * @param timeout  The sleep duration in milliseconds
+ */
 export function sleep(timeout: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, timeout));
 }
 
 export interface ReaderOptions {
+    /** A signal to check. Reading will stop when signal is `true.` */
     stopSignal?: Signal<boolean>;
+
+    /** A line separator to add to each generated line. */
     separator?:  string;
 }
 
-export function readCommandOutput(command: string, args: string[], options?: ReaderOptions, timeout?: number): AsyncGenerator<string>;
+/**
+ * Spawns a command and reads its standard output line by line.
+ *
+ * @param command  The command to executed.
+ * @param args     Command arguments.
+ * @param options  Reader options.
+ * @returns        An async iterator generating one line at a time.
+ */
+export function readCommandOutput(command: string, args: string[], options?: ReaderOptions): AsyncGenerator<string>;
+
+/**
+ * Spawns a command and reads its standard output line by line, with heartbeats.
+ *
+ * @param command  The command to executed.
+ * @param args     Command arguments.
+ * @param options  Reader options.
+ * @param timeout  The timeout, in milliseconds. If no lines has been produced within this time, an `undefined` value is
+ *                 generated instead of a string.
+ * @returns        An async iterator generating one line at a time, or `undefined` on timeouts.
+ */
 export function readCommandOutput(command: string, args: string[], options?: ReaderOptions, timeout?: number): AsyncGenerator<string | undefined>;
+
 export async function* readCommandOutput(command: string, args: string[], options?: ReaderOptions, timeout?: number): AsyncGenerator<string | undefined> {
     const mqueue = new Queue<string | null | Error | number>();
     const bgproc = spawn(command, args);
@@ -69,7 +103,16 @@ export async function* readCommandOutput(command: string, args: string[], option
     }
 }
 
-export function collectLines(stream: (signal: Signal<boolean>) => AsyncIterable<string | undefined>): () => Promise<string[]> {
+/**
+ * Begins collecting and buffering lines from an async iterator, like the one returned by [[readCommandOutput]]. When
+ * the returned function is called, all lines are returned as an array.
+ *
+ * @param stream   A callback that should create the async iterator and stop generating lines when the provided signal
+ *                 becomes true.
+ * @returns        A function that, when invoked, stops reading and returns all collected lines as an array.
+ */
+
+export function collectLines(stream: (stopSignal: Signal<boolean>) => AsyncIterable<string | undefined>): () => Promise<string[]> {
     const stopSignal = new Signal<boolean>();
     const lines = (async () => {
         const lines: string[] = [];

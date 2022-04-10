@@ -66,20 +66,42 @@ class ProtocolError extends Error {
 }
 
 export interface AutomationOptions extends BaseOptions {
+    /** Only include contexts owned by this iOS process. */
     appId?: string;
+
+    /** The [[AutomationContext.id]] to use. */
     ctxId?: string;
 }
 
 export interface AutomationContext {
+    /** iOS process owning this context. */
     appId?:                string;
+
+    /** Context description */
     description?:          string;
+
+    /** URL to a DevTools session for this context. */
     devtoolsFrontendUrl:   string;
+
+    /** URL of favicon image. */
     faviconUrl?:           string;
+
+    /** Context ID. */
     id:                    string;
+
+    /** URL of thumbnail image. */
     thumbnailUrl?:         string;
+
+    /** The title of the page loaded in this context. */
     title:                 string;
+
+    /** Type of context. */
     type?:                 string;
+
+    /** The URL of the page loaded in this context. */
     url:                   string;
+
+    /** The URL where the debugger is running. */
     webSocketDebuggerUrl:  string;
 }
 
@@ -166,7 +188,7 @@ export class Automation implements Sender {
     }
 
     page(): Page {
-        return new Page(this);
+        return Page['create'](this);
     }
 
     async element(selectors: string[], constraints: ElementConstraints, options: { debug: boolean, timeout: number }): Promise<ElementInfo> {

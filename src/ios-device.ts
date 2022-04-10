@@ -36,13 +36,29 @@ async function getJSON<T extends object>(url: string): Promise<T> {
 }
 
 export interface iOSLogOptions extends ReaderOptions {
+    /** Only include log lines that contain this string. */
     match?:   string;
+
+    /** Processes to include. */
     include?: string[];
+
+    /** Processes to exclude. */
     exclude?: string[];
+
+    /** If true, execludes a predefined set of noisy processes in addition to those specified via the [[exclude]] option. */
     quiet?:   boolean;
 }
 
+/**
+ * This class manages iOS devices and applications.
+ */
 export class iOSDevice extends Device {
+    /**
+     * Finds all connected iOS devices by querying the `ios_webkit_debug_proxy` HTTP server.
+     *
+     * @param options  Device manager options.
+     * @returns        A list of detected iOS devices.
+     */
     static override async findDevices(options: DeviceOptions = {}) {
         const iwdpPort = options.iwdpPort === null ? null : options?.iwdpPort ?? 9221;
         const iwdpJSON = `http://localhost:${iwdpPort}/json`;
@@ -60,7 +76,7 @@ export class iOSDevice extends Device {
         }
     }
 
-    constructor(private _iwdpDevice: IWDPDevice, private _iwdpPort: number, private _options: DeviceOptions) {
+    private constructor(private _iwdpDevice: IWDPDevice, private _iwdpPort: number, private _options: DeviceOptions) {
         super(_iwdpDevice.deviceId, 'ios');
     }
 
@@ -106,7 +122,9 @@ export class iOSDevice extends Device {
         await execFile(this._options.ideviceinstaller ?? 'ideviceinstaller', ['-U', app]);
     }
 
-    override async *readLogs(options?: iOSLogOptions, timeout?: number) {
+    readLogs(options?: iOSLogOptions): AsyncGenerator<string>;
+    readLogs(options?: iOSLogOptions, timeout?: number): AsyncGenerator<string | undefined>;
+    override async *readLogs(options?: iOSLogOptions, timeout?: number): AsyncGenerator<string | undefined> {
         const quiet = options?.quiet ?? !options?.include;
 
         return yield* readCommandOutput(this._options.idevicesyslog ?? 'idevicesyslog', [
@@ -122,6 +140,14 @@ export class iOSDevice extends Device {
         return collectLines((stopSignal) => this.readLogs({ separator: '\n', ...options, stopSignal }, 100));
     }
 
+    /**
+     * Finds all debuggable web views on the device.
+     *
+     * For iOS devices, this method is optional. [[findWebViewContexts]] and [[openWebView]] can access contexts from
+     * all iOS web views if not restricted by [[AutomationOptions.appId]].
+     *
+     * @returns  An array of all debuggable web view indentifiers.
+     */
     override async findWebViews() {
         const [ host, port ] = this._iwdpDevice.url.split(':');
 
@@ -131,6 +157,14 @@ export class iOSDevice extends Device {
             .filter((value, index, array) => array.indexOf(value) === index);
     }
 
+    /**
+     * Returns options to be passed to [[findWebViewContexts]] and [[openWebView]]. Unlike [[AndroidDevice]], no
+     * `localhost` port is actually opened and the (optional) `webview` parameter is just used to set the
+     * [[AutomationOptions.appId]] option to restrict contexts to the specified web view.
+     *
+     * @param webview  The web view identifier target.
+     * @returns        Options suitable to pass to [[findWebViewContexts]] or [[openWebView]].
+     */
     override async bindWebView(webview?: string): Promise<AutomationOptions> {
         const [ host, port ] = this._iwdpDevice.url.split(':');
 

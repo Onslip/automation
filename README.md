@@ -10,9 +10,9 @@
 This is a small Node.js library that helps you to E2E test/automate/remote-control Android and iOS WebViews, including
 [Capacitor]- or [Cordova]-based applications.
 
-The automation API is heavily inspired by [Playwright] and the aim is to provide a small but still very usable subset of
-that API. We strive to be as API compatible as we can for the subset that is supported, but since this is a completely
-separate code base, *full* compatibility can never be guaranteed.
+The [Onslip Automation API](docs/README.md) is heavily inspired by [Playwright] and the aim is to provide a small but
+still very usable subset of that API. We strive to be as API compatible as we can for the subset that is supported, but
+since this is a completely separate code base, *full* compatibility can never be guaranteed.
 
 Now, unlike Playwright's Android support — which requires version 87 or greater of the WebView — this library works with
 almost *any* version of the WebView, at least all the way down to the last [Crosswalk] release (which was based on

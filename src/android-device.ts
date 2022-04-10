@@ -10,7 +10,16 @@ export interface AndroidLogOptions extends ReaderOptions {
     filterspecs?: string[];
 }
 
+/**
+ * This class manages Android devices and applications.
+ */
 export class AndroidDevice extends Device {
+    /**
+     * Finds all connected Android devices by executing `adb devices`.
+     *
+     * @param options  Device manager options.
+     * @returns        A list of detected iOS devices.
+     */
     static override async findDevices(options: DeviceOptions = {}): Promise<AndroidDevice[]> {
         const adb = options.adb === null ? null : options?.adb ?? 'adb';
 
@@ -28,7 +37,7 @@ export class AndroidDevice extends Device {
         }
     }
 
-    constructor(id: string, private _adb: string, private _options: DeviceOptions) {
+    private constructor(id: string, private _adb: string, private _options: DeviceOptions) {
         super(id, 'android');
     }
 
@@ -62,7 +71,9 @@ export class AndroidDevice extends Device {
         await execFile(this._adb, ['uninstall', pkg]);
     }
 
-    override async *readLogs(options?: AndroidLogOptions, timeout?: number) {
+    readLogs(options?: AndroidLogOptions): AsyncGenerator<string>;
+    readLogs(options?: AndroidLogOptions, timeout?: number): AsyncGenerator<string | undefined>;
+    override async *readLogs(options?: AndroidLogOptions, timeout?: number): AsyncGenerator<string | undefined> {
         const buffer = options?.buffers ? ['-b', options?.buffers?.join(',')] : [];
         const recent = options?.historic ? [] : ['-T', '1'];
 

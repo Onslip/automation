@@ -9,6 +9,10 @@ prepare:									## Build and install all dependencies.
 build:		prepare								## Build module.
 	pnpm exec tsc --build
 
+docs:		prepare								## Build API documentation
+	rm -rf docs
+	pnpm exec typedoc --entryPoints src/index.ts --excludePrivate --excludeProtected --readme none
+
 clean:										## Clean all build artifacts (but not dependencies).
 	rm -rf build
 
