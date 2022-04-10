@@ -1,5 +1,12 @@
 # @onslip/automation
 
+## 1.0.0
+
+### Major Changes
+
+- 16a19ed: Removed 'protocol' option since it's not used anyway.
+- b6606b0: Device management is now unified into a single API supporting both Android and iOS.
+
 ## 0.4.0
 
 ### Minor Changes
