@@ -62,6 +62,10 @@ export async function* readCommandOutput(command: string, args: string[], option
     const mqueue = new Queue<string | null | Error | number>();
     const bgproc = spawn(command, args);
 
+    const killOnExit = () => bgproc.kill();
+    process.on('exit', () => killOnExit());
+    bgproc.on('exit',  () => process.off('exit', killOnExit));
+
     const checkStopSignal = (stop: boolean): unknown => stop ? mqueue.push(null) : options?.stopSignal?.wait().then(checkStopSignal);
     checkStopSignal(false);
 
