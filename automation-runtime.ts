@@ -69,8 +69,18 @@ function isVisible(el: HTMLElement): ElementInfo['isVisible'] {
     }
 }
 
+function isConnected(el: HTMLElement): boolean {
+    return el.isConnected ?? !(el.ownerDocument.compareDocumentPosition(el) & el.DOCUMENT_POSITION_DISCONNECTED);
+}
+
 function escapeRegExp(str: string) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+function forEach<T extends Node>(nodeList: NodeListOf<T>, callbackfn: (value: T, key: number, parent: NodeListOf<T>) => void, thisArg?: any) {
+    for (let length = nodeList.length, i = 0; i < length; ++i) {
+        callbackfn.call(thisArg, nodeList.item(i), i, nodeList);
+    }
 }
 
 class RuntimeSupport {
@@ -133,7 +143,7 @@ class RuntimeSupport {
             } else if (selector.startsWith('css=')) {
                 ctxs ??= [ document.documentElement ];
                 elements = [];
-                ctxs.forEach((ctx) => ctx.querySelectorAll<HTMLElement>(selector.substring(4)).forEach((el) => elements!.push(el)));
+                ctxs.forEach((ctx) => forEach(ctx.querySelectorAll<HTMLElement>(selector.substring(4)), (el) => elements!.push(el)));
             } else if (selector.startsWith('xpath=')) {
                 ctxs ??= [ document.documentElement ];
                 path = selector.substring(6);
@@ -196,7 +206,7 @@ class RuntimeSupport {
                     case 'innerHTML':    info[prop] = el.innerHTML;         break;
                     case 'innerText':    info[prop] = el.innerText;         break;
                     case 'inputValue':   info[prop] = el.value;             break;
-                    case 'isConnected':  info[prop] = el.isConnected;       break;
+                    case 'isConnected':  info[prop] = isConnected(el);      break;
                     case 'isEditable':   info[prop] = el.isContentEditable; break;
                     case 'isEnabled':    info[prop] = el.disabled !== true; break;
                     case 'isStable':     /* Already handled */;             break;

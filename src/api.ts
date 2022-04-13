@@ -230,7 +230,7 @@ export class Locator {
         const opts = { ...this._config, ...options };
         await this._automation.element(this._selectors, { isConnected: true }, opts);
 
-        return (await this._automation.evaluateAll(this._selectors, `(arr, arg) => (${pageFunction})(arr[0], arg)`, arg)).value;
+        return (await this._automation.evaluateAll(this._selectors, `function(arr, arg) { return (${pageFunction})(arr[0], arg) }`, arg)).value;
     }
 
     async evaluateAll(pageFunction: string | Function, arg?: unknown): Promise<unknown> {
@@ -248,7 +248,7 @@ export class Locator {
 
          if (!info.isTarget) {
             this._config.debug && console.debug(`📜 Scrolling ${this} into view`);
-            await this.evaluate((el: any) => el.scrollIntoView());
+            await this.evaluate(`function(el) { el.scrollIntoView() }`);
          }
     }
 

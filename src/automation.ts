@@ -353,15 +353,16 @@ export class Automation implements Sender {
         if (awaitPromise && result.result.objectId) {
             const promiseState = await this.unwrap(false, false, await this.send('Runtime.callFunctionOn', {
                 objectId: result.result.objectId,
-                functionDeclaration: (function (this: Promise<unknown>) {
-                    let value: unknown, error: unknown, result = {
+                functionDeclaration: (function(this: Promise<unknown>) { // This function should be ES5 compatible!
+                    var value: unknown, error: unknown, result = {
+                        promise: this,
                         done:  false,
-                        value: () => { if (error) { throw error } else { return value } },
+                        value: function() { if (error) { throw error } else { return value } },
                     };
 
                     Promise.resolve(this).then(
-                        (resolved) => { value = resolved, result.done = true },
-                        (rejected) => { error = rejected, result.done = true },
+                        function(resolved) { value = resolved, result.done = true, console.log('resolved', value) },
+                        function(rejected) { error = rejected, result.done = true, console.log('rejected', error) },
                     );
 
                     return result;
