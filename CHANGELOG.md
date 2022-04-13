@@ -1,5 +1,12 @@
 # @onslip/automation
 
+## 1.0.1
+
+### Patch Changes
+
+- 7be0f9a: Ensure spawned processes (like idevicesyslog) are killed on exit.
+- 1fbabf1: iOS 9 (ES5) fixes.
+
 ## 1.0.0
 
 ### Major Changes
