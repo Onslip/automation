@@ -1,5 +1,16 @@
 # @onslip/automation
 
+## 1.1.0
+
+### Minor Changes
+
+- 4cca30e: Bumped deps.
+
+### Patch Changes
+
+- 65463c2: @types/chrome-remote-interface should be a regular dependency.
+- 2e0f02f: Don't leak on-exit handlers.
+
 ## 1.0.1
 
 ### Patch Changes
