@@ -1,129 +1,113 @@
+[**@onslip/automation**](../README.md) • **Docs**
+
+***
+
 [@onslip/automation](../README.md) / AutomationOptions
 
 # Interface: AutomationOptions
 
-## Hierarchy
+## Extends
 
 - `BaseOptions`
 
-  ↳ **`AutomationOptions`**
-
-## Table of contents
-
-### Properties
-
-- [alterPath](AutomationOptions.md#alterpath)
-- [appId](AutomationOptions.md#appid)
-- [ctxId](AutomationOptions.md#ctxid)
-- [host](AutomationOptions.md#host)
-- [port](AutomationOptions.md#port)
-- [secure](AutomationOptions.md#secure)
-- [useHostName](AutomationOptions.md#usehostname)
-
 ## Properties
 
-### alterPath
+### alterPath()?
 
-• `Optional` **alterPath**: (`path`: `string`) => `string`
+> `optional` **alterPath**: (`path`) => `string`
 
-#### Type declaration
+#### Parameters
 
-▸ (`path`): `string`
+• **path**: `string`
 
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `path` | `string` |
-
-##### Returns
+#### Returns
 
 `string`
 
 #### Inherited from
 
-BaseOptions.alterPath
+`BaseOptions.alterPath`
 
 #### Defined in
 
-node_modules/.pnpm/@types+chrome-remote-interface@0.31.4/node_modules/@types/chrome-remote-interface/index.d.ts:17
+node\_modules/.pnpm/@types+chrome-remote-interface@0.31.14/node\_modules/@types/chrome-remote-interface/index.d.ts:10
 
-___
+***
 
-### appId
+### appId?
 
-• `Optional` **appId**: `string`
+> `optional` **appId**: `string`
 
 Only include contexts owned by this iOS process.
 
 #### Defined in
 
-[src/automation.ts:70](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L70)
+[src/automation.ts:70](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L70)
 
-___
+***
 
-### ctxId
+### ctxId?
 
-• `Optional` **ctxId**: `string`
+> `optional` **ctxId**: `string`
 
-The [AutomationContext.id](AutomationContext.md#id) to use.
+The [[AutomationContext.id]] to use.
 
 #### Defined in
 
-[src/automation.ts:73](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L73)
+[src/automation.ts:73](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L73)
 
-___
+***
 
-### host
+### host?
 
-• `Optional` **host**: `string`
+> `optional` **host**: `string`
 
 #### Inherited from
 
-BaseOptions.host
+`BaseOptions.host`
 
 #### Defined in
 
-node_modules/.pnpm/@types+chrome-remote-interface@0.31.4/node_modules/@types/chrome-remote-interface/index.d.ts:13
+node\_modules/.pnpm/@types+chrome-remote-interface@0.31.14/node\_modules/@types/chrome-remote-interface/index.d.ts:6
 
-___
+***
 
-### port
+### port?
 
-• `Optional` **port**: `number`
+> `optional` **port**: `number`
 
 #### Inherited from
 
-BaseOptions.port
+`BaseOptions.port`
 
 #### Defined in
 
-node_modules/.pnpm/@types+chrome-remote-interface@0.31.4/node_modules/@types/chrome-remote-interface/index.d.ts:14
+node\_modules/.pnpm/@types+chrome-remote-interface@0.31.14/node\_modules/@types/chrome-remote-interface/index.d.ts:7
 
-___
+***
 
-### secure
+### secure?
 
-• `Optional` **secure**: `boolean`
+> `optional` **secure**: `boolean`
 
 #### Inherited from
 
-BaseOptions.secure
+`BaseOptions.secure`
 
 #### Defined in
 
-node_modules/.pnpm/@types+chrome-remote-interface@0.31.4/node_modules/@types/chrome-remote-interface/index.d.ts:15
+node\_modules/.pnpm/@types+chrome-remote-interface@0.31.14/node\_modules/@types/chrome-remote-interface/index.d.ts:8
 
-___
+***
 
-### useHostName
+### useHostName?
 
-• `Optional` **useHostName**: `boolean`
+> `optional` **useHostName**: `boolean`
 
 #### Inherited from
 
-BaseOptions.useHostName
+`BaseOptions.useHostName`
 
 #### Defined in
 
-node_modules/.pnpm/@types+chrome-remote-interface@0.31.4/node_modules/@types/chrome-remote-interface/index.d.ts:16
+node\_modules/.pnpm/@types+chrome-remote-interface@0.31.14/node\_modules/@types/chrome-remote-interface/index.d.ts:9

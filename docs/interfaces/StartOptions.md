@@ -1,34 +1,31 @@
+[**@onslip/automation**](../README.md) • **Docs**
+
+***
+
 [@onslip/automation](../README.md) / StartOptions
 
 # Interface: StartOptions
 
-## Table of contents
-
-### Properties
-
-- [restart](StartOptions.md#restart)
-- [wait](StartOptions.md#wait)
-
 ## Properties
 
-### restart
+### restart?
 
-• `Optional` **restart**: `boolean`
+> `optional` **restart**: `boolean`
 
 Close the application first, if it is already running.
 
 #### Defined in
 
-[src/device.ts:32](https://github.com/Onslip/automation/blob/b6606b0/src/device.ts#L32)
+[src/device.ts:32](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/device.ts#L32)
 
-___
+***
 
-### wait
+### wait?
 
-• `Optional` **wait**: `boolean`
+> `optional` **wait**: `boolean`
 
 Wait for the application to start up before returning.
 
 #### Defined in
 
-[src/device.ts:35](https://github.com/Onslip/automation/blob/b6606b0/src/device.ts#L35)
+[src/device.ts:35](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/device.ts#L35)

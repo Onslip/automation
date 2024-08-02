@@ -1,93 +1,80 @@
+[**@onslip/automation**](../README.md) • **Docs**
+
+***
+
 [@onslip/automation](../README.md) / iOSDevice
 
 # Class: iOSDevice
 
 This class manages iOS devices and applications.
 
-## Hierarchy
+## Extends
 
 - [`Device`](Device.md)
-
-  ↳ **`iOSDevice`**
-
-## Table of contents
-
-### Properties
-
-- [id](iOSDevice.md#id)
-- [type](iOSDevice.md#type)
-
-### Methods
-
-- [bindWebView](iOSDevice.md#bindwebview)
-- [collectLogs](iOSDevice.md#collectlogs)
-- [deviceName](iOSDevice.md#devicename)
-- [findWebViews](iOSDevice.md#findwebviews)
-- [install](iOSDevice.md#install)
-- [osVersion](iOSDevice.md#osversion)
-- [readLogs](iOSDevice.md#readlogs)
-- [start](iOSDevice.md#start)
-- [stop](iOSDevice.md#stop)
-- [toString](iOSDevice.md#tostring)
-- [uninstall](iOSDevice.md#uninstall)
-- [findDevice](iOSDevice.md#finddevice)
-- [findDevices](iOSDevice.md#finddevices)
 
 ## Properties
 
 ### id
 
-• **id**: `string`
+> **id**: `string`
 
 #### Inherited from
 
-[Device](Device.md).[id](Device.md#id)
-
-___
-
-### type
-
-• **type**: ``"android"`` \| ``"ios"``
-
-#### Inherited from
-
-[Device](Device.md).[type](Device.md#type)
-
-## Methods
-
-### bindWebView
-
-▸ **bindWebView**(`webview?`): `Promise`<[`AutomationOptions`](../interfaces/AutomationOptions.md)\>
-
-Returns options to be passed to [findWebViewContexts](../README.md#findwebviewcontexts) and [openWebView](../README.md#openwebview). Unlike [AndroidDevice](AndroidDevice.md), no
-`localhost` port is actually opened and the (optional) `webview` parameter is just used to set the
-[AutomationOptions.appId](../interfaces/AutomationOptions.md#appid) option to restrict contexts to the specified web view.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `webview?` | `string` | The web view identifier target. |
-
-#### Returns
-
-`Promise`<[`AutomationOptions`](../interfaces/AutomationOptions.md)\>
-
-Options suitable to pass to [findWebViewContexts](../README.md#findwebviewcontexts) or [openWebView](../README.md#openwebview).
-
-#### Overrides
-
-[Device](Device.md).[bindWebView](Device.md#bindwebview)
+[`Device`](Device.md).[`id`](Device.md#id)
 
 #### Defined in
 
-[src/ios-device.ts:168](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L168)
+[src/device.ts:69](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/device.ts#L69)
 
-___
+***
 
-### collectLogs
+### type
 
-▸ **collectLogs**(`options?`): `Promise`<() => `Promise`<`string`[]\>\>
+> **type**: `"android"` \| `"ios"`
+
+#### Inherited from
+
+[`Device`](Device.md).[`type`](Device.md#type)
+
+#### Defined in
+
+[src/device.ts:69](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/device.ts#L69)
+
+## Methods
+
+### bindWebView()
+
+> **bindWebView**(`webview`?): `Promise`\<[`AutomationOptions`](../interfaces/AutomationOptions.md)\>
+
+Returns options to be passed to [[findWebViewContexts]] and [[openWebView]]. Unlike [[AndroidDevice]], no
+`localhost` port is actually opened and the (optional) `webview` parameter is just used to set the
+[[AutomationOptions.appId]] option to restrict contexts to the specified web view.
+
+#### Parameters
+
+• **webview?**: `string`
+
+The web view identifier target.
+
+#### Returns
+
+`Promise`\<[`AutomationOptions`](../interfaces/AutomationOptions.md)\>
+
+Options suitable to pass to [[findWebViewContexts]] or [[openWebView]].
+
+#### Overrides
+
+[`Device`](Device.md).[`bindWebView`](Device.md#bindwebview)
+
+#### Defined in
+
+[src/ios-device.ts:168](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L168)
+
+***
+
+### collectLogs()
+
+> **collectLogs**(`options`?): `Promise`\<() => `Promise`\<`string`[]\>\>
 
 Begins collecting and buffering logs from the device. When the returned function is called, all lines are
 returned as an array.
@@ -96,230 +83,240 @@ By default, this method adds a LF to each collected line, making the array suita
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | `Omit`<[`iOSLogOptions`](../interfaces/iOSLogOptions.md), ``"stopSignal"``\> |
+• **options?**: `Omit`\<[`iOSLogOptions`](../interfaces/iOSLogOptions.md), `"stopSignal"`\>
+
+Reader options. For device-specific options, see the subclass method.
 
 #### Returns
 
-`Promise`<() => `Promise`<`string`[]\>\>
+`Promise`\<() => `Promise`\<`string`[]\>\>
 
 A function that, when invoked, stops logging and returns all collected lines.
 
 #### Overrides
 
-[Device](Device.md).[collectLogs](Device.md#collectlogs)
+[`Device`](Device.md).[`collectLogs`](Device.md#collectlogs)
 
 #### Defined in
 
-[src/ios-device.ts:139](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L139)
+[src/ios-device.ts:139](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L139)
 
-___
+***
 
-### deviceName
+### deviceName()
 
-▸ **deviceName**(): `Promise`<`string`\>
+> **deviceName**(): `Promise`\<`string`\>
 
 Returns the name of the device.
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 The device name.
 
 #### Overrides
 
-[Device](Device.md).[deviceName](Device.md#devicename)
+[`Device`](Device.md).[`deviceName`](Device.md#devicename)
 
 #### Defined in
 
-[src/ios-device.ts:91](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L91)
+[src/ios-device.ts:91](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L91)
 
-___
+***
 
-### findWebViews
+### findWebViews()
 
-▸ **findWebViews**(): `Promise`<`string`[]\>
+> **findWebViews**(): `Promise`\<`string`[]\>
 
 Finds all debuggable web views on the device.
 
-For iOS devices, this method is optional. [findWebViewContexts](../README.md#findwebviewcontexts) and [openWebView](../README.md#openwebview) can access contexts from
-all iOS web views if not restricted by [AutomationOptions.appId](../interfaces/AutomationOptions.md#appid).
+For iOS devices, this method is optional. [[findWebViewContexts]] and [[openWebView]] can access contexts from
+all iOS web views if not restricted by [[AutomationOptions.appId]].
 
 #### Returns
 
-`Promise`<`string`[]\>
+`Promise`\<`string`[]\>
 
 An array of all debuggable web view indentifiers.
 
 #### Overrides
 
-[Device](Device.md).[findWebViews](Device.md#findwebviews)
+[`Device`](Device.md).[`findWebViews`](Device.md#findwebviews)
 
 #### Defined in
 
-[src/ios-device.ts:151](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L151)
+[src/ios-device.ts:151](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L151)
 
-___
+***
 
-### install
+### install()
 
-▸ **install**(`archive`): `Promise`<`void`\>
+> **install**(`archive`): `Promise`\<`void`\>
 
 Installs an application onto the device.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `archive` | `string` |
+• **archive**: `string`
+
+The path to the application to install (APK/IPA/directory).
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
-[Device](Device.md).[install](Device.md#install)
+[`Device`](Device.md).[`install`](Device.md#install)
 
 #### Defined in
 
-[src/ios-device.ts:95](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L95)
+[src/ios-device.ts:95](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L95)
 
-___
+***
 
-### osVersion
+### osVersion()
 
-▸ **osVersion**(): `Promise`<`string`\>
+> **osVersion**(): `Promise`\<`string`\>
 
 Returns the Android/iOS version number.
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
 
 The version number.
 
 #### Overrides
 
-[Device](Device.md).[osVersion](Device.md#osversion)
+[`Device`](Device.md).[`osVersion`](Device.md#osversion)
 
 #### Defined in
 
-[src/ios-device.ts:87](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L87)
+[src/ios-device.ts:87](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L87)
 
-___
+***
 
-### readLogs
+### readLogs()
 
-▸ **readLogs**(`options?`): `AsyncGenerator`<`string`, `any`, `unknown`\>
+#### readLogs(options)
+
+> **readLogs**(`options`?): `AsyncGenerator`\<`string`, `any`, `unknown`\>
 
 Reads log lines from the device.
 
-#### Parameters
+##### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`iOSLogOptions`](../interfaces/iOSLogOptions.md) |
+• **options?**: [`iOSLogOptions`](../interfaces/iOSLogOptions.md)
 
-#### Returns
+Reader options. For device-specific options, see the subclass method.
 
-`AsyncGenerator`<`string`, `any`, `unknown`\>
+##### Returns
+
+`AsyncGenerator`\<`string`, `any`, `unknown`\>
 
 An async iterator generating one line at a time.
 
-#### Overrides
+##### Overrides
 
-[Device](Device.md).[readLogs](Device.md#readlogs)
+[`Device`](Device.md).[`readLogs`](Device.md#readlogs)
 
-#### Defined in
+##### Defined in
 
-[src/ios-device.ts:125](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L125)
+[src/ios-device.ts:125](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L125)
 
-▸ **readLogs**(`options?`, `timeout?`): `AsyncGenerator`<`undefined` \| `string`, `any`, `unknown`\>
+#### readLogs(options, timeout)
 
-Reads log lines from the device, with heartbeats.
+> **readLogs**(`options`?, `timeout`?): `AsyncGenerator`\<`undefined` \| `string`, `any`, `unknown`\>
 
-#### Parameters
+Reads log lines from the device.
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`iOSLogOptions`](../interfaces/iOSLogOptions.md) |
-| `timeout?` | `number` |
+##### Parameters
 
-#### Returns
+• **options?**: [`iOSLogOptions`](../interfaces/iOSLogOptions.md)
 
-`AsyncGenerator`<`undefined` \| `string`, `any`, `unknown`\>
+Reader options. For device-specific options, see the subclass method.
 
-An async iterator generating one line at a time, or `undefined` on timeouts.
+• **timeout?**: `number`
 
-#### Overrides
+##### Returns
 
-[Device](Device.md).[readLogs](Device.md#readlogs)
+`AsyncGenerator`\<`undefined` \| `string`, `any`, `unknown`\>
 
-#### Defined in
+An async iterator generating one line at a time.
 
-[src/ios-device.ts:126](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L126)
+##### Overrides
 
-___
+[`Device`](Device.md).[`readLogs`](Device.md#readlogs)
 
-### start
+##### Defined in
 
-▸ **start**(`app`, `options?`): `Promise`<`void`\>
+[src/ios-device.ts:126](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L126)
+
+***
+
+### start()
+
+> **start**(`app`, `options`?): `Promise`\<`void`\>
 
 Launches an application/activity on the device.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `app` | `string` |
-| `options?` | [`StartOptions`](../interfaces/StartOptions.md) |
+• **app**: `string`
+
+The package/activity identifier or application bundle identifier to launch.
+
+• **options?**: [`StartOptions`](../interfaces/StartOptions.md)
+
+Optional start options.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
-[Device](Device.md).[start](Device.md#start)
+[`Device`](Device.md).[`start`](Device.md#start)
 
 #### Defined in
 
-[src/ios-device.ts:99](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L99)
+[src/ios-device.ts:99](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L99)
 
-___
+***
 
-### stop
+### stop()
 
-▸ **stop**(`app`): `Promise`<`void`\>
+> **stop**(`app`): `Promise`\<`void`\>
 
 Kills an application on the device.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `app` | `string` |
+• **app**: `string`
+
+The package/activity identifier or application bundle identifier to stop.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
-[Device](Device.md).[stop](Device.md#stop)
+[`Device`](Device.md).[`stop`](Device.md#stop)
 
 #### Defined in
 
-[src/ios-device.ts:111](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L111)
+[src/ios-device.ts:111](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L111)
 
-___
+***
 
-### toString
+### toString()
 
-▸ **toString**(): `string`
+> **toString**(): `string`
+
+Returns a string representation of an object.
 
 #### Returns
 
@@ -327,87 +324,90 @@ ___
 
 #### Defined in
 
-[src/ios-device.ts:83](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L83)
+[src/ios-device.ts:83](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L83)
 
-___
+***
 
-### uninstall
+### uninstall()
 
-▸ **uninstall**(`app`): `Promise`<`void`\>
+> **uninstall**(`app`): `Promise`\<`void`\>
 
 Uninstalls an application from the device.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `app` | `string` |
+• **app**: `string`
+
+The package/bundle identifier to uninstall.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
-[Device](Device.md).[uninstall](Device.md#uninstall)
+[`Device`](Device.md).[`uninstall`](Device.md#uninstall)
 
 #### Defined in
 
-[src/ios-device.ts:121](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L121)
+[src/ios-device.ts:121](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L121)
 
-___
+***
 
-### findDevice
+### findDevice()
 
-▸ `Static` **findDevice**(`deviceId`, `options?`): `Promise`<`undefined` \| [`Device`](Device.md)\>
+> `static` **findDevice**(`deviceId`, `options`?): `Promise`\<`undefined` \| [`Device`](Device.md)\>
 
 Finds a single device, given a device ID.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `deviceId` | `string` | The device ID to find. |
-| `options?` | [`DeviceOptions`](../interfaces/DeviceOptions.md) | Device manager options. |
+• **deviceId**: `string`
+
+The device ID to find.
+
+• **options?**: [`DeviceOptions`](../interfaces/DeviceOptions.md)
+
+Device manager options.
 
 #### Returns
 
-`Promise`<`undefined` \| [`Device`](Device.md)\>
+`Promise`\<`undefined` \| [`Device`](Device.md)\>
 
 The device, if found, else `undefined`.
 
 #### Inherited from
 
-[Device](Device.md).[findDevice](Device.md#finddevice)
+[`Device`](Device.md).[`findDevice`](Device.md#finddevice)
 
 #### Defined in
 
-[src/device.ts:49](https://github.com/Onslip/automation/blob/b6606b0/src/device.ts#L49)
+[src/device.ts:49](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/device.ts#L49)
 
-___
+***
 
-### findDevices
+### findDevices()
 
-▸ `Static` **findDevices**(`options?`): `Promise`<[`iOSDevice`](iOSDevice.md)[]\>
+> `static` **findDevices**(`options`): `Promise`\<[`iOSDevice`](iOSDevice.md)[]\>
 
 Finds all connected iOS devices by querying the `ios_webkit_debug_proxy` HTTP server.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | [`DeviceOptions`](../interfaces/DeviceOptions.md) | Device manager options. |
+• **options**: [`DeviceOptions`](../interfaces/DeviceOptions.md) = `{}`
+
+Device manager options.
 
 #### Returns
 
-`Promise`<[`iOSDevice`](iOSDevice.md)[]\>
+`Promise`\<[`iOSDevice`](iOSDevice.md)[]\>
 
 A list of detected iOS devices.
 
 #### Overrides
 
-[Device](Device.md).[findDevices](Device.md#finddevices)
+[`Device`](Device.md).[`findDevices`](Device.md#finddevices)
 
 #### Defined in
 
-[src/ios-device.ts:62](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L62)
+[src/ios-device.ts:62](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L62)

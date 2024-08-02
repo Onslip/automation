@@ -1,138 +1,127 @@
+[**@onslip/automation**](../README.md) • **Docs**
+
+***
+
 [@onslip/automation](../README.md) / AutomationContext
 
 # Interface: AutomationContext
 
-## Table of contents
-
-### Properties
-
-- [appId](AutomationContext.md#appid)
-- [description](AutomationContext.md#description)
-- [devtoolsFrontendUrl](AutomationContext.md#devtoolsfrontendurl)
-- [faviconUrl](AutomationContext.md#faviconurl)
-- [id](AutomationContext.md#id)
-- [thumbnailUrl](AutomationContext.md#thumbnailurl)
-- [title](AutomationContext.md#title)
-- [type](AutomationContext.md#type)
-- [url](AutomationContext.md#url)
-- [webSocketDebuggerUrl](AutomationContext.md#websocketdebuggerurl)
-
 ## Properties
 
-### appId
+### appId?
 
-• `Optional` **appId**: `string`
+> `optional` **appId**: `string`
 
 iOS process owning this context.
 
 #### Defined in
 
-[src/automation.ts:78](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L78)
+[src/automation.ts:78](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L78)
 
-___
+***
 
-### description
+### description?
 
-• `Optional` **description**: `string`
+> `optional` **description**: `string`
 
 Context description
 
 #### Defined in
 
-[src/automation.ts:81](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L81)
+[src/automation.ts:81](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L81)
 
-___
+***
 
 ### devtoolsFrontendUrl
 
-• **devtoolsFrontendUrl**: `string`
+> **devtoolsFrontendUrl**: `string`
 
 URL to a DevTools session for this context.
 
 #### Defined in
 
-[src/automation.ts:84](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L84)
+[src/automation.ts:84](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L84)
 
-___
+***
 
-### faviconUrl
+### faviconUrl?
 
-• `Optional` **faviconUrl**: `string`
+> `optional` **faviconUrl**: `string`
 
 URL of favicon image.
 
 #### Defined in
 
-[src/automation.ts:87](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L87)
+[src/automation.ts:87](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L87)
 
-___
+***
 
 ### id
 
-• **id**: `string`
+> **id**: `string`
 
 Context ID.
 
 #### Defined in
 
-[src/automation.ts:90](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L90)
+[src/automation.ts:90](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L90)
 
-___
+***
 
-### thumbnailUrl
+### thumbnailUrl?
 
-• `Optional` **thumbnailUrl**: `string`
+> `optional` **thumbnailUrl**: `string`
 
 URL of thumbnail image.
 
 #### Defined in
 
-[src/automation.ts:93](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L93)
+[src/automation.ts:93](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L93)
 
-___
+***
 
 ### title
 
-• **title**: `string`
+> **title**: `string`
 
 The title of the page loaded in this context.
 
 #### Defined in
 
-[src/automation.ts:96](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L96)
+[src/automation.ts:96](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L96)
 
-___
+***
 
-### type
+### type?
 
-• `Optional` **type**: `string`
+> `optional` **type**: `string`
 
 Type of context.
 
 #### Defined in
 
-[src/automation.ts:99](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L99)
+[src/automation.ts:99](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L99)
 
-___
+***
 
 ### url
 
-• **url**: `string`
+> **url**: `string`
 
 The URL of the page loaded in this context.
 
 #### Defined in
 
-[src/automation.ts:102](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L102)
+[src/automation.ts:102](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L102)
 
-___
+***
 
 ### webSocketDebuggerUrl
 
-• **webSocketDebuggerUrl**: `string`
+> **webSocketDebuggerUrl**: `string`
 
 The URL where the debugger is running.
 
 #### Defined in
 
-[src/automation.ts:105](https://github.com/Onslip/automation/blob/b6606b0/src/automation.ts#L105)
+[src/automation.ts:105](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/automation.ts#L105)

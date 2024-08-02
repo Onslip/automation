@@ -1,30 +1,27 @@
+[**@onslip/automation**](../README.md) • **Docs**
+
+***
+
 [@onslip/automation](../README.md) / Touchscreen
 
 # Class: Touchscreen
 
-## Table of contents
-
-### Methods
-
-- [tap](Touchscreen.md#tap)
-
 ## Methods
 
-### tap
+### tap()
 
-▸ **tap**(`x`, `y`): `Promise`<`void`\>
+> **tap**(`x`, `y`): `Promise`\<`void`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `x` | `number` |
-| `y` | `number` |
+• **x**: `number`
+
+• **y**: `number`
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Defined in
 
-[src/api.ts:140](https://github.com/Onslip/automation/blob/b6606b0/src/api.ts#L140)
+[src/api.ts:140](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L140)

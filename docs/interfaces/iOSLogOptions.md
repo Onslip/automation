@@ -1,100 +1,91 @@
+[**@onslip/automation**](../README.md) • **Docs**
+
+***
+
 [@onslip/automation](../README.md) / iOSLogOptions
 
 # Interface: iOSLogOptions
 
-## Hierarchy
+## Extends
 
 - [`ReaderOptions`](ReaderOptions.md)
 
-  ↳ **`iOSLogOptions`**
-
-## Table of contents
-
-### Properties
-
-- [exclude](iOSLogOptions.md#exclude)
-- [include](iOSLogOptions.md#include)
-- [match](iOSLogOptions.md#match)
-- [quiet](iOSLogOptions.md#quiet)
-- [separator](iOSLogOptions.md#separator)
-- [stopSignal](iOSLogOptions.md#stopsignal)
-
 ## Properties
 
-### exclude
+### exclude?
 
-• `Optional` **exclude**: `string`[]
+> `optional` **exclude**: `string`[]
 
 Processes to exclude.
 
 #### Defined in
 
-[src/ios-device.ts:46](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L46)
+[src/ios-device.ts:46](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L46)
 
-___
+***
 
-### include
+### include?
 
-• `Optional` **include**: `string`[]
+> `optional` **include**: `string`[]
 
 Processes to include.
 
 #### Defined in
 
-[src/ios-device.ts:43](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L43)
+[src/ios-device.ts:43](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L43)
 
-___
+***
 
-### match
+### match?
 
-• `Optional` **match**: `string`
+> `optional` **match**: `string`
 
 Only include log lines that contain this string.
 
 #### Defined in
 
-[src/ios-device.ts:40](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L40)
+[src/ios-device.ts:40](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L40)
 
-___
+***
 
-### quiet
+### quiet?
 
-• `Optional` **quiet**: `boolean`
+> `optional` **quiet**: `boolean`
 
-If true, execludes a predefined set of noisy processes in addition to those specified via the [exclude](iOSLogOptions.md#exclude) option.
+If true, execludes a predefined set of noisy processes in addition to those specified via the [[exclude]] option.
 
 #### Defined in
 
-[src/ios-device.ts:49](https://github.com/Onslip/automation/blob/b6606b0/src/ios-device.ts#L49)
+[src/ios-device.ts:49](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L49)
 
-___
+***
 
-### separator
+### separator?
 
-• `Optional` **separator**: `string`
+> `optional` **separator**: `string`
 
 A line separator to add to each generated line.
 
 #### Inherited from
 
-[ReaderOptions](ReaderOptions.md).[separator](ReaderOptions.md#separator)
+[`ReaderOptions`](ReaderOptions.md).[`separator`](ReaderOptions.md#separator)
 
 #### Defined in
 
-[src/utils.ts:36](https://github.com/Onslip/automation/blob/b6606b0/src/utils.ts#L36)
+[src/utils.ts:36](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L36)
 
-___
+***
 
-### stopSignal
+### stopSignal?
 
-• `Optional` **stopSignal**: `Signal`<`boolean`\>
+> `optional` **stopSignal**: `Signal`\<`boolean`\>
 
 A signal to check. Reading will stop when signal is `true.`
 
 #### Inherited from
 
-[ReaderOptions](ReaderOptions.md).[stopSignal](ReaderOptions.md#stopsignal)
+[`ReaderOptions`](ReaderOptions.md).[`stopSignal`](ReaderOptions.md#stopsignal)
 
 #### Defined in
 
-[src/utils.ts:33](https://github.com/Onslip/automation/blob/b6606b0/src/utils.ts#L33)
+[src/utils.ts:33](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L33)

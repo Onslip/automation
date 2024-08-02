@@ -1,64 +1,50 @@
+[**@onslip/automation**](../README.md) • **Docs**
+
+***
+
 [@onslip/automation](../README.md) / AndroidDevice
 
 # Class: AndroidDevice
 
 This class manages Android devices and applications.
 
-## Hierarchy
+## Extends
 
 - [`Device`](Device.md)
-
-  ↳ **`AndroidDevice`**
-
-## Table of contents
-
-### Properties
-
-- [id](AndroidDevice.md#id)
-- [type](AndroidDevice.md#type)
-
-### Methods
-
-- [bindWebView](AndroidDevice.md#bindwebview)
-- [collectLogs](AndroidDevice.md#collectlogs)
-- [deviceName](AndroidDevice.md#devicename)
-- [findWebViews](AndroidDevice.md#findwebviews)
-- [install](AndroidDevice.md#install)
-- [osVersion](AndroidDevice.md#osversion)
-- [readLogs](AndroidDevice.md#readlogs)
-- [shell](AndroidDevice.md#shell)
-- [start](AndroidDevice.md#start)
-- [stop](AndroidDevice.md#stop)
-- [toString](AndroidDevice.md#tostring)
-- [uninstall](AndroidDevice.md#uninstall)
-- [findDevice](AndroidDevice.md#finddevice)
-- [findDevices](AndroidDevice.md#finddevices)
 
 ## Properties
 
 ### id
 
-• **id**: `string`
+> **id**: `string`
 
 #### Inherited from
 
-[Device](Device.md).[id](Device.md#id)
+[`Device`](Device.md).[`id`](Device.md#id)
 
-___
+#### Defined in
+
+[src/device.ts:69](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/device.ts#L69)
+
+***
 
 ### type
 
-• **type**: ``"android"`` \| ``"ios"``
+> **type**: `"android"` \| `"ios"`
 
 #### Inherited from
 
-[Device](Device.md).[type](Device.md#type)
+[`Device`](Device.md).[`type`](Device.md#type)
+
+#### Defined in
+
+[src/device.ts:69](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/device.ts#L69)
 
 ## Methods
 
-### bindWebView
+### bindWebView()
 
-▸ **bindWebView**(`webview`, `port`): `Promise`<{ `host`: `string` = 'localhost'; `port`: `number`  }\>
+> **bindWebView**(`webview`, `port`): `Promise`\<`object`\>
 
 Binds a web view to the specified port on `localhost`.
 
@@ -66,28 +52,41 @@ For additional information, see the subclass documentation of this method.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `webview` | `string` |
-| `port` | `number` |
+• **webview**: `string`
+
+The web view identifier to bind.
+
+• **port**: `number`
+
+The port to bind the web view to.
 
 #### Returns
 
-`Promise`<{ `host`: `string` = 'localhost'; `port`: `number`  }\>
+`Promise`\<`object`\>
+
+Options suitable to pass to [[findWebViewContexts]] or [[openWebView]].
+
+##### host
+
+> **host**: `string` = `'localhost'`
+
+##### port
+
+> **port**: `number`
 
 #### Overrides
 
-[Device](Device.md).[bindWebView](Device.md#bindwebview)
+[`Device`](Device.md).[`bindWebView`](Device.md#bindwebview)
 
 #### Defined in
 
-[src/android-device.ts:100](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L100)
+[src/android-device.ts:100](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L100)
 
-___
+***
 
-### collectLogs
+### collectLogs()
 
-▸ **collectLogs**(`options?`): `Promise`<() => `Promise`<`string`[]\>\>
+> **collectLogs**(`options`?): `Promise`\<() => `Promise`\<`string`[]\>\>
 
 Begins collecting and buffering logs from the device. When the returned function is called, all lines are
 returned as an array.
@@ -96,47 +95,51 @@ By default, this method adds a LF to each collected line, making the array suita
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | `Omit`<[`AndroidLogOptions`](../interfaces/AndroidLogOptions.md), ``"stopSignal"``\> |
+• **options?**: `Omit`\<[`AndroidLogOptions`](../interfaces/AndroidLogOptions.md), `"stopSignal"`\>
+
+Reader options. For device-specific options, see the subclass method.
 
 #### Returns
 
-`Promise`<() => `Promise`<`string`[]\>\>
+`Promise`\<() => `Promise`\<`string`[]\>\>
+
+A function that, when invoked, stops logging and returns all collected lines.
 
 #### Overrides
 
-[Device](Device.md).[collectLogs](Device.md#collectlogs)
+[`Device`](Device.md).[`collectLogs`](Device.md#collectlogs)
 
 #### Defined in
 
-[src/android-device.ts:91](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L91)
+[src/android-device.ts:91](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L91)
 
-___
+***
 
-### deviceName
+### deviceName()
 
-▸ **deviceName**(): `Promise`<`string`\>
+> **deviceName**(): `Promise`\<`string`\>
 
 Returns the name of the device.
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
+
+The device name.
 
 #### Overrides
 
-[Device](Device.md).[deviceName](Device.md#devicename)
+[`Device`](Device.md).[`deviceName`](Device.md#devicename)
 
 #### Defined in
 
-[src/android-device.ts:52](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L52)
+[src/android-device.ts:52](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L52)
 
-___
+***
 
-### findWebViews
+### findWebViews()
 
-▸ **findWebViews**(): `Promise`<`string`[]\>
+> **findWebViews**(): `Promise`\<`string`[]\>
 
 Finds all debuggable web views on the device.
 
@@ -144,190 +147,209 @@ For additional information, see the subclass documentation of this method.
 
 #### Returns
 
-`Promise`<`string`[]\>
+`Promise`\<`string`[]\>
+
+An array of all debuggable web view indentifiers.
 
 #### Overrides
 
-[Device](Device.md).[findWebViews](Device.md#findwebviews)
+[`Device`](Device.md).[`findWebViews`](Device.md#findwebviews)
 
 #### Defined in
 
-[src/android-device.ts:95](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L95)
+[src/android-device.ts:95](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L95)
 
-___
+***
 
-### install
+### install()
 
-▸ **install**(`archive`, `options?`): `Promise`<`void`\>
+> **install**(`archive`, `options`?): `Promise`\<`void`\>
 
 Installs an application onto the device.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `archive` | `string` |
-| `options?` | `string`[] |
+• **archive**: `string`
+
+The path to the application to install (APK/IPA/directory).
+
+• **options?**: `string`[]
+
+Optional installation options, if the subclass supports it.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
-[Device](Device.md).[install](Device.md#install)
+[`Device`](Device.md).[`install`](Device.md#install)
 
 #### Defined in
 
-[src/android-device.ts:56](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L56)
+[src/android-device.ts:56](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L56)
 
-___
+***
 
-### osVersion
+### osVersion()
 
-▸ **osVersion**(): `Promise`<`string`\>
+> **osVersion**(): `Promise`\<`string`\>
 
 Returns the Android/iOS version number.
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
+
+The version number.
 
 #### Overrides
 
-[Device](Device.md).[osVersion](Device.md#osversion)
+[`Device`](Device.md).[`osVersion`](Device.md#osversion)
 
 #### Defined in
 
-[src/android-device.ts:48](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L48)
+[src/android-device.ts:48](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L48)
 
-___
+***
 
-### readLogs
+### readLogs()
 
-▸ **readLogs**(`options?`): `AsyncGenerator`<`string`, `any`, `unknown`\>
+#### readLogs(options)
+
+> **readLogs**(`options`?): `AsyncGenerator`\<`string`, `any`, `unknown`\>
 
 Reads log lines from the device.
 
+##### Parameters
+
+• **options?**: [`AndroidLogOptions`](../interfaces/AndroidLogOptions.md)
+
+Reader options. For device-specific options, see the subclass method.
+
+##### Returns
+
+`AsyncGenerator`\<`string`, `any`, `unknown`\>
+
+An async iterator generating one line at a time.
+
+##### Overrides
+
+[`Device`](Device.md).[`readLogs`](Device.md#readlogs)
+
+##### Defined in
+
+[src/android-device.ts:74](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L74)
+
+#### readLogs(options, timeout)
+
+> **readLogs**(`options`?, `timeout`?): `AsyncGenerator`\<`undefined` \| `string`, `any`, `unknown`\>
+
+Reads log lines from the device.
+
+##### Parameters
+
+• **options?**: [`AndroidLogOptions`](../interfaces/AndroidLogOptions.md)
+
+Reader options. For device-specific options, see the subclass method.
+
+• **timeout?**: `number`
+
+##### Returns
+
+`AsyncGenerator`\<`undefined` \| `string`, `any`, `unknown`\>
+
+An async iterator generating one line at a time.
+
+##### Overrides
+
+[`Device`](Device.md).[`readLogs`](Device.md#readlogs)
+
+##### Defined in
+
+[src/android-device.ts:75](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L75)
+
+***
+
+### shell()
+
+> **shell**(`command`): `Promise`\<`string`\>
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`AndroidLogOptions`](../interfaces/AndroidLogOptions.md) |
+• **command**: `string`
 
 #### Returns
 
-`AsyncGenerator`<`string`, `any`, `unknown`\>
-
-#### Overrides
-
-[Device](Device.md).[readLogs](Device.md#readlogs)
+`Promise`\<`string`\>
 
 #### Defined in
 
-[src/android-device.ts:74](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L74)
+[src/android-device.ts:108](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L108)
 
-▸ **readLogs**(`options?`, `timeout?`): `AsyncGenerator`<`undefined` \| `string`, `any`, `unknown`\>
+***
 
-Reads log lines from the device, with heartbeats.
+### start()
 
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `options?` | [`AndroidLogOptions`](../interfaces/AndroidLogOptions.md) |
-| `timeout?` | `number` |
-
-#### Returns
-
-`AsyncGenerator`<`undefined` \| `string`, `any`, `unknown`\>
-
-#### Overrides
-
-[Device](Device.md).[readLogs](Device.md#readlogs)
-
-#### Defined in
-
-[src/android-device.ts:75](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L75)
-
-___
-
-### shell
-
-▸ **shell**(`command`): `Promise`<`string`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `command` | `string` |
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Defined in
-
-[src/android-device.ts:108](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L108)
-
-___
-
-### start
-
-▸ **start**(`app`, `options?`): `Promise`<`void`\>
+> **start**(`app`, `options`?): `Promise`\<`void`\>
 
 Launches an application/activity on the device.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `app` | `string` |
-| `options?` | [`StartOptions`](../interfaces/StartOptions.md) |
+• **app**: `string`
+
+The package/activity identifier or application bundle identifier to launch.
+
+• **options?**: [`StartOptions`](../interfaces/StartOptions.md)
+
+Optional start options.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
-[Device](Device.md).[start](Device.md#start)
+[`Device`](Device.md).[`start`](Device.md#start)
 
 #### Defined in
 
-[src/android-device.ts:60](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L60)
+[src/android-device.ts:60](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L60)
 
-___
+***
 
-### stop
+### stop()
 
-▸ **stop**(`app`): `Promise`<`void`\>
+> **stop**(`app`): `Promise`\<`void`\>
 
 Kills an application on the device.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `app` | `string` |
+• **app**: `string`
+
+The package/activity identifier or application bundle identifier to stop.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
-[Device](Device.md).[stop](Device.md#stop)
+[`Device`](Device.md).[`stop`](Device.md#stop)
 
 #### Defined in
 
-[src/android-device.ts:64](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L64)
+[src/android-device.ts:64](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L64)
 
-___
+***
 
-### toString
+### toString()
 
-▸ **toString**(): `string`
+> **toString**(): `string`
+
+Returns a string representation of an object.
 
 #### Returns
 
@@ -335,87 +357,90 @@ ___
 
 #### Defined in
 
-[src/android-device.ts:44](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L44)
+[src/android-device.ts:44](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L44)
 
-___
+***
 
-### uninstall
+### uninstall()
 
-▸ **uninstall**(`app`): `Promise`<`void`\>
+> **uninstall**(`app`): `Promise`\<`void`\>
 
 Uninstalls an application from the device.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `app` | `string` |
+• **app**: `string`
+
+The package/bundle identifier to uninstall.
 
 #### Returns
 
-`Promise`<`void`\>
+`Promise`\<`void`\>
 
 #### Overrides
 
-[Device](Device.md).[uninstall](Device.md#uninstall)
+[`Device`](Device.md).[`uninstall`](Device.md#uninstall)
 
 #### Defined in
 
-[src/android-device.ts:69](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L69)
+[src/android-device.ts:69](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L69)
 
-___
+***
 
-### findDevice
+### findDevice()
 
-▸ `Static` **findDevice**(`deviceId`, `options?`): `Promise`<`undefined` \| [`Device`](Device.md)\>
+> `static` **findDevice**(`deviceId`, `options`?): `Promise`\<`undefined` \| [`Device`](Device.md)\>
 
 Finds a single device, given a device ID.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `deviceId` | `string` | The device ID to find. |
-| `options?` | [`DeviceOptions`](../interfaces/DeviceOptions.md) | Device manager options. |
+• **deviceId**: `string`
+
+The device ID to find.
+
+• **options?**: [`DeviceOptions`](../interfaces/DeviceOptions.md)
+
+Device manager options.
 
 #### Returns
 
-`Promise`<`undefined` \| [`Device`](Device.md)\>
+`Promise`\<`undefined` \| [`Device`](Device.md)\>
 
 The device, if found, else `undefined`.
 
 #### Inherited from
 
-[Device](Device.md).[findDevice](Device.md#finddevice)
+[`Device`](Device.md).[`findDevice`](Device.md#finddevice)
 
 #### Defined in
 
-[src/device.ts:49](https://github.com/Onslip/automation/blob/b6606b0/src/device.ts#L49)
+[src/device.ts:49](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/device.ts#L49)
 
-___
+***
 
-### findDevices
+### findDevices()
 
-▸ `Static` **findDevices**(`options?`): `Promise`<[`AndroidDevice`](AndroidDevice.md)[]\>
+> `static` **findDevices**(`options`): `Promise`\<[`AndroidDevice`](AndroidDevice.md)[]\>
 
 Finds all connected Android devices by executing `adb devices`.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options` | [`DeviceOptions`](../interfaces/DeviceOptions.md) | Device manager options. |
+• **options**: [`DeviceOptions`](../interfaces/DeviceOptions.md) = `{}`
+
+Device manager options.
 
 #### Returns
 
-`Promise`<[`AndroidDevice`](AndroidDevice.md)[]\>
+`Promise`\<[`AndroidDevice`](AndroidDevice.md)[]\>
 
 A list of detected iOS devices.
 
 #### Overrides
 
-[Device](Device.md).[findDevices](Device.md#finddevices)
+[`Device`](Device.md).[`findDevices`](Device.md#finddevices)
 
 #### Defined in
 
-[src/android-device.ts:23](https://github.com/Onslip/automation/blob/b6606b0/src/android-device.ts#L23)
+[src/android-device.ts:23](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/android-device.ts#L23)

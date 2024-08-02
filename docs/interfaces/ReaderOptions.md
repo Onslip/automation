@@ -1,42 +1,36 @@
+[**@onslip/automation**](../README.md) • **Docs**
+
+***
+
 [@onslip/automation](../README.md) / ReaderOptions
 
 # Interface: ReaderOptions
 
-## Hierarchy
+## Extended by
 
-- **`ReaderOptions`**
-
-  ↳ [`AndroidLogOptions`](AndroidLogOptions.md)
-
-  ↳ [`iOSLogOptions`](iOSLogOptions.md)
-
-## Table of contents
-
-### Properties
-
-- [separator](ReaderOptions.md#separator)
-- [stopSignal](ReaderOptions.md#stopsignal)
+- [`AndroidLogOptions`](AndroidLogOptions.md)
+- [`iOSLogOptions`](iOSLogOptions.md)
 
 ## Properties
 
-### separator
+### separator?
 
-• `Optional` **separator**: `string`
+> `optional` **separator**: `string`
 
 A line separator to add to each generated line.
 
 #### Defined in
 
-[src/utils.ts:36](https://github.com/Onslip/automation/blob/b6606b0/src/utils.ts#L36)
+[src/utils.ts:36](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L36)
 
-___
+***
 
-### stopSignal
+### stopSignal?
 
-• `Optional` **stopSignal**: `Signal`<`boolean`\>
+> `optional` **stopSignal**: `Signal`\<`boolean`\>
 
 A signal to check. Reading will stop when signal is `true.`
 
 #### Defined in
 
-[src/utils.ts:33](https://github.com/Onslip/automation/blob/b6606b0/src/utils.ts#L33)
+[src/utils.ts:33](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L33)
