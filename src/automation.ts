@@ -69,7 +69,7 @@ export interface AutomationOptions extends BaseOptions {
     /** Only include contexts owned by this iOS process. */
     appId?: string;
 
-    /** The [[AutomationContext.id]] to use. */
+    /** The {@link AutomationContext.id} to use. */
     ctxId?: string;
 }
 
@@ -361,8 +361,8 @@ export class Automation implements Sender {
                     };
 
                     Promise.resolve(this).then(
-                        function(resolved) { value = resolved, result.done = true, console.log('resolved', value) },
-                        function(rejected) { error = rejected, result.done = true, console.log('rejected', error) },
+                        function(resolved) { value = resolved; result.done = true; },
+                        function(rejected) { error = rejected; result.done = true; },
                     );
 
                     return result;

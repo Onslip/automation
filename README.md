@@ -21,7 +21,7 @@ Chromium 53)[^1]. We use it to automate Crosswalk on Android 4.1 and 6.0 devices
 
 ## How to use it
 
-First, add this library as a dependency using your favourite package manager:
+First, add this library as a dependency using your favorite package manager:
 
 ```sh
 $ npm install -D @onslip/automation
@@ -38,7 +38,7 @@ Second, ensure these dependencies are available:
   * [idevicesyslog] to read device logs; and
   * [ios_instruments_client] to start and stop iOS processes.
 
-The first three iOS dependencies can be installed and activated from Homebrew with the following commands.
+The first three iOS dependencies can be installed and activated from *Homebrew* with the following commands.
 `ios_instruments_client` must be compiled and copied to the path manually.
 
 ```sh
@@ -63,11 +63,11 @@ async function main(prog, deviceId) {
         throw `Usage: ${prog} ${devices.map((d) => d.id).join('|') || '<device>'}`;
     }
 
-    console.log(`Checking for debuggable webview on device ${device}`);
-    const [ webview ] = await device.findWebViews();
+    console.log(`Checking for debuggable web view on device ${device}`);
+    const [ webviewId ] = await device.findWebViews();
 
-    console.log(`Found webview ${webview}; opening proxy port ${PROXY_PORT}`);
-    const options = await device.bindWebView(webview, PROXY_PORT);
+    console.log(`Found web view ${webviewId}; opening proxy port ${PROXY_PORT}`);
+    const options = await device.bindWebView(webviewId, PROXY_PORT);
 
     console.log(`Looking for contexts`);
     const [ context ] = await findWebViewContexts(options);
@@ -75,7 +75,7 @@ async function main(prog, deviceId) {
     console.info(`Opening CDP connection via port ${options.port} to context ${context.id} <${context.url}>`);
     const page = await openWebView({...options, ctxId: context.id });
 
-    console.info(`Starting automation of ${webview} on device ${device}`);
+    console.info(`Starting automation of ${webviewId} on device ${device}`);
     page.setDebug(true);
 
     try {
@@ -85,7 +85,7 @@ async function main(prog, deviceId) {
             : await device.collectLogs();
 
         const divs = await page.locator('div').count();
-        console.log(`There are ${divs} DIV elements in the webview!`);
+        console.log(`There are ${divs} DIV elements in the web view!`);
 
         await page.locator('body').screenshot({ path: `${deviceId}.png` });
         console.log(`Saved a screenshot to ${deviceId}.png`);

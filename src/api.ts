@@ -28,7 +28,7 @@ export interface LocatorOptions {
 /**
  * Finds and returns a description of all matching web contexts.
  *
- * Useful to find out what [[AutomationOptions.ctxId]] value to specify when calling [[openWebView]].
+ * Useful to find out what {@link AutomationOptions.ctxId} value to specify when calling {@link openWebView}.
  *
  * @param options Where to look for contexts.
  * @returns       A list of matching contexts.
@@ -41,7 +41,7 @@ export async function findWebViewContexts(options: AutomationOptions): Promise<A
  * Connects to a web context and return a Page.
  *
  * @param options Specify what context to use.
- * @returns       A new Page object which can be used to interact with the web page.
+ * @returns       A new {@link Page} object which can be used to interact with the web page.
  */
 export async function openWebView(options: AutomationOptions): Promise<Page> {
     return (await new Automation(options).initialize()).page();
@@ -53,10 +53,10 @@ export async function openWebView(options: AutomationOptions): Promise<Page> {
 export class Page {
     private _config: AutomationConfig = { timeout: 30_000, debug: false };
 
-    /** A referece to Mouse instance. */
+    /** A reference to Mouse instance. */
     readonly mouse: Mouse;
 
-    /** A referece to Touchscreen instance. */
+    /** A reference to Touchscreen instance. */
     readonly touchscreen: Touchscreen;
 
     private static create(_automation: Automation) {

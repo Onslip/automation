@@ -1,3 +1,4 @@
+import type { AutomationOptions } from './automation';
 import { Device, DeviceOptions, StartOptions } from './device';
 import { collectLines, execFile, readCommandOutput, ReaderOptions } from './utils';
 
@@ -41,32 +42,32 @@ export class AndroidDevice extends Device {
         super(id, 'android');
     }
 
-    override toString() {
+    override toString(): string {
         return `[AndroidDevice ${this.id}]`;
     }
 
-    override async osVersion() {
+    override async osVersion(): Promise<string> {
         return this.shell(`getprop ro.build.version.release`);
     }
 
-    override async deviceName() {
+    override async deviceName(): Promise<string> {
         return this.shell(`getprop ro.product.model`);
     }
 
-    override async install(archive: string, options?: string[]) {
+    override async install(archive: string, options?: string[]): Promise<void> {
         await execFile(this._adb, ['install', ...options ?? ['-r'], archive]);
     }
 
-    override async start(app: string, options?: StartOptions) {
+    override async start(app: string, options?: StartOptions): Promise<void> {
         await this.shell(`am start ${options?.restart ? '-S' : ''} ${options?.wait ? '-W' : ''} -a android.intent.action.MAIN -n "${app}"`);
     }
 
-    override async stop(app: string) {
+    override async stop(app: string): Promise<void> {
         const pkg = app.split('/')[0];
         await this.shell(`am force-stop "${pkg}"`);
     }
 
-    override async uninstall(app: string) {
+    override async uninstall(app: string): Promise<void> {
         const pkg = app.split('/')[0];
         await execFile(this._adb, ['uninstall', pkg]);
     }
@@ -88,24 +89,24 @@ export class AndroidDevice extends Device {
         ], options, timeout);
     }
 
-    override async collectLogs(options?: Omit<AndroidLogOptions, 'stopSignal'>) {
+    override async collectLogs(options?: Omit<AndroidLogOptions, 'stopSignal'>): Promise<() => Promise<string[]>> {
         return collectLines((stopSignal) => this.readLogs({ separator: '\n', ...options, stopSignal }, 100));
     }
 
-    override async findWebViews() {
+    override async findWebViews(): Promise<string[]> {
         return (await this.shell('cat /proc/net/unix')).split('\n')
             .map((line) => /@(.*devtools_remote.*)/.exec(line)?.[1]!).filter(Boolean);
     }
 
-    override async bindWebView(webview: string, port: number) {
-        await execFile(this._adb, ['-s', this.id, 'forward', `tcp:${port}`, `localabstract:${webview}`]);
+    override async bindWebView(webviewId: string, port: number): Promise<AutomationOptions> {
+        await execFile(this._adb, ['-s', this.id, 'forward', `tcp:${port}`, `localabstract:${webviewId}`]);
 
         return { host: 'localhost', port }
     }
 
     // MARK: - Android-specific methods
 
-    async shell(command: string) {
+    async shell(command: string): Promise<string> {
         return (await execFile(this._adb, ['-s', this.id, 'shell', command])).stdout;
     }
 }

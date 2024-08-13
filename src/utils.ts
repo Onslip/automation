@@ -108,8 +108,8 @@ export async function* readCommandOutput(command: string, args: string[], option
 }
 
 /**
- * Begins collecting and buffering lines from an async iterator, like the one returned by [[readCommandOutput]]. When
- * the returned function is called, all lines are returned as an array.
+ * Begins collecting and buffering lines from an async iterator, like the one returned by {@link readCommandOutput}.
+ * When the returned function is called, all lines are returned as an array.
  *
  * @param stream   A callback that should create the async iterator and stop generating lines when the provided signal
  *                 becomes true.

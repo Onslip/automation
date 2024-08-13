@@ -1,4 +1,6 @@
-import { AutomationOptions } from './automation';
+import type { findWebViewContexts, openWebView } from './api';
+import type { AutomationOptions } from './automation';
+import type { iOSDevice } from './ios-device';
 import { ReaderOptions } from './utils';
 
 /**
@@ -11,13 +13,13 @@ export interface DeviceOptions {
      */
     adb?:                    string | null;
 
-    /** Where to find the `ideviceinstaller` command. Used by [[iOSDevice.install]]/[[iOSDevice.uninstall]]. */
+    /** Where to find the `ideviceinstaller` command. Used by {@link iOSDevice.install}/{@link iOSDevice.uninstall}. */
     ideviceinstaller?:       string;
 
-    /** Where to find the `idevicesyslog` command. Used by [[iOSDevice.readLogs]]/[[iOSDevice.collectLogs]]. */
+    /** Where to find the `idevicesyslog` command. Used by {@link iOSDevice.readLogs}/{@link iOSDevice.collectLogs}. */
     idevicesyslog?:          string;
 
-    /** Where to find the `ios_instruments_client` command. Used by [[iOSDevice.start]]/[[iOSDevice.stop]]. */
+    /** Where to find the `ios_instruments_client` command. Used by {@link iOSDevice.start}/{@link iOSDevice.stop}. */
     ios_instruments_client?: string;
 
     /**
@@ -147,7 +149,7 @@ export abstract class Device {
      *
      * For additional information, see the subclass documentation of this method.
      *
-     * @returns  An array of all debuggable web view indentifiers.
+     * @returns  An array of all debuggable web view identifiers.
      */
     abstract findWebViews(): Promise<string[]>;
 
@@ -156,9 +158,9 @@ export abstract class Device {
      *
      * For additional information, see the subclass documentation of this method.
      *
-     * @param webview  The web view identifier to bind.
-     * @param port     The port to bind the web view to.
-     * @returns        Options suitable to pass to [[findWebViewContexts]] or [[openWebView]].
+     * @param webviewId  The web view identifier to bind.
+     * @param port       The port to bind the web view to.
+     * @returns          Options suitable to pass to {@link findWebViewContexts} or {@link openWebView}.
      */
-    abstract bindWebView(webview: string, port: number): Promise<AutomationOptions>;
+    abstract bindWebView(webviewId: string, port: number): Promise<AutomationOptions>;
 }

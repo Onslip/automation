@@ -1,4 +1,4 @@
-const { Device, AndroidDevice, findWebViewContexts, openWebView, pipeline } = require('@onslip/automation');
+const { Device, AndroidDevice, findWebViewContexts, openWebView, pipeline } = require('.' /* '@onslip/automation' */);
 const { createWriteStream } = require('fs');
 const { Readable } = require('stream');
 
@@ -12,11 +12,11 @@ async function main(prog, deviceId) {
         throw `Usage: ${prog} ${devices.map((d) => d.id).join('|') || '<device>'}`;
     }
 
-    console.log(`Checking for debuggable webview on device ${device}`);
-    const [ webview ] = await device.findWebViews();
+    console.log(`Checking for debuggable web view on device ${device}`);
+    const [ webviewId ] = await device.findWebViews();
 
-    console.log(`Found webview ${webview}; opening proxy port ${PROXY_PORT}`);
-    const options = await device.bindWebView(webview, PROXY_PORT);
+    console.log(`Found web view ${webviewId}; opening proxy port ${PROXY_PORT}`);
+    const options = await device.bindWebView(webviewId, PROXY_PORT);
 
     console.log(`Looking for contexts`);
     const [ context ] = await findWebViewContexts(options);
@@ -24,7 +24,7 @@ async function main(prog, deviceId) {
     console.info(`Opening CDP connection via port ${options.port} to context ${context.id} <${context.url}>`);
     const page = await openWebView({...options, ctxId: context.id });
 
-    console.info(`Starting automation of ${webview} on device ${device}`);
+    console.info(`Starting automation of ${webviewId} on device ${device}`);
     page.setDebug(true);
 
     try {
@@ -34,7 +34,7 @@ async function main(prog, deviceId) {
             : await device.collectLogs();
 
         const divs = await page.locator('div').count();
-        console.log(`There are ${divs} DIV elements in the webview!`);
+        console.log(`There are ${divs} DIV elements in the web view!`);
 
         await page.locator('body').screenshot({ path: `${deviceId}.png` });
         console.log(`Saved a screenshot to ${deviceId}.png`);

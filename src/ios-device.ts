@@ -1,7 +1,9 @@
 import { get } from 'http';
+import type { AndroidDevice } from './android-device';
+import type { findWebViewContexts, openWebView } from './api';
 import { AutomationOptions } from './automation';
 import { Device, DeviceOptions, StartOptions } from './device';
-import { collectLines, execFile, readCommandOutput, ReaderOptions, sleep } from './utils';
+import { collectLines, execFile, readCommandOutput, ReaderOptions } from './utils';
 
 // Good sources of information:
 //
@@ -45,7 +47,7 @@ export interface iOSLogOptions extends ReaderOptions {
     /** Processes to exclude. */
     exclude?: string[];
 
-    /** If true, execludes a predefined set of noisy processes in addition to those specified via the [[exclude]] option. */
+    /** If true, excludes a predefined set of noisy processes in addition to those specified via the {@link exclude} option. */
     quiet?:   boolean;
 }
 
@@ -59,7 +61,7 @@ export class iOSDevice extends Device {
      * @param options  Device manager options.
      * @returns        A list of detected iOS devices.
      */
-    static override async findDevices(options: DeviceOptions = {}) {
+    static override async findDevices(options: DeviceOptions = {}): Promise<iOSDevice[]> {
         const iwdpPort = options.iwdpPort === null ? null : options?.iwdpPort ?? 9221;
         const iwdpJSON = `http://localhost:${iwdpPort}/json`;
 
@@ -80,23 +82,23 @@ export class iOSDevice extends Device {
         super(_iwdpDevice.deviceId, 'ios');
     }
 
-    override toString() {
+    override toString(): string {
         return `[iOSDevice ${this.id} «${this._iwdpDevice.deviceName}»]`;
     }
 
-    override async osVersion() {
+    override async osVersion(): Promise<string> {
         return this._iwdpDevice.deviceOSVersion;
     }
 
-    override async deviceName() {
+    override async deviceName(): Promise<string> {
         return this._iwdpDevice.deviceName;
     }
 
-    override async install(archive: string) {
+    override async install(archive: string): Promise<void> {
         await execFile(this._options.ideviceinstaller ?? 'ideviceinstaller', ['-i', archive]);
     }
 
-    override async start(app: string, options?: StartOptions) {
+    override async start(app: string, options?: StartOptions): Promise<void> {
         if (options?.restart || await this._getPID(app) === null) {
             await execFile(this._options.ios_instruments_client ?? 'ios_instruments_client', [
                 '-d', this.id, 'launch', app,
@@ -108,7 +110,7 @@ export class iOSDevice extends Device {
         }
     }
 
-    override async stop(app: string) {
+    override async stop(app: string): Promise<void> {
         const pid = await this._getPID(app);
 
         if (pid !== null) {
@@ -118,7 +120,7 @@ export class iOSDevice extends Device {
         }
     }
 
-    override async uninstall(app: string) {
+    override async uninstall(app: string): Promise<void> {
         await execFile(this._options.ideviceinstaller ?? 'ideviceinstaller', ['-U', app]);
     }
 
@@ -136,19 +138,19 @@ export class iOSDevice extends Device {
         ], options, timeout);
     }
 
-    override async collectLogs(options?: Omit<iOSLogOptions, 'stopSignal'>) {
+    override async collectLogs(options?: Omit<iOSLogOptions, 'stopSignal'>): Promise<() => Promise<string[]>> {
         return collectLines((stopSignal) => this.readLogs({ separator: '\n', ...options, stopSignal }, 100));
     }
 
     /**
      * Finds all debuggable web views on the device.
      *
-     * For iOS devices, this method is optional. [[findWebViewContexts]] and [[openWebView]] can access contexts from
-     * all iOS web views if not restricted by [[AutomationOptions.appId]].
+     * For iOS devices, this method is optional. {@link findWebViewContexts} and {@link openWebView} can access contexts
+     * from all iOS web views if not restricted by {@link AutomationOptions.appId}.
      *
-     * @returns  An array of all debuggable web view indentifiers.
+     * @returns  An array of all debuggable web view identifiers.
      */
-    override async findWebViews() {
+    override async findWebViews(): Promise<string[]> {
         const [ host, port ] = this._iwdpDevice.url.split(':');
 
         return (await getJSON<IWDPContext[]>(`http://${host}:${port}/json`))
@@ -158,17 +160,17 @@ export class iOSDevice extends Device {
     }
 
     /**
-     * Returns options to be passed to [[findWebViewContexts]] and [[openWebView]]. Unlike [[AndroidDevice]], no
-     * `localhost` port is actually opened and the (optional) `webview` parameter is just used to set the
-     * [[AutomationOptions.appId]] option to restrict contexts to the specified web view.
+     * Returns options to be passed to {@link findWebViewContexts} and {@link openWebView}. Unlike
+     * {@link AndroidDevice}, no `localhost` port is actually opened and the (optional) {@link webviewId} parameter is
+     * just used to set the {@link AutomationOptions.appId} option to restrict contexts to the specified web view.
      *
-     * @param webview  The web view identifier target.
-     * @returns        Options suitable to pass to [[findWebViewContexts]] or [[openWebView]].
+     * @param webviewId  The web view identifier target.
+     * @returns          Options suitable to pass to {@link findWebViewContexts} or {@link openWebView}.
      */
-    override async bindWebView(webview?: string): Promise<AutomationOptions> {
+    override async bindWebView(webviewId?: string): Promise<AutomationOptions> {
         const [ host, port ] = this._iwdpDevice.url.split(':');
 
-        return { host, port: Number(port), appId: webview };
+        return { host, port: Number(port), appId: webviewId };
     }
 
     // MARK: - iOS-specific methods
