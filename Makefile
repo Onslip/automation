@@ -9,7 +9,7 @@ prepare:									## Build and install all dependencies.
 build:		prepare								## Build module.
 	pnpm exec tsc --build
 
-docs:		prepare								## Build API documentation
+docs:		prepare								## Build API documentation.
 	rm -rf docs
 	pnpm exec typedoc --entryPoints src/index.ts --excludePrivate --excludeProtected --readme none --plugin typedoc-plugin-markdown
 
@@ -23,6 +23,7 @@ commit:		prepare								## Commit a change and create a change-log entry for it.
 	pnpm exec changeset
 
 release:	pristine prepare						## Bump all package versions and generate changelog.
+	$(MAKE) docs && git add -A docs
 	pnpm exec changeset version
 	pnpm install
 	git commit --amend --reuse-message=HEAD pnpm-lock.yaml
@@ -34,4 +35,4 @@ publish:	pristine clean build						## Publish all new packages to NPM.
 pristine:
 	@[[ -z "$$(git status --porcelain)" ]] || (git status; false)
 
-.PHONY:		help all prepare build clean distclean commit release publish pristine
+.PHONY:		help all prepare build docs clean distclean commit release publish pristine

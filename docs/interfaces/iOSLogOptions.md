@@ -20,7 +20,7 @@ Processes to exclude.
 
 #### Defined in
 
-[src/ios-device.ts:46](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L46)
+[src/ios-device.ts:46](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/ios-device.ts#L46)
 
 ***
 
@@ -32,7 +32,7 @@ Processes to include.
 
 #### Defined in
 
-[src/ios-device.ts:43](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L43)
+[src/ios-device.ts:43](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/ios-device.ts#L43)
 
 ***
 
@@ -44,7 +44,7 @@ Only include log lines that contain this string.
 
 #### Defined in
 
-[src/ios-device.ts:40](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L40)
+[src/ios-device.ts:40](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/ios-device.ts#L40)
 
 ***
 
@@ -56,7 +56,7 @@ If true, execludes a predefined set of noisy processes in addition to those spec
 
 #### Defined in
 
-[src/ios-device.ts:49](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/ios-device.ts#L49)
+[src/ios-device.ts:49](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/ios-device.ts#L49)
 
 ***
 
@@ -72,7 +72,7 @@ A line separator to add to each generated line.
 
 #### Defined in
 
-[src/utils.ts:36](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L36)
+[src/utils.ts:36](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/utils.ts#L36)
 
 ***
 
@@ -88,4 +88,4 @@ A signal to check. Reading will stop when signal is `true.`
 
 #### Defined in
 
-[src/utils.ts:33](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L33)
+[src/utils.ts:33](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/utils.ts#L33)

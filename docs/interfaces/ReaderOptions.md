@@ -21,7 +21,7 @@ A line separator to add to each generated line.
 
 #### Defined in
 
-[src/utils.ts:36](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L36)
+[src/utils.ts:36](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/utils.ts#L36)
 
 ***
 
@@ -33,4 +33,4 @@ A signal to check. Reading will stop when signal is `true.`
 
 #### Defined in
 
-[src/utils.ts:33](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L33)
+[src/utils.ts:33](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/utils.ts#L33)

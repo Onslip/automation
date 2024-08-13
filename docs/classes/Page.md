@@ -18,7 +18,7 @@ A referece to Mouse instance.
 
 #### Defined in
 
-[src/api.ts:57](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L57)
+[src/api.ts:57](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/api.ts#L57)
 
 ***
 
@@ -30,7 +30,7 @@ A referece to Touchscreen instance.
 
 #### Defined in
 
-[src/api.ts:60](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L60)
+[src/api.ts:60](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/api.ts#L60)
 
 ## Methods
 
@@ -46,7 +46,7 @@ Closes the connection to the web view and deallocates all held resources.
 
 #### Defined in
 
-[src/api.ts:114](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L114)
+[src/api.ts:114](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/api.ts#L114)
 
 ***
 
@@ -74,7 +74,7 @@ The value returned from the function. Must be JSON serializable.
 
 #### Defined in
 
-[src/api.ts:89](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L89)
+[src/api.ts:89](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/api.ts#L89)
 
 ***
 
@@ -102,7 +102,7 @@ A new Locator.
 
 #### Defined in
 
-[src/api.ts:78](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L78)
+[src/api.ts:78](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/api.ts#L78)
 
 ***
 
@@ -124,7 +124,7 @@ Set to `true` to enable debugging and `false` to disable.
 
 #### Defined in
 
-[src/api.ts:98](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L98)
+[src/api.ts:98](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/api.ts#L98)
 
 ***
 
@@ -146,4 +146,4 @@ The new default timeout, in milliseconds.
 
 #### Defined in
 
-[src/api.ts:107](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L107)
+[src/api.ts:107](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/api.ts#L107)

@@ -24,4 +24,4 @@ A new Page object which can be used to interact with the web page.
 
 ## Defined in
 
-[src/api.ts:46](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/api.ts#L46)
+[src/api.ts:46](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/api.ts#L46)

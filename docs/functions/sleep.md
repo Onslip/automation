@@ -22,4 +22,4 @@ The sleep duration in milliseconds
 
 ## Defined in
 
-[src/utils.ts:27](https://github.com/Onslip/automation/blob/46ae3f7777169fc144f11183d062aad108b665a5/src/utils.ts#L27)
+[src/utils.ts:27](https://github.com/Onslip/automation/blob/47b008bfb3ccb6dbb1859ced61d380ee630ff6ad/src/utils.ts#L27)
