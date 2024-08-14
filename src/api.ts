@@ -219,11 +219,53 @@ export class Locator {
         return info.innerText!;
     }
 
+    async textContent(options?: SelectorOptions): Promise<string> {
+        const opts = { ...this._config, ...options };
+        const info = await this._automation.element(this._selectors, { isConnected: true, textContent: undefined }, opts);
+
+        return info.textContent!;
+    }
+
     async inputValue(options?: SelectorOptions): Promise<string> {
         const opts = { ...this._config, ...options };
         const info = await this._automation.element(this._selectors, { isConnected: true, inputValue: undefined }, opts);
 
         return info.inputValue ?? throwError(new EvalError(`${this} is a non-input element`));
+    }
+
+    async isChecked(options?: SelectorOptions): Promise<boolean> {
+        const opts = { ...this._config, ...options };
+        const info = await this._automation.element(this._selectors, { isConnected: true, isChecked: undefined }, opts);
+
+        return info.isChecked ?? throwError(new EvalError(`${this} is a non-checkbox element`));
+    }
+
+    async isDisabled(options?: SelectorOptions): Promise<boolean> {
+        return !await this.isEnabled(options);
+    }
+
+    async isEnabled(options?: SelectorOptions): Promise<boolean> {
+        const opts = { ...this._config, ...options };
+        const info = await this._automation.element(this._selectors, { isConnected: true, isEnabled: undefined }, opts);
+
+        return info.isEnabled!;
+    }
+
+    async isEditable(options?: SelectorOptions): Promise<boolean> {
+        const opts = { ...this._config, ...options };
+        const info = await this._automation.element(this._selectors, { isConnected: true, isEditable: undefined }, opts);
+
+        return info.isEditable!;
+    }
+
+    async isHidden(): Promise<boolean> {
+        return !await this.isVisible();
+    }
+
+    async isVisible(): Promise<boolean> {
+        const info = await this._automation.resolveSelector(this._selectors, ['isConnected', 'isVisible']);
+
+        return info.isConnected! && info.isVisible!;
     }
 
     async evaluate(pageFunction: string | Function, arg?: unknown, options?: SelectorOptions): Promise<unknown> {

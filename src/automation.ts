@@ -36,6 +36,7 @@ export interface ElementInfo {
     innerText?:    string;
     inputValue?:   string;
     isConnected?:  boolean;
+    isChecked?:    boolean;
     isEditable?:   boolean;
     isEnabled?:    boolean;
     isStable?:     boolean;
@@ -197,34 +198,27 @@ export class Automation implements Sender {
         const description = `«${selectors.join(' → ')}»`;
 
         constraints = { nodeName: undefined, attributes: undefined, ...constraints };
-        const asHTML = ((el: ElementInfo) => `<${el.nodeName} ${el.attributes?.map((a) => `${a[0]}="${a[1]}"`).join(' ')}>`);
 
         while (Date.now() < expires) {
             const keys = Object.keys(constraints) as (keyof ElementInfo)[];
-            const result = await this.resolveSelectors(selectors, keys);
+            const info = await this.resolveSelector(selectors, keys);
 
-            if (result.length > 1) {
-                throw new Error(`Unexpected: ${description} matched ${result.length} nodes: ${result.map(asHTML)}`);
-            } else {
-                const info = result[0] ?? { isConnected: false };
+            if (constraints.isStable !== undefined) {
+                await this.waitForRepaint();
+                info.isStable = isDeepStrictEqual(await this.resolveSelector(selectors, keys), info);
+            }
 
-                if (constraints.isStable !== undefined) {
-                    await this.waitForRepaint();
-                    info.isStable = isDeepStrictEqual(await this.resolveSelectors(selectors, keys), result);
-                }
+            // Check all constraints
+            if (keys.every((key) => constraints[key] === undefined || info[key] === constraints[key])) {
+                return info;
+            }
 
-                // Check all constraints
-                if (keys.every((key) => constraints[key] === undefined || info[key] === constraints[key])) {
-                    return info;
-                }
+            if (options.debug && Date.now() - lastDebug > 1000) {
+                lastDebug = Date.now();
 
-                if (options.debug && Date.now() - lastDebug > 1000) {
-                    lastDebug = Date.now();
-
-                    console.debug(`💤 ${description} is not ready yet (${Math.floor((expires - Date.now()) / 1000)})`,
-                        keys.filter((key) => constraints[key] !== undefined && info[key] !== undefined && info[key] !== constraints[key])
-                            .map((key) => `${key}=${info[key]}`));
-                }
+                console.debug(`💤 ${description} is not ready yet (${Math.floor((expires - Date.now()) / 1000)})`,
+                    keys.filter((key) => constraints[key] !== undefined && info[key] !== undefined && info[key] !== constraints[key])
+                        .map((key) => `${key}=${info[key]}`));
             }
 
             await sleep(50); // Wait. And repeat.
@@ -305,6 +299,17 @@ export class Automation implements Sender {
 
     async evaluateAll(selectors: string[], func: string | Function, arg: unknown): Promise<RemoteObject> {
         return await this.callMethod(true, true, this._runtime, 'evaluateAll', selectors, String(func), arg);
+    }
+
+    async resolveSelector(selectors: string[], props: (keyof ElementInfo)[]): Promise<ElementInfo> {
+        const result = await this.resolveSelectors(selectors, props);
+
+        if (result.length > 1) {
+            const asHTML = ((el: ElementInfo) => `<${el.nodeName} ${el.attributes?.map((a) => `${a[0]}="${a[1]}"`).join(' ')}>`);
+            throw new Error(`Unexpected: «${selectors.join(' → ')}» matched ${result.length} nodes: ${result.map(asHTML)}`);
+        } else {
+            return result[0] ?? { isConnected: false };
+        }
     }
 
     async resolveSelectors(selectors: string[], props: (keyof ElementInfo)[]): Promise<ElementInfo[]> {

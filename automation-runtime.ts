@@ -11,6 +11,7 @@ interface ElementInfo {
     innerHTML?:    string;
     innerText?:    string;
     inputValue?:   string;
+    isChecked?:    boolean;
     isConnected?:  boolean;
     isEditable?:   boolean;
     isEnabled?:    boolean;
@@ -206,6 +207,7 @@ class RuntimeSupport {
                     case 'innerHTML':    info[prop] = el.innerHTML;         break;
                     case 'innerText':    info[prop] = el.innerText;         break;
                     case 'inputValue':   info[prop] = el.value;             break;
+                    case 'isChecked':    info[prop] = el.checked;           break;
                     case 'isConnected':  info[prop] = isConnected(el);      break;
                     case 'isEditable':   info[prop] = el.isContentEditable; break;
                     case 'isEnabled':    info[prop] = el.disabled !== true; break;
