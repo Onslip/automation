@@ -51,7 +51,7 @@ export async function openWebView(options: AutomationOptions): Promise<Page> {
  * The Page object represents the connection to a remote web view.
  */
 export class Page {
-    private _config: AutomationConfig = { timeout: 30_000, debug: false };
+    private _config: AutomationConfig = { timeout: 0, debug: false };
 
     /** A reference to Mouse instance. */
     readonly mouse: Mouse;

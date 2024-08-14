@@ -194,7 +194,7 @@ export class Automation implements Sender {
 
     async element(selectors: string[], constraints: ElementConstraints, options: { debug: boolean, timeout: number }): Promise<ElementInfo> {
         let lastDebug = Date.now();
-        const expires = Date.now() + options.timeout;
+        const expires = Date.now() + (options.timeout || 1_000_000_000_000);
         const description = `«${selectors.join(' → ')}»`;
 
         constraints = { nodeName: undefined, attributes: undefined, ...constraints };
