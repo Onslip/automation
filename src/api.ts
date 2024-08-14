@@ -1,5 +1,6 @@
-import { Automation, AutomationConfig, AutomationOptions, AutomationContext, ElementConstraints } from './automation';
-import { throwError, writeFile } from './utils';
+import { Automation, AutomationConfig, AutomationContext, AutomationOptions, ElementConstraints } from './automation';
+import { Device, DeviceOptions } from './device';
+import { sleep, throwError, writeFile } from './utils';
 
 const ACTIONABLE: ElementConstraints = {
     isConnected: true,
@@ -23,6 +24,93 @@ export interface LocatorOptions {
 
     /** Only match if this text Locator also matches. */
     hasText?: string | RegExp;
+}
+
+export interface ResolvedContextPath {
+    /** What device to use. */
+    device:  Device;
+
+    /** What web view to use. */
+    webview: string;
+
+    /** Options describing what web view context to use. */
+    options: AutomationOptions;
+}
+
+/**
+ * Binds a device's web view to a local port and then locates one of its contexts, based on a context path.
+ *
+ * The context path is a string that uniquely identifies the device, web view and context, using the following format:
+ * `<deviceId>[/<webviewId>[/<ctxId>]]`. The device ID is is required, but the web view name and context ID are
+ * optional. You may use `$n` to match the n:th web view or context found (starting at 1).
+ *
+ * This is a convenience function that uses {@link Device.findDevice} and {@link Device.findWebViews} to find a web
+ * view, binds it to a local port with {@link Device.bindWebView} and then finally calls {@link findWebViewContexts} to
+ * resolve to a web view context.
+ *
+ * @param contextPath   Specify what device, web view and context to use.
+ * @param port          The port to bind the web view to. See {@link Device.bindWebView}.
+ * @param deviceOptions Additional options to pass to {@link Device.findDevice}.
+ * @param timeout       If specified, the method will wait for the device, web view and context to appear this many
+ *                      milliseconds (0 means forever).
+ * @returns             A {@link ResolvedContextPath} object containing {@link AutomationOptions}, ready to be passed to
+ *                      {@link openWebView}, the web view id and the {@link Device} on which the web view is running.
+ * @throws TypeError    If the context path or the port is invalid.
+ * @throws Error        If the device, web view or context could not be found, or if the context path is ambiguous.
+ */
+export async function resolveWebViewContext(contextPath: string, port: number, deviceOptions?: DeviceOptions, timeout?: number): Promise<ResolvedContextPath> {
+    const [ deviceId, webviewId, ctxId, ...rest ] = contextPath.split('/');
+    const expires = timeout === undefined ? 1000 : Date.now() + (timeout || 1_000_000_000_000);
+
+    if (typeof port !== 'number' || !isFinite(port)) {
+        throw new TypeError(`Missing port number`);
+    } else if (isNaN(expires)) {
+        throw new TypeError(`Invalid timeout`);
+    } else if (rest.length) {
+        throw new TypeError(`Context path format must match '<deviceId>[/<webview>[/<ctxId>]]'`);
+    }
+
+    const matches = (value: string, index: number, expected: string) => {
+        return !expected || expected === value || expected === `$${index + 1}`;
+    }
+
+    const device = await Device.findDevice(deviceId, deviceOptions, expires - Date.now()) ?? throwError(new Error(`Device ${deviceId} not found`));
+    let webviews: string[];
+
+    while (true) {
+        webviews = (await device.findWebViews()).filter((id, index) => matches(id, index, webviewId));
+
+        if (webviews.length === 1) {
+            break;
+        } else if (Date.now() > expires) {
+            throw new Error(webviews.length > 1
+                ? `${contextPath} matched more than one web view: ${webviews}`
+                : `${contextPath} matched no web views`
+            );
+        } else {
+            await sleep(100);
+        }
+    }
+
+    const options = await device.bindWebView(webviews[0], port);
+    let contexts: AutomationContext[];
+
+    while (true) {
+        contexts = (await findWebViewContexts(options)).filter((context, index) => matches(context.id, index, ctxId));
+
+        if (contexts.length === 1) {
+            break;
+        } else if (Date.now() > expires) {
+            throw new Error(contexts.length > 1
+                ? `${contextPath} matched more than one context in web view ${webviews[0]}: ${contexts.map((context) => context.id)}`
+                : `${contextPath} matched no contexts in web view ${webviews[0]}`
+            );
+        } else {
+            await sleep(100);
+        }
+    }
+
+    return { device, webview: webviews[0], options: { ...options, ctxId: contexts[0].id} };
 }
 
 /**
