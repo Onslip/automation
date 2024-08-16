@@ -55,7 +55,7 @@ export class AndroidDevice extends Device {
     }
 
     override async install(archive: string, options?: string[]): Promise<void> {
-        await execFile(this._adb, ['install', ...options ?? ['-r'], archive]);
+        await execFile(this._adb, ['-s', this.id, 'install', ...options ?? ['-r'], archive]);
     }
 
     override async start(app: string, options?: StartOptions): Promise<void> {
@@ -69,7 +69,7 @@ export class AndroidDevice extends Device {
 
     override async uninstall(app: string): Promise<void> {
         const pkg = app.split('/')[0];
-        await execFile(this._adb, ['uninstall', pkg]);
+        await execFile(this._adb, ['-s', this.id, 'uninstall', pkg]);
     }
 
     readLogs(options?: AndroidLogOptions): AsyncGenerator<string>;

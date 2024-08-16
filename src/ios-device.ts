@@ -95,7 +95,10 @@ export class iOSDevice extends Device {
     }
 
     override async install(archive: string): Promise<void> {
-        await execFile(this._options.ideviceinstaller ?? 'ideviceinstaller', ['-i', archive]);
+        await execFile(this._options.ideviceinstaller ?? 'ideviceinstaller', [
+            '-u', this.id,
+            '-i', archive
+        ]);
     }
 
     override async start(app: string, options?: StartOptions): Promise<void> {
@@ -121,7 +124,10 @@ export class iOSDevice extends Device {
     }
 
     override async uninstall(app: string): Promise<void> {
-        await execFile(this._options.ideviceinstaller ?? 'ideviceinstaller', ['-U', app]);
+        await execFile(this._options.ideviceinstaller ?? 'ideviceinstaller', [
+            '-u', this.id,
+            '-U', app
+        ]);
     }
 
     readLogs(options?: iOSLogOptions): AsyncGenerator<string>;
