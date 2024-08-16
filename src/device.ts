@@ -1,7 +1,7 @@
 import type { findWebViewContexts, openWebView } from './api';
 import type { AutomationOptions } from './automation';
 import type { iOSDevice } from './ios-device';
-import { ReaderOptions } from './utils';
+import { ReaderOptions, sleep } from './utils';
 
 /**
  * Device manager configuration.
@@ -46,10 +46,22 @@ export abstract class Device {
      *
      * @param deviceId  The device ID to find.
      * @param options   Device manager options.
+     * @param timeout   If specified, the method will wait for the device to appear this many milliseconds (0 means
+     *                  forever).
      * @returns         The device, if found, else `undefined`.
      */
-    static async findDevice(deviceId: string, options?: DeviceOptions): Promise<Device | undefined> {
-        return (await Device.findDevices(options)).find((device) => device.id === deviceId);
+    static async findDevice(deviceId: string, options?: DeviceOptions, timeout?: number): Promise<Device | undefined> {
+        const expires = timeout === undefined ? 0 : Date.now() + (timeout || 1_000_000_000_000);
+
+        while (true) {
+            const device = (await Device.findDevices(options)).find((device) => device.id === deviceId);
+
+            if (device || Date.now() >= expires) {
+                return device;
+            } else {
+                await sleep(100);
+            }
+        }
     }
 
     /**
