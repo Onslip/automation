@@ -1,0 +1,10 @@
+{
+  "appId": "com.onslip.automation.testapp",
+  "appName": "testapp",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

@@ -28,7 +28,7 @@ async function main(prog, deviceId) {
     page.setDebug(true);
 
     try {
-        const lollipop = await device.osVersion() >= "5";
+        const lollipop = parseInt(await device.osVersion()) >= 5;
         const logLines = device instanceof AndroidDevice
             ? await device.collectLogs({ clear: !lollipop, historic: !lollipop, filterspecs: ['*:D'] })
             : await device.collectLogs();

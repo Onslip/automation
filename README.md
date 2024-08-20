@@ -8,16 +8,19 @@
 ## What it is
 
 This is a small Node.js library that helps you to E2E test/automate/remote-control Android and iOS WebViews, including
-[Capacitor]- or [Cordova]-based applications.
+[Capacitor]- or [Cordova]-based hybrid applications.
 
-The [Onslip Automation API](docs/README.md) is heavily inspired by [Playwright] and the aim is to provide a small but
-still very usable subset of that API. We strive to be as API compatible as we can for the subset that is supported, but
-since this is a completely separate code base, *full* compatibility can never be guaranteed.
+The [Onslip Automation API](docs/index/README.md) is heavily inspired by the [Playwright Library] and the aim is to
+provide a small but still very usable subset of that API. We strive to be as API compatible as we can for the subset
+that is supported, but since this is a completely separate code base, *full* compatibility can never be guaranteed.
 
 Now, unlike Playwright's Android support — which requires version 87 or greater of the WebView — this library works with
 almost *any* version of the WebView, at least all the way down to the last [Crosswalk] release (which was based on
 Chromium 53)[^1]. We use it to automate Crosswalk on Android 4.1 and 6.0 devices, the default system WebView in Android
 8 as well as iOS devices running iOS 12.4 and 15.4.
+
+Additionally, we now also provide [fixtures and matchers](docs/test/README.md) for [Playwright Test](#playwright-test),
+enabling integration/E2E testing of hybrid applications too.
 
 ## How to use it
 
@@ -46,7 +49,7 @@ $ brew install ios-webkit-debug-proxy libimobiledevice ideviceinstaller
 $ ios_webkit_debug_proxy
 ```
 
-Finally, try this small example:
+Finally, try this small example—or keep reading to see how to integrate with [Playwright Test](#playwright-test).
 
 ```js
 const { Device, AndroidDevice, findWebViewContexts, openWebView, pipeline } = require('@onslip/automation');
@@ -79,7 +82,7 @@ async function main(prog, deviceId) {
     page.setDebug(true);
 
     try {
-        const lollipop = await device.osVersion() >= "5";
+        const lollipop = parseInt(await device.osVersion()) >= 5;
         const logLines = device instanceof AndroidDevice
             ? await device.collectLogs({ clear: !lollipop, historic: !lollipop, filterspecs: ['*:D'] })
             : await device.collectLogs();
@@ -100,10 +103,36 @@ async function main(prog, deviceId) {
 main(...process.argv.slice(1)).catch((err) => (console.error(err), 70)).then(process.exit);
 ```
 
-[Capacitor]:  https://capacitorjs.com/
-[Cordova]:    https://cordova.apache.org/
-[Crosswalk]:  https://github.com/crosswalk-project
-[Playwright]: https://playwright.dev/
+## Playwright Test
+
+[Playwright Test] (or `@playwright/test`) a testing framework that uses the [Playwright Library] for end-to-end testing
+of web sites and web applications. Thanks to the [fixtures and matchers](docs/test/README.md) provided by the Onslip
+Automation Library, you can now use Playwright Test to test your hybrid applications as well—on real devices or on
+emulators. Just import `test` and `expect` from `@onslip/automation/test` instead of `@playwright/test` and you're good
+to go.
+
+```ts
+import { test, expect } from '@onslip/automation/test';
+
+test('has title', async ({ webApp }) => {
+    // Expect a title "to contain" a substring.
+    await expect(webApp.locator('title')).toHaveText(/Capacitor/);
+});
+
+test('get started link', async ({ webApp }) => {
+    // Expect the "get started" button to link to https://capacitorjs.com.
+    await expect(webApp.locator('.button', { hasText: 'Read more' })).toHaveAttribute('href', 'https://capacitorjs.com');
+});
+```
+
+Please have a look at [the included demo project](tests/) for an example of how to launch an Android emulator, install a
+Capacitor hybrid app, and run tests on it.
+
+[Capacitor]:              https://capacitorjs.com/
+[Cordova]:                https://cordova.apache.org/
+[Crosswalk]:              https://github.com/crosswalk-project
+[Playwright Library]:     https://playwright.dev/docs/library
+[Playwright Test]:        https://playwright.dev/docs/intro
 
 [adb]:                    https://developer.android.com/studio/command-line/adb
 [ios_webkit_debug_proxy]: https://github.com/google/ios-webkit-debug-proxy
@@ -112,4 +141,5 @@ main(...process.argv.slice(1)).catch((err) => (console.error(err), 70)).then(pro
 [ios_instruments_client]: https://github.com/troybowman/ios_instruments_client
 
 [^1]: Using our [fork of Capacitor](https://github.com/Onslip/capacitor-android-v16) together with Crosswalk, it's
-      possible to run (and now automate) hybrid applications even on ancient devices running Android 4.1 from 2012.
+      possible to run (and now automate or test) hybrid applications even on ancient devices running Android 4.1 from
+      2012.

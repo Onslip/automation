@@ -53,7 +53,7 @@ export type ElementConstraints = {
 
 export interface AutomationConfig {
     timeout: number;
-    debug:   boolean;
+    console: Partial<Console> | null;
 }
 
 interface Sender {
@@ -192,9 +192,9 @@ export class Automation implements Sender {
         return Page['create'](this);
     }
 
-    async element(selectors: string[], constraints: ElementConstraints, options: { debug: boolean, timeout: number }): Promise<ElementInfo> {
+    async element(selectors: string[], constraints: ElementConstraints, config: AutomationConfig): Promise<ElementInfo> {
         let lastDebug = Date.now();
-        const expires = Date.now() + (options.timeout || 1_000_000_000_000);
+        const expires = Date.now() + (config.timeout || 1_000_000_000_000);
         const description = `«${selectors.join(' → ')}»`;
 
         constraints = { nodeName: undefined, attributes: undefined, ...constraints };
@@ -213,10 +213,10 @@ export class Automation implements Sender {
                 return info;
             }
 
-            if (options.debug && Date.now() - lastDebug > 1000) {
+            if (Date.now() - lastDebug > 1000) {
                 lastDebug = Date.now();
 
-                console.debug(`💤 ${description} is not ready yet (${Math.floor((expires - Date.now()) / 1000)})`,
+                config.console?.debug?.(`🐢 ${description} is not ready yet (${Math.floor((expires - Date.now()) / 1000)})`,
                     keys.filter((key) => constraints[key] !== undefined && info[key] !== undefined && info[key] !== constraints[key])
                         .map((key) => `${key}=${info[key]}`));
             }
@@ -224,7 +224,7 @@ export class Automation implements Sender {
             await sleep(50); // Wait. And repeat.
         }
 
-        throw new Error(`Timeout: ${description} was not ready within ${options.timeout} ms`);
+        throw new Error(`Timeout: ${description} was not ready within ${config.timeout} ms`);
     }
 
     async screenshot(clip: Rectangle, format: 'png' | 'jpeg' = 'png', quality?: number): Promise<Buffer> {

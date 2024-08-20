@@ -7,6 +7,20 @@
   "repository": "https://github.com/Onslip/automation.git",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/src/index.d.ts",
+      "default": "./build/src/index.js"
+    },
+    "./test": {
+      "types": "./build/src/test.d.ts",
+      "default": "./build/src/test.js"
+    },
+    "./build/src/test": {
+      "types": "./build/src/test.d.ts",
+      "default": "./build/src/test.js"
+    }
+  },
   "files": [
     "CHANGELOG.md",
     "build/*.js",
@@ -15,8 +29,8 @@
   ],
   "dependencies": {
     "@divine/synchronization": "^1.2.1",
-    "chrome-remote-interface": "~0.33.2",
     "@types/chrome-remote-interface": "~0.31.14",
+    "chrome-remote-interface": "~0.33.2",
     "jimp": "~0.22.12"
   },
   "devDependencies": {
@@ -25,6 +39,14 @@
     "typedoc": "^0.26.5",
     "typedoc-plugin-markdown": "^4.2.3",
     "typescript": "~5.5.4"
+  },
+  "peerDependencies": {
+    "@playwright/test": "*"
+  },
+  "peerDependenciesMeta": {
+    "@playwright/test": {
+      "optional": true
+    }
   },
   "pnpm": {
     "onlyBuiltDependencies": []

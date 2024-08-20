@@ -55,7 +55,8 @@ export class AndroidDevice extends Device {
     }
 
     override async install(archive: string, options?: string[]): Promise<void> {
-        await execFile(this._adb, ['-s', this.id, 'install', ...options ?? ['-r'], archive]);
+        const marshmallow = parseInt(await this.osVersion()) >= 6;
+        await execFile(this._adb, ['-s', this.id, 'install', ...options ?? marshmallow ? ['-r', '-g'] : ['-r'], archive]);
     }
 
     override async start(app: string, options?: StartOptions): Promise<void> {

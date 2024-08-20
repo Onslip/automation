@@ -1,3 +1,7 @@
+TESTAPPS := tests/testapp/dist/index.html \
+	    tests/testapp/android/app/build/outputs/apk/debug/app-debug.apk \
+	    tests/testapp/ios/App/DerivedData/App/Build/Products/Debug-iphonesimulator/App.app
+
 help:										## Show all public targets (this command).
 	@awk -F ':.*## ' '/^[^\t]+:.*## / { printf "\033[1m%-16s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
@@ -5,19 +9,35 @@ all:		build docs							## Build all artifacts.
 
 prepare:									## Build and install all dependencies.
 	pnpm install --frozen-lockfile
+	pnpm -C tests/testapp install --frozen-lockfile
 
-build:		prepare								## Build module.
+build:		prepare								## Build package.
 	pnpm exec tsc --build
+
+testapps:	prepare								## Build test apps.
+	$(MAKE) $(TESTAPPS)
+
+$(TESTAPPS):
+	pnpm -C tests/testapp build
+	pnpm -C tests/testapp exec cap sync
+	cd tests/testapp/android && ./gradlew assembleDebug
+	cd tests/testapp/ios/App && xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator -derivedDataPath DerivedData/App
 
 docs:		prepare								## Build API documentation.
 	rm -rf docs
-	pnpm exec typedoc --entryPoints src/index.ts --excludePrivate --excludeProtected --readme none --plugin typedoc-plugin-markdown
+	pnpm exec typedoc --entryPoints src --entryPoints src/test.ts --excludePrivate --excludeProtected --readme none --plugin typedoc-plugin-markdown
+
+test:		build testapps	 						## Run Playwright tests.
+	pnpm exec playwright test --config tests
 
 clean:										## Clean all build artifacts (but not dependencies).
-	rm -rf build
+	rm -rf build test-results
+	rm -rf tests/testapp/dist
+	rm -rf tests/testapp/android/{capacitor-cordova-android-plugins,app/{build,src/main/{assets/{capacitor.{config,plugins}.json,public},res/xml/config.xml}}}
+	rm -rf tests/testapp/ios/{capacitor-cordova-ios-plugins,App/{build,DerivedData,Pods,App/{capacitor.config.json,config.xml,public}}}
 
 distclean:	clean								## Like clean, but also remove all dependencies.
-	rm -rf node_modules
+	rm -rf node_modules tests/testapp/node_modules tests/testapp/android/.gradle
 
 commit:		prepare								## Commit a change and create a change-log entry for it.
 	pnpm exec changeset
@@ -35,4 +55,4 @@ publish:	pristine clean build						## Publish all new packages to NPM.
 pristine:
 	@[[ -z "$$(git status --porcelain)" ]] || (git status; false)
 
-.PHONY:		help all prepare build docs clean distclean commit release publish pristine
+.PHONY:		help all prepare build testapps docs test clean distclean commit release publish pristine

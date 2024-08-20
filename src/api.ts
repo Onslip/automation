@@ -139,7 +139,7 @@ export async function openWebView(options: AutomationOptions): Promise<Page> {
  * The Page object represents the connection to a remote web view.
  */
 export class Page {
-    private _config: AutomationConfig = { timeout: 0, debug: false };
+    private _config: AutomationConfig = { timeout: 0, console: null };
 
     /** A reference to Mouse instance. */
     readonly mouse: Mouse;
@@ -181,10 +181,10 @@ export class Page {
     /**
      * Enables to disables debug output from this library.
      *
-     * @param debug  Set to `true` to enable debugging and `false` to disable.
+     * @param debug  Use this `Console` for debugging, or set to `true` to use `console` and `false`/`null` to disable,
      */
-    setDebug(debug: boolean) {
-        this._config.debug = debug;
+    setDebug(debug: boolean | Partial<Console> | null) {
+        this._config.console = debug === true ? console : debug === false ? null : debug;
     }
 
     /**
@@ -377,7 +377,7 @@ export class Locator {
          }, opts);
 
          if (!info.isTarget) {
-            this._config.debug && console.debug(`📜 Scrolling ${this} into view`);
+            this._config.console?.info?.(`📜 Scrolling ${this} into view`);
             await this.evaluate(`function(el) { el.scrollIntoView() }`);
          }
     }
@@ -389,7 +389,7 @@ export class Locator {
         const info = await this._automation.element(this._selectors, { isConnected: true, isVisible: true, isStable: true, boundingBox: undefined }, opts);
         const bbox = info.boundingBox!;
 
-        this._config.debug && console.debug(`📺 Taking screenshot of ${this} at (${bbox.x}, ${bbox.y}) [${bbox.width}𐄂${bbox.height}]`);
+        this._config.console?.info?.(`📺 Taking screenshot of ${this} at (${bbox.x}, ${bbox.y}) [${bbox.width}𐄂${bbox.height}]`);
         const result = await this._automation.screenshot(bbox, options?.format ?? options?.path?.split('.').pop() as 'png', options?.quality);
 
         if (options?.path) {
@@ -410,7 +410,7 @@ export class Locator {
             const x = Math.floor(bbox.x + bbox.width / 2);
             const y = Math.floor(bbox.y + bbox.height / 2);
 
-            this._config.debug && console.debug(`🖱  Clicking ${this} at (${x}, ${y})`);
+            this._config.console?.info?.(`🖱  Clicking ${this} at (${x}, ${y})`);
             await this._automation.click(x, y);
             await this._automation.waitForRepaint();
         }
@@ -427,7 +427,7 @@ export class Locator {
             const x = Math.floor(bbox.x + bbox.width / 2);
             const y = Math.floor(bbox.y + bbox.height / 2);
 
-            this._config.debug && console.debug(`👉 Tapping ${this} at (${x}, ${y})`);
+            this._config.console?.info?.(`👉 Tapping ${this} at (${x}, ${y})`);
             await this._automation.tap(x, y);
             await this._automation.waitForRepaint();
         }
@@ -440,7 +440,7 @@ export class Locator {
         if (info.inputValue === undefined) {
             throw new EvalError(`${this} is a non-input element`);
         } else {
-            this._config.debug && console.debug(`🔤 Filling ${this} with “${value}”`);
+            this._config.console?.info?.(`🔤 Filling ${this} with “${value}”`);
             this._automation.fill(this._selectors, value);
         }
     }
@@ -448,7 +448,7 @@ export class Locator {
     async waitFor(options?: SelectorOptions & { state?: 'attached' | 'detached' | 'visible' | 'hidden' }): Promise<void> {
         const opts = { ...this._config, state: 'visible', ...options };
 
-        this._config.debug && console.debug(`⏰ Waiting for ${this}`);
+        this._config.console?.info?.(`⏰ Waiting for ${this}`);
         await this._automation.element(this._selectors, {
             isConnected: opts.state === 'attached' ? true : opts.state === 'detached' ? false : true,
             isVisible:   opts.state === 'visible'  ? true : opts.state === 'hidden'   ? false : undefined,
