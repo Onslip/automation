@@ -4,6 +4,7 @@
         "outFile": "build/automation-runtime.js",
         "module": "None",
         "target": "ES5",
+        "removeComments": true,
         "typeRoots": [],
         "lib": [ "ES2015", "DOM" ]
     },
