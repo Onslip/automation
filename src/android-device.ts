@@ -59,7 +59,8 @@ export class AndroidDevice extends Device {
     }
 
     override async start(app: string, options?: StartOptions): Promise<void> {
-        await this.shell(`am start ${options?.restart ? '-S' : ''} ${options?.wait ? '-W' : ''} -a android.intent.action.MAIN -n "${app}"`);
+        const args = options?.args?.map((arg) => `"${arg.replace(/([\\"])/g, '\\$1')}"`).join(' ') ?? '';
+        await this.shell(`am start ${options?.restart ? '-S' : ''} ${options?.wait ? '-W' : ''} -a android.intent.action.MAIN -n "${app}" ${args}`);
     }
 
     override async stop(app: string): Promise<void> {

@@ -440,6 +440,7 @@ export class Locator {
         if (info.inputValue === undefined) {
             throw new EvalError(`${this} is a non-input element`);
         } else {
+            this._config.debug && console.debug(`🔤 Filling ${this} with “${value}”`);
             this._automation.fill(this._selectors, value);
         }
     }
@@ -447,7 +448,7 @@ export class Locator {
     async waitFor(options?: SelectorOptions & { state?: 'attached' | 'detached' | 'visible' | 'hidden' }): Promise<void> {
         const opts = { ...this._config, state: 'visible', ...options };
 
-        this._config.debug && console.debug(`⏱  Waiting for ${this}`);
+        this._config.debug && console.debug(`⏰ Waiting for ${this}`);
         await this._automation.element(this._selectors, {
             isConnected: opts.state === 'attached' ? true : opts.state === 'detached' ? false : true,
             isVisible:   opts.state === 'visible'  ? true : opts.state === 'hidden'   ? false : undefined,

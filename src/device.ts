@@ -30,6 +30,9 @@ export interface DeviceOptions {
 }
 
 export interface StartOptions {
+    /** Optional application arguments */
+    args?:    string[];
+
     /** Close the application first, if it is already running. */
     restart?: boolean;
 
