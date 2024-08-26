@@ -30,4 +30,4 @@ A function that, when invoked, stops reading and returns all collected lines as 
 
 ## Defined in
 
-[src/utils.ts:119](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/utils.ts#L119)
+[src/utils.ts:119](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/utils.ts#L119)

@@ -54,4 +54,4 @@ Error        If the device, web view or context could not be found, or if the co
 
 ## Defined in
 
-[src/api.ts:61](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/api.ts#L61)
+[src/api.ts:61](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L61)

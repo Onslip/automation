@@ -19,7 +19,7 @@ Where to find the `adb` command. `undefined` means Android support is optional (
 
 #### Defined in
 
-[src/device.ts:14](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/device.ts#L14)
+[src/device.ts:14](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L14)
 
 ***
 
@@ -31,7 +31,7 @@ Where to find the `ideviceinstaller` command. Used by [iOSDevice.install](../cla
 
 #### Defined in
 
-[src/device.ts:17](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/device.ts#L17)
+[src/device.ts:17](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L17)
 
 ***
 
@@ -43,7 +43,7 @@ Where to find the `idevicesyslog` command. Used by [iOSDevice.readLogs](../class
 
 #### Defined in
 
-[src/device.ts:20](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/device.ts#L20)
+[src/device.ts:20](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L20)
 
 ***
 
@@ -55,7 +55,7 @@ Where to find the `ios_instruments_client` command. Used by [iOSDevice.start](..
 
 #### Defined in
 
-[src/device.ts:23](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/device.ts#L23)
+[src/device.ts:23](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L23)
 
 ***
 
@@ -68,4 +68,4 @@ What port `ios_webkit_debug_proxy` is listening on. `undefined` means iOS suppor
 
 #### Defined in
 
-[src/device.ts:29](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/device.ts#L29)
+[src/device.ts:29](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L29)

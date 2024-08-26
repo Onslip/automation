@@ -24,7 +24,7 @@ This class manages iOS devices and applications.
 
 #### Defined in
 
-[src/device.ts:86](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/device.ts#L86)
+[src/device.ts:86](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L86)
 
 ***
 
@@ -38,7 +38,7 @@ This class manages iOS devices and applications.
 
 #### Defined in
 
-[src/device.ts:86](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/device.ts#L86)
+[src/device.ts:86](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L86)
 
 ## Methods
 
@@ -68,7 +68,7 @@ Options suitable to pass to [findWebViewContexts](../functions/findWebViewContex
 
 #### Defined in
 
-[src/ios-device.ts:176](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L176)
+[src/ios-device.ts:176](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L176)
 
 ***
 
@@ -99,7 +99,7 @@ A function that, when invoked, stops logging and returns all collected lines.
 
 #### Defined in
 
-[src/ios-device.ts:147](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L147)
+[src/ios-device.ts:147](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L147)
 
 ***
 
@@ -121,7 +121,7 @@ The device name.
 
 #### Defined in
 
-[src/ios-device.ts:93](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L93)
+[src/ios-device.ts:93](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L93)
 
 ***
 
@@ -146,7 +146,7 @@ An array of all debuggable web view identifiers.
 
 #### Defined in
 
-[src/ios-device.ts:159](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L159)
+[src/ios-device.ts:159](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L159)
 
 ***
 
@@ -172,7 +172,7 @@ The path to the application to install (APK/IPA/directory).
 
 #### Defined in
 
-[src/ios-device.ts:97](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L97)
+[src/ios-device.ts:97](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L97)
 
 ***
 
@@ -194,7 +194,7 @@ The version number.
 
 #### Defined in
 
-[src/ios-device.ts:89](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L89)
+[src/ios-device.ts:89](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L89)
 
 ***
 
@@ -224,7 +224,7 @@ An async iterator generating one line at a time.
 
 ##### Defined in
 
-[src/ios-device.ts:133](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L133)
+[src/ios-device.ts:133](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L133)
 
 #### readLogs(options, timeout)
 
@@ -252,7 +252,7 @@ An async iterator generating one line at a time.
 
 ##### Defined in
 
-[src/ios-device.ts:134](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L134)
+[src/ios-device.ts:134](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L134)
 
 ***
 
@@ -282,7 +282,7 @@ Optional start options.
 
 #### Defined in
 
-[src/ios-device.ts:104](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L104)
+[src/ios-device.ts:104](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L104)
 
 ***
 
@@ -308,7 +308,7 @@ The package/activity identifier or application bundle identifier to stop.
 
 #### Defined in
 
-[src/ios-device.ts:116](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L116)
+[src/ios-device.ts:116](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L116)
 
 ***
 
@@ -324,7 +324,7 @@ Returns a string representation of an object.
 
 #### Defined in
 
-[src/ios-device.ts:85](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L85)
+[src/ios-device.ts:85](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L85)
 
 ***
 
@@ -350,7 +350,7 @@ The package/bundle identifier to uninstall.
 
 #### Defined in
 
-[src/ios-device.ts:126](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L126)
+[src/ios-device.ts:126](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L126)
 
 ***
 
@@ -387,7 +387,7 @@ The device, if found, else `undefined`.
 
 #### Defined in
 
-[src/device.ts:56](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/device.ts#L56)
+[src/device.ts:56](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L56)
 
 ***
 
@@ -415,4 +415,4 @@ A list of detected iOS devices.
 
 #### Defined in
 
-[src/ios-device.ts:64](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/ios-device.ts#L64)
+[src/ios-device.ts:64](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/ios-device.ts#L64)

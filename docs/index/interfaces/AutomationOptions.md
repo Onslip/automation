@@ -42,7 +42,7 @@ Only include contexts owned by this iOS process.
 
 #### Defined in
 
-[src/automation.ts:71](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/automation.ts#L71)
+[src/automation.ts:71](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/automation.ts#L71)
 
 ***
 
@@ -54,7 +54,7 @@ The [AutomationContext.id](AutomationContext.md#id) to use.
 
 #### Defined in
 
-[src/automation.ts:74](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/automation.ts#L74)
+[src/automation.ts:74](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/automation.ts#L74)
 
 ***
 

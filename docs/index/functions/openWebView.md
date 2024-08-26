@@ -24,4 +24,4 @@ A new [Page](../classes/Page.md) object which can be used to interact with the w
 
 ## Defined in
 
-[src/api.ts:134](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/api.ts#L134)
+[src/api.ts:134](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L134)

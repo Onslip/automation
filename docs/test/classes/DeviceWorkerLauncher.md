@@ -28,7 +28,7 @@ Device and configuration manager.
 
 #### Defined in
 
-[src/test.ts:62](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/test.ts#L62)
+[src/test.ts:62](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/test.ts#L62)
 
 ## Methods
 
@@ -63,7 +63,7 @@ The device ID to use.
 
 #### Defined in
 
-[src/test.ts:86](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/test.ts#L86)
+[src/test.ts:86](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/test.ts#L86)
 
 ***
 
@@ -99,7 +99,7 @@ Information about the web view to connect to.
 
 #### Defined in
 
-[src/test.ts:105](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/test.ts#L105)
+[src/test.ts:105](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/test.ts#L105)
 
 ***
 
@@ -129,7 +129,7 @@ The worker information.
 
 #### Defined in
 
-[src/test.ts:130](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/test.ts#L130)
+[src/test.ts:130](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/test.ts#L130)
 
 ***
 
@@ -157,4 +157,4 @@ The worker information.
 
 #### Defined in
 
-[src/test.ts:147](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/test.ts#L147)
+[src/test.ts:147](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/test.ts#L147)

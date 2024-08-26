@@ -1,5 +1,21 @@
 # @onslip/automation
 
+## 1.2.0
+
+### Minor Changes
+
+- 88f9c39: Support Shadow DOM-piercing. All nested XPath expressions should be relative.
+- 2e28f23: Added textContent, isChecked, isDisabled, isEnabled, isEditable, isHidden, isVisible to Locator.
+- 0e3d02e: Added a timeout parameter to Device.findDevice().
+- aed87d3: Allow arguments to be passed to started app.
+- 2da2b00: Added assertions/custom matchers for @playwright/test.
+- 883546e: Added resolveWebViewContext convenience function.
+
+### Patch Changes
+
+- 57286e5: Pass device ID to adb/ideviceinstaller when installing/uninstalling apps.
+- 19f723e: Default page timeout should be 0 (disabled), like in Playwright.
+
 ## 1.1.0
 
 ### Minor Changes

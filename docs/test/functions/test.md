@@ -97,7 +97,7 @@ Test body that takes one or two arguments: an object with fixtures and optional 
 
 ### Defined in
 
-[src/test.ts:152](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/test.ts#L152)
+[src/test.ts:152](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/test.ts#L152)
 
 ## test(title, details, body)
 
@@ -194,4 +194,4 @@ Test body that takes one or two arguments: an object with fixtures and optional 
 
 ### Defined in
 
-[src/test.ts:152](https://github.com/Onslip/automation/blob/aed87d3401609cf5df05adc6d1563b1b99f345fe/src/test.ts#L152)
+[src/test.ts:152](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/test.ts#L152)
