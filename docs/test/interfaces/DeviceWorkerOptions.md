@@ -18,4 +18,4 @@ Configuration for the Onslip Automation Library fixtures for Playwright.
 
 #### Defined in
 
-[src/test.ts:9](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/test.ts#L9)
+[src/test.ts:9](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/test.ts#L9)

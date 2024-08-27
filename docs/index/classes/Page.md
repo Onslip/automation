@@ -18,7 +18,7 @@ A reference to Mouse instance.
 
 #### Defined in
 
-[src/api.ts:145](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L145)
+[src/api.ts:145](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/api.ts#L145)
 
 ***
 
@@ -30,7 +30,7 @@ A reference to Touchscreen instance.
 
 #### Defined in
 
-[src/api.ts:148](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L148)
+[src/api.ts:148](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/api.ts#L148)
 
 ## Methods
 
@@ -46,7 +46,7 @@ Closes the connection to the web view and deallocates all held resources.
 
 #### Defined in
 
-[src/api.ts:202](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L202)
+[src/api.ts:202](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/api.ts#L202)
 
 ***
 
@@ -74,7 +74,7 @@ The value returned from the function. Must be JSON serializable.
 
 #### Defined in
 
-[src/api.ts:177](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L177)
+[src/api.ts:177](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/api.ts#L177)
 
 ***
 
@@ -102,7 +102,7 @@ A new Locator.
 
 #### Defined in
 
-[src/api.ts:166](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L166)
+[src/api.ts:166](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/api.ts#L166)
 
 ***
 
@@ -124,7 +124,7 @@ Use this `Console` for debugging, or set to `true` to use `console` and `false`/
 
 #### Defined in
 
-[src/api.ts:186](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L186)
+[src/api.ts:186](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/api.ts#L186)
 
 ***
 
@@ -146,4 +146,4 @@ The new default timeout, in milliseconds.
 
 #### Defined in
 
-[src/api.ts:195](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/api.ts#L195)
+[src/api.ts:195](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/api.ts#L195)

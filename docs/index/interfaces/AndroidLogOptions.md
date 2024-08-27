@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/android-device.ts:10](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/android-device.ts#L10)
+[src/android-device.ts:10](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L10)
 
 ***
 
@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/android-device.ts:6](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/android-device.ts#L6)
+[src/android-device.ts:6](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L6)
 
 ***
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/android-device.ts:11](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/android-device.ts#L11)
+[src/android-device.ts:11](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L11)
 
 ***
 
@@ -48,7 +48,7 @@
 
 #### Defined in
 
-[src/android-device.ts:8](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/android-device.ts#L8)
+[src/android-device.ts:8](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L8)
 
 ***
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[src/android-device.ts:7](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/android-device.ts#L7)
+[src/android-device.ts:7](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L7)
 
 ***
 
@@ -68,7 +68,7 @@
 
 #### Defined in
 
-[src/android-device.ts:9](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/android-device.ts#L9)
+[src/android-device.ts:9](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L9)
 
 ***
 
@@ -84,7 +84,7 @@ A line separator to add to each generated line.
 
 #### Defined in
 
-[src/utils.ts:36](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/utils.ts#L36)
+[src/utils.ts:36](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L36)
 
 ***
 
@@ -100,4 +100,4 @@ A signal to check. Reading will stop when signal is `true.`
 
 #### Defined in
 
-[src/utils.ts:33](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/utils.ts#L33)
+[src/utils.ts:33](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L33)

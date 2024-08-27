@@ -1,5 +1,11 @@
 # @onslip/automation
 
+## 1.2.1
+
+### Patch Changes
+
+- 55b36c4: Trying to use the same assertion names as Playwright was a really bad idea.
+
 ## 1.2.0
 
 ### Minor Changes

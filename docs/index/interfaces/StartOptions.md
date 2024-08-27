@@ -16,7 +16,7 @@ Optional application arguments.
 
 #### Defined in
 
-[src/device.ts:34](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L34)
+[src/device.ts:34](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/device.ts#L34)
 
 ***
 
@@ -28,7 +28,7 @@ Close the application first, if it is already running.
 
 #### Defined in
 
-[src/device.ts:37](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L37)
+[src/device.ts:37](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/device.ts#L37)
 
 ***
 
@@ -40,4 +40,4 @@ Wait for the application to start up before returning.
 
 #### Defined in
 
-[src/device.ts:40](https://github.com/Onslip/automation/blob/2da2b00dbee8df6079d79d0e64badbbab41233bf/src/device.ts#L40)
+[src/device.ts:40](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/device.ts#L40)
