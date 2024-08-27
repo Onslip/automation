@@ -217,51 +217,51 @@ function normalized(text?: string | null) {
 }
 
 export const expect = baseExpect.extend({
-    async toBeAttached(locator: Locator, options?: { attached?: boolean, timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toBeAttached', options?.attached ?? true, (timeout) =>
+    async toBeAttachedA(locator: Locator, options?: { attached?: boolean, timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toBeAttachedA', options?.attached ?? true, (timeout) =>
             locator.waitFor({ state: 'attached', timeout }).then(() => true));
     },
 
-    async toBeChecked(locator: Locator, options?: { checked?: boolean, timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toBeChecked', options?.checked ?? true, (timeout) =>
+    async toBeCheckedA(locator: Locator, options?: { checked?: boolean, timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toBeCheckedA', options?.checked ?? true, (timeout) =>
             locator.isChecked({ timeout }));
     },
 
-    async toBeDisabled(locator: Locator, options?: { enabled?: boolean, timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toBeDisabled', true, (timeout) =>
+    async toBeDisabledA(locator: Locator, options?: { enabled?: boolean, timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toBeDisabledA', true, (timeout) =>
             locator.isDisabled({ timeout }));
     },
 
-    async toBeEditable(locator: Locator, options?: { editable?: boolean, timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toBeEditable', options?.editable ?? true, (timeout) =>
+    async toBeEditableA(locator: Locator, options?: { editable?: boolean, timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toBeEditableA', options?.editable ?? true, (timeout) =>
             locator.isEditable({ timeout }));
     },
 
     // TODO: toBeEmpty
 
-    async toBeEnabled(locator: Locator, options?: { enabled?: boolean, timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toBeEnabled', options?.enabled ?? true, (timeout) =>
+    async toBeEnabledA(locator: Locator, options?: { enabled?: boolean, timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toBeEnabledA', options?.enabled ?? true, (timeout) =>
             locator.isEnabled({ timeout }));
     },
 
     // TODO: toBeFocused
 
-    async toBeHidden(locator: Locator, options?: { timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toBeHidden', true, (timeout) =>
+    async toBeHiddenA(locator: Locator, options?: { timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toBeHiddenA', true, (timeout) =>
             locator.isHidden());
     },
 
     // TODO: toBeInViewport
 
-    async toBeVisible(locator: Locator, options?: { visible?: boolean, timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toBeVisible', options?.visible ?? true, (timeout) =>
+    async toBeVisibleA(locator: Locator, options?: { visible?: boolean, timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toBeVisibleA', options?.visible ?? true, (timeout) =>
             locator.isVisible());
     },
 
-    async toContainText(locator: Locator, expected: string | RegExp, options?: { ignoreCase?: boolean, useInnerText?: boolean, timeout?: number }): Promise<MatcherReturnType> {
+    async toContainTextA(locator: Locator, expected: string | RegExp, options?: { ignoreCase?: boolean, useInnerText?: boolean, timeout?: number }): Promise<MatcherReturnType> {
         const normalizer = options?.ignoreCase ? (text: string) => normalized(text.toLowerCase()) : normalized;
 
-        return check(this, options, 'toContainText', typeof expected === 'string' ? normalizer(expected) : expected, (timeout) =>
+        return check(this, options, 'toContainTextA', typeof expected === 'string' ? normalizer(expected) : expected, (timeout) =>
             locator[options?.useInnerText ? 'innerText' : 'textContent']({ timeout })
                 .then((actual) => typeof expected === 'string' ? normalizer(actual) : actual), 'substring');
     },
@@ -269,15 +269,15 @@ export const expect = baseExpect.extend({
     // TODO: toHaveAccessibleDescription
     // TODO: toHaveAccessibleName
 
-    async toHaveAttribute(locator: Locator, name: string, expected: string | RegExp | null, options?: { timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toHaveAttribute', expected, (timeout) =>
+    async toHaveAttributeA(locator: Locator, name: string, expected: string | RegExp | null, options?: { timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toHaveAttributeA', expected, (timeout) =>
             locator.getAttribute(name, { timeout }));
     },
 
     // TODO: toHaveClass
 
-    async toHaveCount(locator: Locator, count: number, options?: { timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toHaveCount', count, (timeout) =>
+    async toHaveCountA(locator: Locator, count: number, options?: { timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toHaveCountA', count, (timeout) =>
             locator.count());
     },
 
@@ -287,16 +287,16 @@ export const expect = baseExpect.extend({
     // TODO: toHaveRole
     // TODO: toHaveScreenshot
 
-    async toHaveText(locator: Locator, expected: string | RegExp, options?: { ignoreCase?: boolean, useInnerText?: boolean, timeout?: number }): Promise<MatcherReturnType> {
+    async toHaveTextA(locator: Locator, expected: string | RegExp, options?: { ignoreCase?: boolean, useInnerText?: boolean, timeout?: number }): Promise<MatcherReturnType> {
         const normalizer = options?.ignoreCase ? (text: string) => normalized(text.toLowerCase()) : normalized;
 
-        return check(this, options, 'toHaveText', typeof expected === 'string' ? normalizer(expected) : expected, (timeout) =>
+        return check(this, options, 'toHaveTextA', typeof expected === 'string' ? normalizer(expected) : expected, (timeout) =>
             locator[options?.useInnerText ? 'innerText' : 'textContent']({ timeout })
                 .then((actual) => typeof expected === 'string' ? normalizer(actual) : actual));
     },
 
-    async toHaveValue(locator: Locator, expected: string | RegExp, options?: { timeout?: number }): Promise<MatcherReturnType> {
-        return check(this, options, 'toHaveValue', expected, (timeout) =>
+    async toHaveValueA(locator: Locator, expected: string | RegExp, options?: { timeout?: number }): Promise<MatcherReturnType> {
+        return check(this, options, 'toHaveValueA', expected, (timeout) =>
             locator.inputValue({ timeout }));
     },
 
