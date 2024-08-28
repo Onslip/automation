@@ -18,7 +18,7 @@ If specified, the package/activity identifier or application bundle identifier t
 
 #### Defined in
 
-[src/test.ts:36](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/test.ts#L36)
+[src/test.ts:37](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/test.ts#L37)
 
 ***
 
@@ -30,7 +30,7 @@ If specified, path to the application to install on the device
 
 #### Defined in
 
-[src/test.ts:33](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/test.ts#L33)
+[src/test.ts:34](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/test.ts#L34)
 
 ***
 
@@ -42,7 +42,7 @@ Optional application arguments.
 
 #### Defined in
 
-[src/test.ts:39](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/test.ts#L39)
+[src/test.ts:40](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/test.ts#L40)
 
 ***
 
@@ -54,7 +54,7 @@ The web view/context to connect to (the actual device ID will be prepended to fo
 
 #### Defined in
 
-[src/test.ts:42](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/test.ts#L42)
+[src/test.ts:43](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/test.ts#L43)
 
 ***
 
@@ -66,4 +66,4 @@ A static list of device IDs to use (must match the number or workers) by default
 
 #### Defined in
 
-[src/test.ts:45](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/test.ts#L45)
+[src/test.ts:46](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/test.ts#L46)

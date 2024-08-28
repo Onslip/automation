@@ -26,4 +26,4 @@ The provided error.
 
 ## Defined in
 
-[src/utils.ts:18](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L18)
+[src/utils.ts:18](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/utils.ts#L18)

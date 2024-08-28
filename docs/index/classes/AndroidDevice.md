@@ -24,7 +24,7 @@ This class manages Android devices and applications.
 
 #### Defined in
 
-[src/device.ts:86](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/device.ts#L86)
+[src/device.ts:86](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/device.ts#L86)
 
 ***
 
@@ -38,7 +38,7 @@ This class manages Android devices and applications.
 
 #### Defined in
 
-[src/device.ts:86](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/device.ts#L86)
+[src/device.ts:86](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/device.ts#L86)
 
 ## Methods
 
@@ -72,7 +72,7 @@ Options suitable to pass to [findWebViewContexts](../functions/findWebViewContex
 
 #### Defined in
 
-[src/android-device.ts:103](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L103)
+[src/android-device.ts:103](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L103)
 
 ***
 
@@ -103,7 +103,7 @@ A function that, when invoked, stops logging and returns all collected lines.
 
 #### Defined in
 
-[src/android-device.ts:94](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L94)
+[src/android-device.ts:94](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L94)
 
 ***
 
@@ -125,7 +125,7 @@ The device name.
 
 #### Defined in
 
-[src/android-device.ts:53](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L53)
+[src/android-device.ts:53](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L53)
 
 ***
 
@@ -149,7 +149,7 @@ An array of all debuggable web view identifiers.
 
 #### Defined in
 
-[src/android-device.ts:98](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L98)
+[src/android-device.ts:98](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L98)
 
 ***
 
@@ -179,7 +179,7 @@ Optional installation options, if the subclass supports it.
 
 #### Defined in
 
-[src/android-device.ts:57](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L57)
+[src/android-device.ts:57](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L57)
 
 ***
 
@@ -201,7 +201,7 @@ The version number.
 
 #### Defined in
 
-[src/android-device.ts:49](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L49)
+[src/android-device.ts:49](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L49)
 
 ***
 
@@ -231,7 +231,7 @@ An async iterator generating one line at a time.
 
 ##### Defined in
 
-[src/android-device.ts:77](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L77)
+[src/android-device.ts:77](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L77)
 
 #### readLogs(options, timeout)
 
@@ -259,7 +259,7 @@ An async iterator generating one line at a time.
 
 ##### Defined in
 
-[src/android-device.ts:78](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L78)
+[src/android-device.ts:78](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L78)
 
 ***
 
@@ -277,7 +277,7 @@ An async iterator generating one line at a time.
 
 #### Defined in
 
-[src/android-device.ts:111](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L111)
+[src/android-device.ts:111](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L111)
 
 ***
 
@@ -307,7 +307,7 @@ Optional start options.
 
 #### Defined in
 
-[src/android-device.ts:62](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L62)
+[src/android-device.ts:62](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L62)
 
 ***
 
@@ -333,7 +333,7 @@ The package/activity identifier or application bundle identifier to stop.
 
 #### Defined in
 
-[src/android-device.ts:67](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L67)
+[src/android-device.ts:67](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L67)
 
 ***
 
@@ -349,7 +349,7 @@ Returns a string representation of an object.
 
 #### Defined in
 
-[src/android-device.ts:45](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L45)
+[src/android-device.ts:45](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L45)
 
 ***
 
@@ -375,7 +375,7 @@ The package/bundle identifier to uninstall.
 
 #### Defined in
 
-[src/android-device.ts:72](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L72)
+[src/android-device.ts:72](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L72)
 
 ***
 
@@ -412,7 +412,7 @@ The device, if found, else `undefined`.
 
 #### Defined in
 
-[src/device.ts:56](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/device.ts#L56)
+[src/device.ts:56](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/device.ts#L56)
 
 ***
 
@@ -440,4 +440,4 @@ A list of detected iOS devices.
 
 #### Defined in
 
-[src/android-device.ts:24](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/android-device.ts#L24)
+[src/android-device.ts:24](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/android-device.ts#L24)

@@ -24,4 +24,4 @@
 
 ## Defined in
 
-[src/test.ts:219](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/test.ts#L219)
+[src/test.ts:250](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/test.ts#L250)

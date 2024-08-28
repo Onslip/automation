@@ -20,7 +20,7 @@ Processes to exclude.
 
 #### Defined in
 
-[src/ios-device.ts:48](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/ios-device.ts#L48)
+[src/ios-device.ts:48](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/ios-device.ts#L48)
 
 ***
 
@@ -32,7 +32,7 @@ Processes to include.
 
 #### Defined in
 
-[src/ios-device.ts:45](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/ios-device.ts#L45)
+[src/ios-device.ts:45](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/ios-device.ts#L45)
 
 ***
 
@@ -44,7 +44,7 @@ Only include log lines that contain this string.
 
 #### Defined in
 
-[src/ios-device.ts:42](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/ios-device.ts#L42)
+[src/ios-device.ts:42](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/ios-device.ts#L42)
 
 ***
 
@@ -56,7 +56,7 @@ If true, excludes a predefined set of noisy processes in addition to those speci
 
 #### Defined in
 
-[src/ios-device.ts:51](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/ios-device.ts#L51)
+[src/ios-device.ts:51](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/ios-device.ts#L51)
 
 ***
 
@@ -72,7 +72,7 @@ A line separator to add to each generated line.
 
 #### Defined in
 
-[src/utils.ts:36](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L36)
+[src/utils.ts:36](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/utils.ts#L36)
 
 ***
 
@@ -88,4 +88,4 @@ A signal to check. Reading will stop when signal is `true.`
 
 #### Defined in
 
-[src/utils.ts:33](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L33)
+[src/utils.ts:33](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/utils.ts#L33)

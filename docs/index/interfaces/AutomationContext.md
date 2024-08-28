@@ -16,7 +16,7 @@ iOS process owning this context.
 
 #### Defined in
 
-[src/automation.ts:79](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L79)
+[src/automation.ts:79](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L79)
 
 ***
 
@@ -28,7 +28,7 @@ Context description
 
 #### Defined in
 
-[src/automation.ts:82](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L82)
+[src/automation.ts:82](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L82)
 
 ***
 
@@ -40,7 +40,7 @@ URL to a DevTools session for this context.
 
 #### Defined in
 
-[src/automation.ts:85](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L85)
+[src/automation.ts:85](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L85)
 
 ***
 
@@ -52,7 +52,7 @@ URL of favicon image.
 
 #### Defined in
 
-[src/automation.ts:88](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L88)
+[src/automation.ts:88](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L88)
 
 ***
 
@@ -64,7 +64,7 @@ Context ID.
 
 #### Defined in
 
-[src/automation.ts:91](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L91)
+[src/automation.ts:91](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L91)
 
 ***
 
@@ -76,7 +76,7 @@ URL of thumbnail image.
 
 #### Defined in
 
-[src/automation.ts:94](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L94)
+[src/automation.ts:94](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L94)
 
 ***
 
@@ -88,7 +88,7 @@ The title of the page loaded in this context.
 
 #### Defined in
 
-[src/automation.ts:97](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L97)
+[src/automation.ts:97](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L97)
 
 ***
 
@@ -100,7 +100,7 @@ Type of context.
 
 #### Defined in
 
-[src/automation.ts:100](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L100)
+[src/automation.ts:100](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L100)
 
 ***
 
@@ -112,7 +112,7 @@ The URL of the page loaded in this context.
 
 #### Defined in
 
-[src/automation.ts:103](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L103)
+[src/automation.ts:103](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L103)
 
 ***
 
@@ -124,4 +124,4 @@ The URL where the debugger is running.
 
 #### Defined in
 
-[src/automation.ts:106](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/automation.ts#L106)
+[src/automation.ts:106](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/automation.ts#L106)

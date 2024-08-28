@@ -22,4 +22,6 @@
 ### Functions
 
 - [expect](functions/expect.md)
+- [getFixtureTimeout](functions/getFixtureTimeout.md)
+- [setFixtureTimeout](functions/setFixtureTimeout.md)
 - [test](functions/test.md)

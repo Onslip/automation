@@ -29,7 +29,7 @@ should be created. If a string is passed, it is parsed as an octal integer. If n
 
 ### Defined in
 
-[src/utils.ts:8](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L8)
+[src/utils.ts:8](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/utils.ts#L8)
 
 ## mkdir(path, options)
 
@@ -54,7 +54,7 @@ should be created. If a string is passed, it is parsed as an octal integer. If n
 
 ### Defined in
 
-[src/utils.ts:8](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L8)
+[src/utils.ts:8](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/utils.ts#L8)
 
 ## mkdir(path, options)
 
@@ -79,4 +79,4 @@ should be created. If a string is passed, it is parsed as an octal integer. If n
 
 ### Defined in
 
-[src/utils.ts:8](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L8)
+[src/utils.ts:8](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/utils.ts#L8)

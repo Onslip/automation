@@ -1,5 +1,15 @@
 # @onslip/automation
 
+## 1.3.0
+
+### Minor Changes
+
+- 166124f: Handle fixture timeouts better and made them configurable.
+
+### Patch Changes
+
+- 13befc4: Found a way to use same assertion names. Let's pretend 1.2.1 never happened.
+
 ## 1.2.1
 
 ### Patch Changes

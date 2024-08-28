@@ -36,4 +36,4 @@ If `flag` is not supplied, the default of `'w'` is used.
 
 ## Defined in
 
-[src/utils.ts:10](https://github.com/Onslip/automation/blob/55b36c4eed89afe82661a6ac79a41de9a854a3d0/src/utils.ts#L10)
+[src/utils.ts:10](https://github.com/Onslip/automation/blob/13befc40996d96bb2935315b372b921212adc8b4/src/utils.ts#L10)
