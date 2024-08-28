@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-import { DeviceWorkerLauncher, DeviceWorkerOptions } from '../src/test';
+import { DeviceWorkerLauncher, DeviceWorkerOptions, setFixtureTimeout } from '../src/test';
 import { AndroidLauncher } from './playwright.android.ts';
 import { iOSLauncher } from './playwright.ios.ts';
 
@@ -31,6 +31,10 @@ const iosLauncher = new iOSLauncher({
 const externalLauncher = new DeviceWorkerLauncher({
     devices:     [ 'feba19fc98c93945dc42dd7f9940d658b5dd211b' ],
 })
+
+// Set fixture timeouts so that the launchers have enough time to start up
+setFixtureTimeout('device', 120_000);
+setFixtureTimeout('webApp', 60_000);
 
 export default defineConfig<{}, DeviceWorkerOptions>({
     webServer: {

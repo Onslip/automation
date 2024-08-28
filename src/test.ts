@@ -149,13 +149,38 @@ export class DeviceWorkerLauncher<Options extends DeviceWorkerLauncherOptions = 
     }
 }
 
+const fixtureTimeout: Partial<Record<keyof DeviceWorkerFixtures, number | undefined>> = {};
+
+/**
+ * Configure the timeout for a device worker fixture.
+ *
+ * @param fixture  The fixture to configure.
+ * @param timeout  The timeout in milliseconds, or `undefined` for no specific fixture timeout.
+ */
+export function setFixtureTimeout(fixture: keyof DeviceWorkerFixtures, timeout: number | undefined): void {
+    fixtureTimeout[fixture] = timeout;
+}
+
+/**
+ * Returns the timeout for a device worker fixture.
+ *
+ * @param fixture  The fixture to get the timeout for.
+ * @returns        The timeout in milliseconds, or `undefined` if no specific fixture timeout has been set.
+ */
+export function getFixtureTimeout(fixture: keyof DeviceWorkerFixtures): number | undefined {
+    return fixtureTimeout[fixture];
+}
+
 export const test = baseTest.extend<{}, DeviceWorkerOptions & DeviceWorkerFixtures>({
     deviceWorkerConfig: [null, { scope: `worker`, option: true }],
 
     device: [async ({ deviceWorkerConfig, headless, launchOptions }, use, workerInfo) => {
         const worker = workerInfo.parallelIndex;
+        const onExit = () => deviceWorkerConfig?.launcher?.teardown(worker, workerInfo).catch(console.error);
 
         try {
+            process.on('beforeExit', onExit).on('exit', onExit);
+
             const id = await deviceWorkerConfig?.launcher?.setup(worker, headless, workerInfo)
                     ?? throwError(new TypeError(`No 'deviceWorkerConfig.launcher' configured`));
 
@@ -164,14 +189,18 @@ export const test = baseTest.extend<{}, DeviceWorkerOptions & DeviceWorkerFixtur
 
             await use(device);
         } finally {
-            await deviceWorkerConfig?.launcher?.teardown(worker, workerInfo).catch(console.error);
+            process.off('beforeExit', onExit).off('exit', onExit);
+            await onExit();
         }
-    }, { scope: `worker`, timeout: 60_000 }],
+    }, Object.defineProperty({ scope: `worker` }, 'timeout', { enumerable: true, get: () => getFixtureTimeout('device') }) ],
 
     webApp: [async ({ deviceWorkerConfig, device, launchOptions }, use, workerInfo) => {
         const worker = workerInfo.parallelIndex;
+        const onExit = () => deviceWorkerConfig?.launcher?.stop?.(worker, device, workerInfo).catch(console.error);
 
         try {
+            process.on('beforeExit', onExit).on('exit', onExit);
+
             const wac = await deviceWorkerConfig?.launcher?.start(worker, device, workerInfo)
                 ?? throwError(new TypeError(`No 'deviceWorkerConfig.launcher' configured`));
 
@@ -182,9 +211,10 @@ export const test = baseTest.extend<{}, DeviceWorkerOptions & DeviceWorkerFixtur
 
             await use(webApp);
         } finally {
-            await deviceWorkerConfig?.launcher?.stop?.(worker, device, workerInfo).catch(console.error);
+            process.off('beforeExit', onExit).off('exit', onExit);
+            await onExit();
         }
-    }, { scope: `worker`, timeout: 30_000 }],
+    }, Object.defineProperty({ scope: `worker` }, 'timeout', { enumerable: true, get: () => getFixtureTimeout('webApp') }) ],
 });
 
 async function check<T>(state: ExpectMatcherState, options: { timeout?: number } | undefined, name: string, expected: T, fn: (timeout: number) => Promise<T>, mode: 'exact' | 'substring' = 'exact'): Promise<MatcherReturnType> {
