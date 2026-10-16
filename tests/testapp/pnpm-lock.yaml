@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@capacitor/android':
         specifier: ^6.1.2
-        version: 6.1.2(@capacitor/core@6.1.2)
+        version: 6.2.2(@capacitor/core@6.1.2)
       '@capacitor/camera':
         specifier: ^6.0.2
         version: 6.0.2(@capacitor/core@6.1.2)
@@ -36,10 +36,10 @@ importers:
 
 packages:
 
-  '@capacitor/android@6.1.2':
-    resolution: {integrity: sha512-Yh0gQDY1bgRrL25J6ecIlvvs2kF8iNSwIPXjyw6Yz9mnwYxBazF5KZbjpKtGPnJgicJhFkYGsqOkEtxrve0EoQ==}
+  '@capacitor/android@6.2.2':
+    resolution: {integrity: sha512-JjIu1ryNE16PQTp51rb4NEygxP7cSCDMmUqx4f5f12xscKdGKTjO9bkEP3TroLnTa/J6p2QopIhRbrd3E/7DrA==}
     peerDependencies:
-      '@capacitor/core': ^6.1.0
+      '@capacitor/core': ^6.2.0
 
   '@capacitor/camera@6.0.2':
     resolution: {integrity: sha512-bC2xxCcNTyfKYuLNLbGIyLlK9fok2MDhF4v8s01jusYAxoBI7LaKWQMQoGBA1MY/Ec6x/2pjIr+7k89Kmdr74g==}
@@ -955,7 +955,7 @@ packages:
 
 snapshots:
 
-  '@capacitor/android@6.1.2(@capacitor/core@6.1.2)':
+  '@capacitor/android@6.2.2(@capacitor/core@6.1.2)':
     dependencies:
       '@capacitor/core': 6.1.2
 
